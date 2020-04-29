@@ -11,9 +11,17 @@ class Recipe(Resource):
         })
 
     def post(self):
-        
         # fetch data from the body as json
         data = request.get_json()
+
+        # search if the title exists
+        recipe = RecipeModel.find_by_title(data["title"])
+    
+        if recipe :
+            return jsonify({
+                "message":"recipe exists"
+            })
+
 
         # create a new recipe
         recipe = RecipeModel(**data)
