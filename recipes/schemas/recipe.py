@@ -4,4 +4,5 @@ from models.recipe import RecipeModel
 class RecipeSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = RecipeModel
+        load_only = ("id", )
 

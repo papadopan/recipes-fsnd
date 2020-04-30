@@ -5,13 +5,13 @@ from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError
 
 recipe_schemas = RecipeSchema()
+recipe_list_schemas = RecipeSchema(many=True)
 
 class Recipe(Resource):
     def get(self):
-        recipes = RecipeModel.query.count()
         return jsonify({
-            "name":"Hello World",
-            "count": recipes
+            "count":RecipeModel.query.count(),
+            "recipes": recipe_list_schemas.dump(RecipeModel.query.all())
         })
 
     def post(self):
@@ -21,15 +21,12 @@ class Recipe(Resource):
 
         try:
             # validate through schemas
-            new_recipe = recipe_schemas.load({"title":"aa", "description":"nnnnn"})
+            new_recipe = recipe_schemas.load(request.get_json())
         except ValidationError as err:
             return err.messages, 400
 
-
- 
-
         # search if the title exists
-        recipe = RecipeModel.find_by_title(data["title"])
+        recipe = RecipeModel.find_by_title(new_recipe["title"])
     
         if recipe :
             return {
@@ -37,7 +34,7 @@ class Recipe(Resource):
             }, 400
 
         # create a new recipe
-        recipe = RecipeModel(**data)
+        recipe = RecipeModel(**new_recipe)
 
         try:
             recipe.save_to_db()
@@ -49,5 +46,6 @@ class Recipe(Resource):
         return {
             "created": True,
             "success": True,
-            "code": 201
+            "code": 201,
+            "recipe": recipe_schemas.dump(recipe)
         }, 201
