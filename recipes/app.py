@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from resources.recipe import Recipe
 from flask_restful import Api
+from flask_marshmallow import Marshmallow
 
 # config the app
 app = Flask(__name__)
@@ -14,6 +15,8 @@ migrate = Migrate(app, db)
 
 #setup restfull
 api = Api(app)
+
+ma = Marshmallow(app)
 
 # add resources
 api.add_resource(Recipe, "/recipe")
