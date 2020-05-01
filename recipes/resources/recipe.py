@@ -101,3 +101,31 @@ class Recipe(Resource):
             "success": True,
             "result": recipe_schemas.dump(recipe)
         }, 200
+
+    def delete(self, id):
+        recipe = RecipeModel.find_by_id(id=id)
+
+        if recipe is None :
+            return {
+                "message": "recipe was not found",
+                "code":404,
+                "success":False,
+            }, 404
+        
+        # delete from db
+        try:
+            recipe.delete_from_db()
+        except:
+            return {
+                "message":"Error with the delete process",
+                "code": 500,
+                "success": False,
+            }, 500
+        
+        return {
+            "message": "Recipe was deleted",
+            "success": True,
+            "code": 200,
+            "result": recipe_schemas.dump(recipe)
+        }
+

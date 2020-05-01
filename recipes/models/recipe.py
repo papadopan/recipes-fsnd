@@ -17,6 +17,11 @@ class RecipeModel(db.Model):
     
     def update_to_db(self):
         db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
     
     @classmethod
     def find_by_title(cls, title):
