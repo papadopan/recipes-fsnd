@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from resources.recipe import Recipe, RecipesList
+from resources.cook import Cook, CookList
 from flask_restful import Api
 from flask_marshmallow import Marshmallow
 
@@ -21,6 +22,8 @@ ma = Marshmallow(app)
 # add resources
 api.add_resource(Recipe, "/recipe/<int:id>")
 api.add_resource(RecipesList, "/recipe")
+api.add_resource(Cook, "/cook/<int:id>")
+api.add_resource(CookList, "/cook")
 
 
 

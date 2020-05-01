@@ -22,43 +22,6 @@ class Recipe(Resource):
             "code":200,
             "result": recipe_schemas.dump(recipe)
         }, 200
-
-    def post(self, id):
-        # fetch data from the body as json
-        # data = recipe_schema.load(request.get_json())
-        data = request.get_json()
-
-        # search if that name of the recipe exists
-        if RecipeModel.find_by_title(data["title"]):
-            return {
-                "message": "Recipe already exists",
-                "code": 400,
-                "success": False
-            }
-
-        # validate through schemas
-        try:
-            new_recipe = recipe_schemas.load(request.get_json())
-        except ValidationError as err:
-            return err.messages, 400
-
-        # create a new recipe
-        recipe = RecipeModel(**new_recipe)
-
-        try:
-            recipe.save_to_db()
-        except:
-            return {
-                "message": "There was an error please try again"
-            }, 500
-
-        return {
-            "created": True,
-            "success": True,
-            "code": 201,
-            "recipe": recipe_schemas.dump(recipe)
-        }, 201
-
     def patch(self, id):
         recipe = RecipeModel.find_by_id(id)
 
@@ -93,7 +56,6 @@ class Recipe(Resource):
             "success": True,
             "result": recipe_schemas.dump(recipe)
         }, 200
-
     def delete(self, id):
         recipe = RecipeModel.find_by_id(id=id)
 
@@ -129,3 +91,38 @@ class RecipesList(Resource):
             "count": RecipeModel.query.count(),
             "result": recipe_list_schemas.dump(RecipeModel.query.all())
         }
+    def post(self):
+        # fetch data from the body as json
+        # data = recipe_schema.load(request.get_json())
+        data = request.get_json()
+
+        # search if that name of the recipe exists
+        if RecipeModel.find_by_title(data["title"]):
+            return {
+                "message": "Recipe already exists",
+                "code": 400,
+                "success": False
+            }
+
+        # validate through schemas
+        try:
+            new_recipe = recipe_schemas.load(request.get_json())
+        except ValidationError as err:
+            return err.messages, 400
+
+        # create a new recipe
+        recipe = RecipeModel(**new_recipe)
+
+        try:
+            recipe.save_to_db()
+        except:
+            return {
+                "message": "There was an error please try again"
+            }, 500
+
+        return {
+            "created": True,
+            "success": True,
+            "code": 201,
+            "recipe": recipe_schemas.dump(recipe)
+        }, 201
