@@ -44,8 +44,8 @@ class Recipe(Resource):
                 "success": False
             }
 
+        # validate through schemas
         try:
-            # validate through schemas
             new_recipe = recipe_schemas.load(request.get_json())
         except ValidationError as err:
             return err.messages, 400
@@ -66,3 +66,38 @@ class Recipe(Resource):
             "code": 201,
             "recipe": recipe_schemas.dump(recipe)
         }, 201
+
+    def patch(self, id):
+        recipe = RecipeModel.find_by_id(id)
+
+        # check if the recipe exists
+        if recipe is None:
+            return {
+                "message": "recipe was not found", 
+                "code": 404,
+                "success": False
+            }, 404
+        
+        # fetch the arguments
+        data = request.get_json()   
+        
+        recipe.title = data["title"]
+        recipe.description = data["description"]
+
+            
+        # save the update data
+        try:
+            recipe.update_to_db()
+        except:
+            return {
+                "message":"Error during update",
+                "code": 500,
+                "success": False
+            }, 500
+
+        return {
+            "message": "recipe successfully updated",
+            "code":200,
+            "success": True,
+            "result": recipe_schemas.dump(recipe)
+        }, 200
