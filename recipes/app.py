@@ -14,13 +14,11 @@ migrate = Migrate(app, db)
 
 # setup restfull
 api = Api(app)
-
 ma = Marshmallow(app)
-
-
 
 from resources.recipe import Recipe, RecipesList
 from resources.cook import Cook, CookList
+
 # add resources
 api.add_resource(Recipe, "/recipe/<int:id>")
 api.add_resource(RecipesList, "/recipe")

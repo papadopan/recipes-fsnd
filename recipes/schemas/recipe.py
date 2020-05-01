@@ -1,7 +1,8 @@
-from ma import ma
+from app import ma
 from models.recipe import RecipeModel
 
-class RecipeSchema(ma.SQLAlchemyAutoSchema):
+
+class RecipeSchema(ma.ModelSchema):
     class Meta:
         model = RecipeModel
         load_only = ("id", )

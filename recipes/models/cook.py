@@ -11,5 +11,9 @@ class CookModel(db.Model):
     country = db.Column(db.String(30), nullable=False)
     city= db.Column(db.String(30), nullable=False)
 
-    def __repr__(self):
-        return "Hello"
+
+    @classmethod
+    def find_cook_by_email(cls, email):
+        return cls.query.filter_by(email=email).first()
+
+    
