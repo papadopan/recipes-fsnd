@@ -8,15 +8,7 @@ recipe_schemas = RecipeSchema()
 recipe_list_schemas = RecipeSchema(many=True)
 
 class Recipe(Resource):
-    def get(self, id = None):
-        if id is None:
-            return {
-                "message": "List of all the recipes", 
-                "success": True, 
-                "count": RecipeModel.query.count(),
-                "result": recipe_list_schemas.dump(RecipeModel.query.all())
-            }
-
+    def get(self, id):
         recipe = RecipeModel.query.filter_by(id=id).first()
         if recipe is None:
             return {
@@ -31,7 +23,7 @@ class Recipe(Resource):
             "result": recipe_schemas.dump(recipe)
         }, 200
 
-    def post(self, id = None):
+    def post(self, id):
         # fetch data from the body as json
         # data = recipe_schema.load(request.get_json())
         data = request.get_json()
@@ -129,3 +121,13 @@ class Recipe(Resource):
             "result": recipe_schemas.dump(recipe)
         }
 
+
+
+class RecipesList(Resource):
+    def get(self):
+        return {
+            "message": "List of all the recipes", 
+            "success": True, 
+            "count": RecipeModel.query.count(),
+            "result": recipe_list_schemas.dump(RecipeModel.query.all())
+        }
