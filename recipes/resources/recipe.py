@@ -121,8 +121,6 @@ class Recipe(Resource):
             "result": recipe_schemas.dump(recipe)
         }
 
-
-
 class RecipesList(Resource):
     def get(self):
         return {
