@@ -43,3 +43,17 @@ class CookList(Resource):
         except ValidationError as err:
             return err.messages, 500
         
+        try:
+            cook.save_to_db()
+        except:
+            return{
+                "message":"There is an error, please try again"
+            }, 500
+        
+        return {
+            "message": "Cook succesfully added",
+            "success": True,
+            "code": 201,
+            "cook": cook_schema.dump(cook)
+        }
+        

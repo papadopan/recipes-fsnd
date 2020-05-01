@@ -11,6 +11,9 @@ class CookModel(db.Model):
     country = db.Column(db.String(30), nullable=False)
     city= db.Column(db.String(30), nullable=False)
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
 
     @classmethod
     def find_cook_by_email(cls, email):
