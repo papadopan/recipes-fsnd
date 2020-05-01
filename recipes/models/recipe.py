@@ -1,5 +1,4 @@
-from db import db
-
+from app import db
 class RecipeModel(db.Model):
 
     __tablename__= "Recipe"

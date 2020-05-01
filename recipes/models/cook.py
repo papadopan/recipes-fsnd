@@ -1,4 +1,4 @@
-from db import db
+from app import db
 
 class CookModel(db.Model):
     __tablename__= "cook"
