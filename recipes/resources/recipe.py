@@ -8,30 +8,47 @@ recipe_schemas = RecipeSchema()
 recipe_list_schemas = RecipeSchema(many=True)
 
 class Recipe(Resource):
-    def get(self):
-        return jsonify({
-            "count":RecipeModel.query.count(),
-            "recipes": recipe_list_schemas.dump(RecipeModel.query.all())
-        })
+    def get(self, id = None):
+        if id is None:
+            return {
+                "message": "List of all the recipes", 
+                "success": True, 
+                "count": RecipeModel.query.count(),
+                "result": recipe_list_schemas.dump(RecipeModel.query.all())
+            }
 
-    def post(self):
+        recipe = RecipeModel.query.filter_by(id=id).first()
+        if recipe is None:
+            return {
+                "message": "recipe was not found",
+                "success": False,
+                "code": 404
+            }, 404
+        
+        return {
+            "success": True,
+            "code":200,
+            "result": recipe_schemas.dump(recipe)
+        }, 200
+
+    def post(self, id = None):
         # fetch data from the body as json
         # data = recipe_schema.load(request.get_json())
         data = request.get_json()
+
+        # search if that name of the recipe exists
+        if RecipeModel.find_by_title(data["title"]):
+            return {
+                "message": "Recipe already exists",
+                "code": 400,
+                "success": False
+            }
 
         try:
             # validate through schemas
             new_recipe = recipe_schemas.load(request.get_json())
         except ValidationError as err:
             return err.messages, 400
-
-        # search if the title exists
-        recipe = RecipeModel.find_by_title(new_recipe["title"])
-    
-        if recipe :
-            return {
-                "message":"recipe exists"
-            }, 400
 
         # create a new recipe
         recipe = RecipeModel(**new_recipe)

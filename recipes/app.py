@@ -19,7 +19,7 @@ api = Api(app)
 ma = Marshmallow(app)
 
 # add resources
-api.add_resource(Recipe, "/recipe")
+api.add_resource(Recipe, "/recipe", "/recipe/<int:id>")
 
 
 
