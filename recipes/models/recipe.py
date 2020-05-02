@@ -8,6 +8,7 @@ class RecipeModel(db.Model):
     description = db.Column(db.String(200), nullable=False)
 
     cook_id = db.Column(db.Integer, db.ForeignKey("cook.id"), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True)
 
     def save_to_db(self):
         db.session.add(self)

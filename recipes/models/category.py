@@ -7,6 +7,8 @@ class CategoryModel(db.Model):
     title = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(20))
 
+    recipe_list = db.relationship("RecipeModel", backref="category", lazy=True)
+
 
     def save_to_db(self):
         db.session.add(self)
