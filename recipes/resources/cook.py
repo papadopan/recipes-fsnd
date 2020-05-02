@@ -9,10 +9,84 @@ cook_schema = CookSchema()
 cook_list_schema = CookSchema(many=True)
 
 class Cook(Resource):
-    def get(self):
+    def get(self, id):
+        cook = CookModel.find_by_id(id)
+
+        if cook is None:
+            return {
+                "message":"Cook was not found",
+                "success": False,
+                "code": 404
+            }, 404
+        
+        return{
+            "message":"Cook fetched successfully",
+            "success": True,
+            "code": 200,
+            "result": cook_schema.dump(cook)
+        }, 200
+    
+    def patch(self, id):
+        cook = CookModel.find_by_id(id)
+
+        if cook is None:
+            return {
+                "message": "Cook was not found",
+                "success": False,
+                "code": 404,
+            }, 404
+        
+        data = request.get_json()
+
+        country = data["country"]
+        city = data["city"]
+
+        cook.country = country
+        cook.city = city
+
+        # update the data
+        try:            
+            cook.update_to_db()
+        except:
+            return {
+                "message": "There was an error please try again",
+                "success": False,
+                "code": 500
+                }, 500
         return {
-            "message":"AAAA"
+            "message": "Cook was updated successfully",
+            "success": True,
+            "code": 200,
+            "result": cook_schema.dump(cook)
         }
+        
+    def delete(self, id):
+        cook = CookModel.find_by_id(id)  
+
+        if cook is None:
+            return {
+                "message": "Cook was not found",
+                "success": False,
+                "code": 404
+            }, 404
+        
+        # delete from db
+        try:
+            cook.delete_from_db()
+        except:
+            return {
+                "message": "The is an error, please try again later",
+                "success": False,
+                "code": 500,
+            }, 500
+        
+        return {
+            "message": "Cook was deleted successfully",
+            "success": True,
+            "code": 200,
+            "result": cook_schema.dump(cook)
+        }
+
     
 
 
