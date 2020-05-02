@@ -1,5 +1,6 @@
 from app import db
 
+
 class CookModel(db.Model):
     __tablename__= "cook"
 
@@ -10,6 +11,8 @@ class CookModel(db.Model):
     password = db.Column(db.String(20), nullable=False)
     country = db.Column(db.String(30), nullable=False)
     city= db.Column(db.String(30), nullable=False)
+
+    recipes = db.relationship("RecipeModel", backref="recipes", lazy=True)
 
     def save_to_db(self):
         db.session.add(self)

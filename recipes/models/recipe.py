@@ -7,8 +7,7 @@ class RecipeModel(db.Model):
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(200), nullable=False)
 
-    def __repr__(self):
-        return f"Title: {self.title}"
+    cook_id = db.Column(db.Integer, db.ForeignKey("cook.id"), nullable=False)
 
     def save_to_db(self):
         db.session.add(self)
