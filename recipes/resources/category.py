@@ -7,6 +7,69 @@ from models.category import CategoryModel
 category_schema = CategorySchema()
 category_list_schema = CategorySchema(many=True)
 
+class Category(Resource):
+    def patch(self, id):
+        # check if exists
+        category = CategoryModel.find_by_id(id=id)
+
+        if category is None:
+            return {
+                "message": "Category was not found",
+                "success": False, 
+                "code": 404
+            }, 404
+        
+        # fetch data 
+        data = request.get_json()
+
+        # update fields
+        category.title = data["title"]
+        category.description = data["description"]
+
+        #update to db
+        try:
+            category.update_to_db()
+        except:
+            return {
+                "message":"There was an error please try again",
+                "code": 500
+            }, 500
+        
+        return {
+            "message": "Category updated",
+            "success": True,
+            "code": 200,
+            "result": category_schema.dump(category)
+        }, 200
+
+    def delete(self, id):
+        # check if exists
+        category = CategoryModel.find_by_id(id=id)
+
+        if category is None:
+            return {
+                "message": "Category was not found",
+                "success": False,
+                "code": 404
+            }, 404
+        
+        # delete 
+        try:
+            category.delete_from_db()
+        except:
+            return {
+                "message":"There is an error, please try again",
+                "success": False,
+                "code": 500
+            }, 500
+        
+        return {
+            "message":"Category was deleted",
+            "success": True,
+            "code": 200,
+            "result": category_schema.dump(category)
+        }, 200
+
 
 class CategoryList(Resource):
     def get(self):
