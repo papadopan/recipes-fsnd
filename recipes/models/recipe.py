@@ -6,6 +6,8 @@ class RecipeModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(200), nullable=False)
+    image_name = db.Column(db.String(50))
+    image_file = db.Column(db.LargeBinary)
 
     cook_id = db.Column(db.Integer, db.ForeignKey("cook.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True)

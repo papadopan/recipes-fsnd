@@ -4,6 +4,8 @@ from models.recipe import RecipeModel
 from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError
 
+
+
 recipe_schemas = RecipeSchema()
 recipe_list_schemas = RecipeSchema(many=True)
 
@@ -93,9 +95,7 @@ class RecipesList(Resource):
         }
     def post(self):
         # fetch data from the body as json
-        # data = recipe_schema.load(request.get_json())
         data = request.get_json()
-
 
         # search if that name of the recipe exists
         if RecipeModel.find_by_title(data["title"]):
@@ -103,7 +103,7 @@ class RecipesList(Resource):
                 "message": "Recipe already exists",
                 "code": 400,
                 "success": False
-            }
+            }, 400  
 
         # validate through schemas
         try:
@@ -125,3 +125,23 @@ class RecipesList(Resource):
             "code": 201,
             "recipe": recipe_schemas.dump(recipe)
         }, 201
+
+
+class RecipeImage(Resource):
+    def post(self,id):
+        # make sure the id belongs to a recipe
+        recipe = RecipeModel.find_by_id(id=id)
+
+        if recipe is None:
+            return {
+                "message":"Recipe was not found",
+                "success": False,
+                "code": 404
+            }, 404
+
+        return {
+            "message":"Image uploaded",
+            "success": True,
+            "code": 201,
+            "result": recipe_schemas.dump(recipe)
+        }
