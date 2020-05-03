@@ -148,7 +148,15 @@ class RecipeImage(Resource):
         # fetch file and save it
         files = request.files['recipe_cover']
         files.filename = "recipe_"+str(id)+"_"+files.filename
-        filename = images.save(files)
+
+        try:
+            filename = images.save(files)
+        except:
+            return {
+                "message":"Make sure you are uploading an image",
+                "success": False,
+                "code": 500
+            }, 500
 
         # create new image record
         image = image_schemas.load({
