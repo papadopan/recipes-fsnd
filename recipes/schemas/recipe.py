@@ -2,7 +2,7 @@ from app import ma
 from models.recipe import RecipeModel
 from models.cook import CookModel
 from models.category import CategoryModel
-from models.fileContents import FileContentModel
+
 
 class RecipeSchema(ma.ModelSchema):
     class Meta:
