@@ -3,12 +3,12 @@ from flask import jsonify, request
 from models.recipe import RecipeModel
 from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError
-from werkzeug.utils import secure_filename
-
-
+from schemas.image import ImageSchema
 
 recipe_schemas = RecipeSchema()
+image_schemas = ImageSchema()
 recipe_list_schemas = RecipeSchema(many=True)
+
 
 class Recipe(Resource):
     def get(self, id):
@@ -133,8 +133,6 @@ class RecipeImage(Resource):
         # make sure the id belongs to a recipe
         recipe = RecipeModel.find_by_id(id=id)
 
-        print(request.files['recipe_cover'].content_type)
-
         if recipe is None:
             return {
                 "message":"Recipe was not found",
@@ -142,9 +140,33 @@ class RecipeImage(Resource):
                 "code": 404
             }, 404
 
+        # files = request.files['recipe_cover']
+        # data = {
+        #     "name": files.filename,
+        #     "data": files.read(),
+        #     "recipe_id":id
+        # }
+
+
+        # # create new image record
+        # image = image_schemas.load({
+        #     "name": files.filename,
+        #     "data": files.mimetype,
+        #     "recipe_id":id
+        # })
+
+        # try:
+        #     image.save_to_db()
+        # except:
+        #     return {
+        #         "message": "There was an error while saving, please try again",
+        #         "success": False,
+        #         "code": True
+        #     }, 500
+
+        
         return {
             "message":"Image uploaded",
             "success": True,
-            "code": 201,
-            "result": recipe_schemas.dump(recipe)
+            "code": 201
         }

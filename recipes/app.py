@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from flask_marshmallow import Marshmallow
 
+
 # config the app
 app = Flask(__name__)
 app.config.from_object('config')
@@ -19,6 +20,9 @@ ma = Marshmallow(app)
 from resources.recipe import Recipe, RecipesList, RecipeImage
 from resources.cook import Cook, CookList
 from resources.category import CategoryList, Category
+
+# set up config for Flask Uploads
+# configure_uploads(app,images)
 
 # add resources
 api.add_resource(Recipe, "/recipe/<int:id>")

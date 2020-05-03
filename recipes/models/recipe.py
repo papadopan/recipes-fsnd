@@ -1,4 +1,5 @@
 from app import db
+from models.image import ImageModel
 class RecipeModel(db.Model):
 
     __tablename__= "Recipe"
@@ -11,6 +12,8 @@ class RecipeModel(db.Model):
 
     cook_id = db.Column(db.Integer, db.ForeignKey("cook.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True)
+
+    image_file = db.relationship("ImageModel", backref="recipe", lazy=True)
 
 
     def save_to_db(self):

@@ -5,9 +5,9 @@ class ImageModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    data = db.Column(db.LongBinary, nullable=False)
+    data = db.Column(db.String(50), nullable=False)
 
-    recipe_id = db.Column(db.Integer, db.ForeignKey("Recipe.id"))
+    recipe_id = db.Column(db.Integer, db.ForeignKey("Recipe.id"), nullable=False)
 
     def save_to_db(self):
         db.session.add(self)
