@@ -4,10 +4,15 @@ from models.recipe import RecipeModel
 from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError
 from schemas.image import ImageSchema
+from flask_uploads import IMAGES, UploadSet
 
 recipe_schemas = RecipeSchema()
 image_schemas = ImageSchema()
 recipe_list_schemas = RecipeSchema(many=True)
+
+
+
+images = UploadSet("images", IMAGES)
 
 
 class Recipe(Resource):
@@ -140,33 +145,31 @@ class RecipeImage(Resource):
                 "code": 404
             }, 404
 
-        # files = request.files['recipe_cover']
-        # data = {
-        #     "name": files.filename,
-        #     "data": files.read(),
-        #     "recipe_id":id
-        # }
+        # fetch file and save it
+        files = request.files['recipe_cover']
+        files.filename = "recipe_"+str(id)+"_"+files.filename
+        filename = images.save(files)
 
+        # create new image record
+        image = image_schemas.load({
+            "name": filename,
+            "data": files.mimetype,
+            "recipe_id":id
+        })
 
-        # # create new image record
-        # image = image_schemas.load({
-        #     "name": files.filename,
-        #     "data": files.mimetype,
-        #     "recipe_id":id
-        # })
-
-        # try:
-        #     image.save_to_db()
-        # except:
-        #     return {
-        #         "message": "There was an error while saving, please try again",
-        #         "success": False,
-        #         "code": True
-        #     }, 500
+        try:
+            image.save_to_db()
+        except:
+            return {
+                "message": "There was an error while saving, please try again",
+                "success": False,
+                "code": True
+            }, 500
 
         
         return {
             "message":"Image uploaded",
             "success": True,
-            "code": 201
+            "code": 201,
+            "result": image_schemas.dump(image)
         }

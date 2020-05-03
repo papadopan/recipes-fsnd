@@ -17,12 +17,14 @@ migrate = Migrate(app, db)
 api = Api(app)
 ma = Marshmallow(app)
 
-from resources.recipe import Recipe, RecipesList, RecipeImage
+from flask_uploads import configure_uploads,IMAGES, UploadSet
+from resources.recipe import Recipe, RecipesList, RecipeImage, images
 from resources.cook import Cook, CookList
 from resources.category import CategoryList, Category
 
 # set up config for Flask Uploads
-# configure_uploads(app,images)
+images = UploadSet("images", IMAGES)
+configure_uploads(app,images)
 
 # add resources
 api.add_resource(Recipe, "/recipe/<int:id>")

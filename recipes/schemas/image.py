@@ -5,3 +5,4 @@ class ImageSchema(ma.ModelSchema):
     class Meta:
         model = ImageModel
         include_fk=True
+        load_only =("recipe",)
