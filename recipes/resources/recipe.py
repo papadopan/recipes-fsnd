@@ -3,6 +3,7 @@ from flask import jsonify, request
 from models.recipe import RecipeModel
 from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError
+from werkzeug.utils import secure_filename
 
 
 
@@ -131,6 +132,8 @@ class RecipeImage(Resource):
     def post(self,id):
         # make sure the id belongs to a recipe
         recipe = RecipeModel.find_by_id(id=id)
+
+        print(request.files['recipe_cover'].content_type)
 
         if recipe is None:
             return {
