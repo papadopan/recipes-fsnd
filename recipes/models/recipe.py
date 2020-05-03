@@ -10,6 +10,8 @@ class RecipeModel(db.Model):
     cook_id = db.Column(db.Integer, db.ForeignKey("cook.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True)
 
+    file_rel = db.relationship("FileContentModel", backref="recipes", lazy=True)
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
