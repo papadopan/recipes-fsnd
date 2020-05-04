@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
+import { connect } from "react-redux";
 
-
-function App() {
-  return (
-    <div>
-      antonios
-    </div>
-  );
+function App({ user }) {
+  return <div>{user}</div>;
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
+
+const mapDispatchToProps = (dispath) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
