@@ -4,13 +4,19 @@ import App from "./components/Index";
 import { Provider } from "react-redux";
 import store, { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
+import { ThemeProvider } from "styled-components";
+import GlobalStyles from "./utils/global";
+import theme from "./utils/theme";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} history={history}>
       <ConnectedRouter history={history}>
-        <App />
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <App />
+        </ThemeProvider>
       </ConnectedRouter>
     </Provider>
   </React.StrictMode>,
