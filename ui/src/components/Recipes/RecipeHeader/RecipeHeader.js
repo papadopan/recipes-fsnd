@@ -29,9 +29,7 @@ const MainDiv = styled.div`
 const RecipeHeader = (props) => {
   return (
     <MainDiv>
-      <Headers>Recipes</Headers>
-      <Headers separator>/</Headers>
-      <Headers active>Category</Headers>
+      <Headers>My Recipes</Headers>
     </MainDiv>
   );
 };
