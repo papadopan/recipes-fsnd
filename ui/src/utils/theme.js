@@ -1,12 +1,12 @@
 const theme = {
   colors: {
-    main: "#0EC164",
-    secondary: "##1F743E",
+    secondary: "#02684C",
+    main: "#1F743E",
     white: "#FFFFFF",
     black: "#000000",
-    grey: "##EEEEEE",
-    error: "##EE0000",
-    warning: "##FFDD00",
+    grey: "#EEEEEE",
+    error: "#EE0000",
+    warning: "#FFDD00",
   },
   mediaQueries: {
     smallest: `only screen and (max-width: 25em)`,
