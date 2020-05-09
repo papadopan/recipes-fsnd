@@ -6,13 +6,14 @@ import Logo from "./Logo";
 import Menu from "./Menu";
 
 const HeaderDiv = styled.div`
-  height: 4em;
+  height: 3em;
   width: 100%;
   background: var(--color-main);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
+  color: var(--color-white);
 `;
 
 const Header = (props) => {
