@@ -10,6 +10,7 @@ const MainDiv = styled.div`
   height: 220px;
   border-radius: 5px;
   display: flex;
+  margin: 1em;
 `;
 
 const Image = styled.img`

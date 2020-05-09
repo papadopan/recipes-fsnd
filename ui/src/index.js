@@ -9,6 +9,8 @@ import GlobalStyles from "./utils/global";
 import theme from "./utils/theme";
 import * as serviceWorker from "./serviceWorker";
 
+import "antd/dist/antd.css";
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} history={history}>

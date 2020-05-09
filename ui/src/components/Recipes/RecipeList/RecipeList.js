@@ -9,12 +9,21 @@ const MainDiv = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const RecipeList = (props) => {
   return (
     <MainDiv>
+      <RecipeBox />
+      <RecipeBox />
+      <RecipeBox />
+      <RecipeBox />
+      <RecipeBox />
+      <RecipeBox />
+      <RecipeBox />
+      <RecipeBox />
       <RecipeBox />
     </MainDiv>
   );

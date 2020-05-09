@@ -10,6 +10,7 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   margin: 0 1.5em;
+  font-size: 1.2em;
 `;
 
 const Menu = (props) => {
