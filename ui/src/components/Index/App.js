@@ -3,13 +3,16 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/auth";
 import Header from "../Header";
 import Recipes from "../Recipes";
+import { Layout } from "antd";
 
 function App({ user, login }) {
   return (
-    <div>
+    <Layout>
       <Header />
-      <Recipes />
-    </div>
+      <Layout.Content>
+        <Recipes />
+      </Layout.Content>
+    </Layout>
   );
 }
 
