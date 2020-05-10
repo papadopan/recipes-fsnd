@@ -4,10 +4,11 @@ import { loginUser } from "../../actions/auth";
 import RecipeHeader from "../Header";
 import Recipes from "../Recipes";
 import RecipeDetails from "../Recipes/RecipeDetails";
+import Cook from "../Cook";
 import Footer from "../Footer";
 import { Layout } from "antd";
 import styled from "styled-components";
-import { Switch, Route } from "react-router";
+import { Switch, Route } from "react-router-dom";
 
 const { Content, Header } = Layout;
 
@@ -31,6 +32,7 @@ function App({ user, login }) {
         <Switch>
           <Route exact path="/" component={Recipes} />
           <Route exact path="/recipe" component={RecipeDetails} />
+          <Route exact path="/cook" component={Cook} />
         </Switch>
       </Content>
       <AntFooter>

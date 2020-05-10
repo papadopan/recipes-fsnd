@@ -19,6 +19,7 @@ html{
     --color-black: ${(props) => props.theme.colors.black};
     --color-error: ${(props) => props.theme.colors.error};
     --color-warning: ${(props) => props.theme.colors.warning};
+    --color-yellow: ${(props) => props.theme.colors.yellow};
 
 
     @media ${(props) => props.theme.mediaQueries.small}{

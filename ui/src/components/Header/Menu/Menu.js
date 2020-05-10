@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const List = styled.ul`
@@ -8,16 +8,21 @@ const List = styled.ul`
   display: flex;
 `;
 
-const ListItem = styled.li`
+const ListItem = styled(Link)`
   margin: 0 1.5em;
   font-size: 1.2em;
+  color: var(--color-white);
+
+  :hover {
+    color: var(--color-yellow);
+  }
 `;
 
 const Menu = (props) => {
   return (
     <List>
-      <ListItem>Recipes</ListItem>
-      <ListItem>Cooks</ListItem>
+      <ListItem to="recipe">Recipes</ListItem>
+      <ListItem to="cook">Cooks</ListItem>
       <ListItem>Login</ListItem>
     </List>
   );

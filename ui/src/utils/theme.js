@@ -7,6 +7,7 @@ const theme = {
     grey: "#EEEEEE",
     error: "#EE0000",
     warning: "#FFDD00",
+    yellow: "#FFE045",
   },
   mediaQueries: {
     smallest: `only screen and (max-width: 25em)`,

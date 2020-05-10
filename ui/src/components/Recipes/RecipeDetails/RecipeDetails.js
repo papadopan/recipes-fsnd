@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-
+import { Tag } from "antd";
 import IngredientList from "../IngredientList";
 
 const MainDiv = styled.div`
@@ -50,6 +50,10 @@ const StyledDescription = styled.p`
   line-height: 2em;
 `;
 
+const TagList = styled.div`
+  margin: 1em 0;
+`;
+
 const RecipeDetails = (props) => {
   return (
     <MainDiv>
@@ -58,6 +62,11 @@ const RecipeDetails = (props) => {
       </ImgDiv>
       <DetailsDiv>
         <StyledP>Pasta with pesto</StyledP>
+        <TagList>
+          <Tag color="default">vegetarian</Tag>
+          <Tag color="default">1h30min</Tag>
+          <Tag color="default">4 portion(s)</Tag>
+        </TagList>
         <StyledDescription>
           bdkj cjkdn cdjnc cenck cnkcnwd kwnkcldw lcnldwn pcwmlkdmcm clkwdn
           clwdkncwd ckncwlkdnc clknwlkcd ncwnkldcn ncklwc kcnwlnd bdkj cjkdn
