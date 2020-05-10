@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/auth";
 import RecipeHeader from "../Header";
 import Recipes from "../Recipes";
+import RecipeDetails from "../Recipes/RecipeDetails";
 import Footer from "../Footer";
 import { Layout } from "antd";
 import styled from "styled-components";
+import { Switch, Route } from "react-router";
 
 const { Content, Header } = Layout;
 
@@ -26,7 +28,10 @@ function App({ user, login }) {
         <RecipeHeader />
       </AntHeader>
       <Content>
-        <Recipes />
+        <Switch>
+          <Route exact path="/" component={Recipes} />
+          <Route exact path="/recipe" component={RecipeDetails} />
+        </Switch>
       </Content>
       <AntFooter>
         <Footer />

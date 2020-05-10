@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 
 const Headers = styled.p`
-  font-size: 3em;
+  font-size: 4em;
   font-weight: 300;
   margin-right: 0.5em;
   color: var(--color-secondary);
