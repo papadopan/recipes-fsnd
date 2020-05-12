@@ -29,7 +29,7 @@ const MainDiv = styled.div`
 const RecipeHeader = (props) => {
   return (
     <MainDiv>
-      <Headers>My Recipes</Headers>
+      <Headers>Recipes</Headers>
     </MainDiv>
   );
 };

@@ -27,6 +27,7 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const Stats = styled.div`
@@ -35,18 +36,14 @@ const Stats = styled.div`
   align-items: center;
 `;
 
-const RecipeBox = (props) => {
+const RecipeBox = ({ recipe }) => {
   return (
     <MainDiv>
       <Image src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
       <Details>
         <div>
-          <H1>Pasta with Pesto</H1>
-          <p>
-            {" "}
-            this is a small description about the recipe mentioned above and we
-            would like to just give an idea about it
-          </p>
+          <H1>{recipe.title}</H1>
+          <p>{recipe.description}</p>
         </div>
         <Stats>
           <RecipeStats icon="time" label="1 hour 3 mins" />

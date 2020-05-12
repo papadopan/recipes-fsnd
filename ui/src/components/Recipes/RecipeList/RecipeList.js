@@ -13,18 +13,12 @@ const MainDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const RecipeList = (props) => {
+const RecipeList = ({ recipes }) => {
   return (
     <MainDiv>
-      <RecipeBox />
-      <RecipeBox />
-      <RecipeBox />
-      <RecipeBox />
-      <RecipeBox />
-      <RecipeBox />
-      <RecipeBox />
-      <RecipeBox />
-      <RecipeBox />
+      {recipes.map((recipe) => (
+        <RecipeBox recipe={recipe} />
+      ))}
     </MainDiv>
   );
 };

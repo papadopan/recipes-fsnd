@@ -5,6 +5,7 @@ import RecipeHeader from "../Header";
 import Recipes from "../Recipes";
 import RecipeDetails from "../Recipes/RecipeDetails";
 import Cook from "../Cook";
+import Welcome from "../Welcome";
 import Footer from "../Footer";
 import { Layout } from "antd";
 import styled from "styled-components";
@@ -33,8 +34,9 @@ function App({ user, login }) {
       </AntHeader>
       <Content>
         <Switch>
-          <Route exact path="/" component={Recipes} />
-          <Route exact path="/recipe" component={RecipeDetails} />
+          <Route exact path="/" component={Welcome} />
+          <Route exact path="/recipe" component={Recipes} />
+          {/* <Route exact path="/recipe" component={RecipeDetails} /> */}
           <Route exact path="/cook" component={Cook} />
         </Switch>
       </Content>
@@ -45,12 +47,8 @@ function App({ user, login }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  user: state.auth.user,
-});
+const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispath) => ({
-  login: () => dispath(loginUser()),
-});
+const mapDispatchToProps = (dispath) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
