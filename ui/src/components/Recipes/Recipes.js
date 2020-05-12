@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import RecipeHeader from "./RecipeHeader";
+import RecipeHeader from "./RecipeList/RecipeHeader";
 import RecipeList from "./RecipeList";
 
 const MainDiv = styled.div`

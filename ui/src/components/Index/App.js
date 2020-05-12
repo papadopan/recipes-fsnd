@@ -22,9 +22,12 @@ const AntFooter = styled(Layout.Footer)`
   color: var(--color-white);
 `;
 
+const AntLayout = styled(Layout)`
+  min-heigth: 100vh;
+`;
 function App({ user, login }) {
   return (
-    <Layout>
+    <AntLayout>
       <AntHeader>
         <RecipeHeader />
       </AntHeader>
@@ -38,7 +41,7 @@ function App({ user, login }) {
       <AntFooter>
         <Footer />
       </AntFooter>
-    </Layout>
+    </AntLayout>
   );
 }
 

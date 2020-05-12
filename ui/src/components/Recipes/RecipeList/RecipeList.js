@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import RecipeBox from "../RecipeBox";
+import RecipeBox from "./RecipeBox";
 
 const MainDiv = styled.div`
   padding-top: 3rem;
