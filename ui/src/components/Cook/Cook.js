@@ -3,49 +3,81 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { getAllCooks } from "../../actions/cook";
+import { Spin, Space } from "antd";
+import empty from "../../utils/images/empty.svg";
 
 import CookHeader from "./CookHeader";
-import RecipeList from "../Recipes/RecipeList";
-import RecipeHeader from "../Recipes/RecipeList/RecipeHeader";
+import CookBox from "./CookBox";
 
 const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InnerDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2em;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Img = styled.img`
   width: 200px;
   height: 200px;
-  border-radius: 50%;
-  box-shadow: 2px 8px 16px rgba(24, 50, 115, 0.2);
 `;
 
-const DetailsDiv = styled.div`
+const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0 0 0 2em;
+  align-items: center;
 `;
 
-const Cook = ({ getAllCooks }) => {
+const P = styled.p`
+  font-size: 2em;
+  margin: 1em;
+`;
+const Cook = ({ getAllCooks, cooks, loading }) => {
+  // fetch on mount the cooks
   useEffect(() => {
     getAllCooks();
-    console.log("ppppppAA");
   }, []);
+
+  if (loading) {
+    return (
+      <MainDiv>
+        <Space>
+          <Spin size="large" />
+        </Space>
+      </MainDiv>
+    );
+  }
 
   return (
     <MainDiv>
       <CookHeader />
-      <RecipeHeader />
-      <RecipeList />
+      <InnerDiv>
+        {cooks.length > 0 ? (
+          cooks.map((cook) => <CookBox cook={cook} />)
+        ) : (
+          <StyledDiv>
+            <Img src={empty} />
+            <P>There is no cook aroud here...</P>
+          </StyledDiv>
+        )}
+      </InnerDiv>
     </MainDiv>
   );
 };
 
 Cook.propTypes = {};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  cooks: state.cook.cooks,
+  loading: state.cook.loading,
+});
 
 const mapDispatchToProps = (dispath) => ({
   getAllCooks: () => dispath(getAllCooks()),

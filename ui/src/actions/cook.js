@@ -35,7 +35,7 @@ export const getAllCooks = () => async (dispatch) => {
   try {
     // send the get requests
     const response = await axios.get("http://127.0.0.1:5000/api/cook");
-    console.log("--------->", response);
+    dispatch(cooksSuccess(response.data.result));
   } catch (error) {
     // dispatch if fail
     dispatch(cooksFail(error));

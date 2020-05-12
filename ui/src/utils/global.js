@@ -31,5 +31,7 @@ html{
 body {
     font-family: Helvetica;
     font-weight: 400;
+    height:100%;
+    width:100%;
 }
 `;

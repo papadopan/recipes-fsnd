@@ -1,19 +1,16 @@
 import { combineReducers } from "redux";
-import { connectRouter } from 'connected-react-router'
+import { connectRouter } from "connected-react-router";
 
-import auth from './auth';
-import recipe from './recipe'
+import auth from "./auth";
+import recipe from "./recipe";
+import cook from "./cook";
 
-
-const rootReducer = (history) => combineReducers({
-    auth, 
+const rootReducer = (history) =>
+  combineReducers({
+    auth,
     recipe,
-    router: connectRouter(history)
-});
-
+    cook,
+    router: connectRouter(history),
+  });
 
 export default rootReducer;
-
-
-
-
