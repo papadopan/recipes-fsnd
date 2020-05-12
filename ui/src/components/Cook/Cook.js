@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { getAllCooks } from "../../actions/cook";
 
 import CookHeader from "./CookHeader";
+import RecipeList from "../Recipes/RecipeList";
+import RecipeHeader from "../Recipes/RecipeList/RecipeHeader";
 
 const MainDiv = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 const Img = styled.img`
@@ -23,20 +28,27 @@ const DetailsDiv = styled.div`
   padding: 0 0 0 2em;
 `;
 
-const Cook = (props) => {
+const Cook = ({ getAllCooks }) => {
+  useEffect(() => {
+    getAllCooks();
+    console.log("ppppppAA");
+  }, []);
+
   return (
     <MainDiv>
       <CookHeader />
-      {/* <Img src="https://images.unsplash.com/photo-1428895009712-de9e58a18409?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" /> */}
-      {/* <Img src="https://images.unsplash.com/photo-1586297098710-0382a496c814?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-      <DetailsDiv>
-        <h1>Sofia Stergiou</h1>
-        <h2>Kastoria, Greece</h2>
-      </DetailsDiv> */}
+      <RecipeHeader />
+      <RecipeList />
     </MainDiv>
   );
 };
 
 Cook.propTypes = {};
 
-export default Cook;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispath) => ({
+  getAllCooks: () => dispath(getAllCooks()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cook);
