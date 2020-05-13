@@ -5,6 +5,7 @@ import RecipeHeader from "../Header";
 import Recipes from "../Recipes";
 import RecipeDetails from "../Recipes/RecipeDetails";
 import Cook from "../Cook";
+import Form from "../Form";
 import Welcome from "../Welcome";
 import Footer from "../Footer";
 import { Layout } from "antd";
@@ -36,6 +37,7 @@ function App({ user, login }) {
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route exact path="/recipe" component={Recipes} />
+          <Route exact path="/create" component={Form} />
           {/* <Route exact path="/recipe" component={RecipeDetails} /> */}
           <Route exact path="/cook" component={Cook} />
         </Switch>
