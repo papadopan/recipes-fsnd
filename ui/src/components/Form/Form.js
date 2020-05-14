@@ -20,7 +20,7 @@ const Filtering = styled.div`
 const Choices = styled.span`
   margin: 0 1em;
   font-size: 5em;
-  color: var(--color-black);
+  color: var(--color-grey);
   cursor:pointer;
 
   ${({ active }) =>

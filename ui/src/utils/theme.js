@@ -4,7 +4,7 @@ const theme = {
     main: "rgb(23,90,74)",
     white: "#FFFFFF",
     black: "#000000",
-    grey: "#EEEEEE",
+    grey: "#c3c4c7",
     error: "#EE0000",
     warning: "#FFDD00",
     yellow: "#FFE045",
