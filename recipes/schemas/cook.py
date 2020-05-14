@@ -4,4 +4,4 @@ from models.cook import CookModel
 class CookSchema(ma.ModelSchema):
     class Meta:
         model = CookModel
-        load_only=("id","password")
+        # load_only=("id",)

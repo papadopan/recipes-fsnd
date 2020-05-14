@@ -31,25 +31,24 @@ export function cooksFail(error) {
   };
 }
 
-
-export function addNewCookRequest(){
-  return {
-    type: COOK_CREATE_REQUEST
-  }
-}
-
-export function addNewCookSuccess(cook){
+export function addNewCookRequest() {
   return {
     type: COOK_CREATE_REQUEST,
-    payload: cook
-  }
+  };
 }
 
-export function addNewCookFail(error){
+export function addNewCookSuccess(cook) {
+  return {
+    type: COOK_CREATE_SUCCESS,
+    payload: cook,
+  };
+}
+
+export function addNewCookFail(error) {
   return {
     type: COOK_CREATE_REQUEST,
-    payload: error
-  }
+    payload: error,
+  };
 }
 
 // access functions
@@ -68,22 +67,19 @@ export const getAllCooks = () => async (dispatch) => {
   }
 };
 
-export const addNewCook = (cook) => async dispatch =>{
+export const addNewCook = (cook) => async (dispatch) => {
   // init request
-  dispatch(addNewCookRequest())
-
+  dispatch(addNewCookRequest());
   try {
     // send the request
     const response = axios({
-      url:"http://127.0.0.1:5000/api/cook",
-      method: 'post',
-      data: cook
-    })
-    console.log("LLLLLL",response)
-
-  } catch (error){
+      url: "http://127.0.0.1:5000/api/cook",
+      method: "post",
+      data: cook,
+    });
+    dispatch(addNewCookSuccess(cook));
+  } catch (error) {
     //request failed
-    dispatch(addNewCookFail(error))
+    dispatch(addNewCookFail(error));
   }
-}
-
+};

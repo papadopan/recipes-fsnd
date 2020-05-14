@@ -8,7 +8,6 @@ class CookModel(db.Model):
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(20), nullable=False)
     country = db.Column(db.String(30), nullable=False)
     city= db.Column(db.String(30), nullable=False)
 

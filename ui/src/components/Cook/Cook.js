@@ -60,7 +60,7 @@ const Cook = ({ getAllCooks, cooks, loading }) => {
       <CookHeader />
       <InnerDiv>
         {cooks.length > 0 ? (
-          cooks.map((cook) => <CookBox cook={cook} />)
+          cooks.map((cook, index) => <CookBox key={index} cook={cook} />)
         ) : (
           <StyledDiv>
             <Img src={empty} />
