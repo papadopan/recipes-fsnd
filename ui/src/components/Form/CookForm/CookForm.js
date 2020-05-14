@@ -4,6 +4,13 @@ import { Formik, Form, Field, ErrorMessage, validateYupSchema } from "formik";
 import { Input , Select, Button} from 'antd';
 import * as Yup from 'yup';
 
+import styled from "styled-components"
+
+
+const Error = styled.div`
+    color: var(--color-error)
+`
+
 
 const TextComponent = ({
     field, 
@@ -13,28 +20,16 @@ const TextComponent = ({
     <div style={{margin:"10px"}}>
       <Input type="text" {...field} {...props} />
       {touched[field.name] &&
-        errors[field.name] && <div className="error">{errors[field.name]}</div>}
-    </div>
-  );
-  
-  const TextAreaComponent = ({
-    field, 
-    form: { touched, errors }, 
-    ...props
-  }) => (
-    <div>
-      <Input type="text" {...field} {...props} />
-      {touched[field.name] &&
-        errors[field.name] && <div className="error">{errors[field.name]}</div>}
+        errors[field.name] && <Error>{errors[field.name]}</Error>}
     </div>
   );
 
 const CookForm = props => {
     return (
         <Formik
-        initialValues={{first_name:"", last_name:"", email:"", passwprd:"", country:"", city:""}}
+        initialValues={{first_name:"", last_name:"", email:"", country:"", city:""}}
         onSubmit={(values, actions)=>{
-          console.log(values)
+          
           actions.setSubmitting(false)
         }}
         validationSchema= {Yup.object({
@@ -44,22 +39,25 @@ const CookForm = props => {
           last_name: Yup.string()
           .max(20, "Last Name can not be that long")
           .required("Last name is mandatory"),
-          description: Yup.string()
-          .max(200, "Description should be less than 200 characters")
-          .required("Description is mandatory"),
-          category: Yup.string()
-          .required("Category is mandatory")
+          email: Yup.string()
+          .email()
+          .required("Email is mandatory"),
+          country: Yup.string()
+          .max(20, "Country can not be that long")
+          .required("Country is mandatory"),
+          city: Yup.string()
+          .max(20, "City can not be that long")
+          .required("City is mandatory")
         })}
       >
-        {({isSubmitting})=>(
+        {({isSubmitting, handleSubmit})=>(
         <Form>
           <Field name="first_name" placeholder="First Name" component={TextComponent}/>
           <Field name="last_name" placeholder="Last Name" component={TextComponent}/>
           <Field name="email" placeholder="E-mail" component={TextComponent}/>
-          <Field name="password" placeholder="Password" component={TextComponent}/>
           <Field name="country" placeholder="Country" component={TextComponent}/>
           <Field name="city" placeholder="City" component={TextComponent}/>
-          <button disabled={isSubmitting} type="submit">Submit</button>
+          <Button onClick={handleSubmit} disabled={isSubmitting} type="submit">Submit</Button>
         </Form>
         )}
       </Formik>

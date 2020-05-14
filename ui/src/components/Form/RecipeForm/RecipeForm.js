@@ -48,7 +48,7 @@ const RecipeForm = props => {
           .required("Category is mandatory")
         })}
       >
-        {({isSubmitting})=>(
+        {({isSubmitting, handleSubmit})=>(
         <Form>
           <Field name="title" placeholder="Title" component={TextComponent}/>
           <Field name="description" placeholder="description" component={TextAreaComponent}/>
@@ -58,7 +58,7 @@ const RecipeForm = props => {
             <option value="blue">Blue</option>
           </Field>
           <ErrorMessage name="category" component="div" />
-          <button disabled={isSubmitting} type="submit">Submit</button>
+          <Button onClick={handleSubmit} disabled={isSubmitting} type="submit">Submit</Button>
         </Form>
         )}
       </Formik>
