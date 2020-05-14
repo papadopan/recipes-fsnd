@@ -25,6 +25,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 def after_request(response):
     response.headers.add("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
 
 
     return response

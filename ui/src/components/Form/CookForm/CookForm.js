@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage, validateYupSchema } from "formik";
 import { Input , Select, Button} from 'antd';
 import * as Yup from 'yup';
-
 import styled from "styled-components"
+import {addNewCook} from "../../../actions/cook"
+import {connect } from "react-redux"
 
 
 const Error = styled.div`
@@ -24,12 +25,12 @@ const TextComponent = ({
     </div>
   );
 
-const CookForm = props => {
+const CookForm = ({addCook}) => {
     return (
         <Formik
         initialValues={{first_name:"", last_name:"", email:"", country:"", city:""}}
         onSubmit={(values, actions)=>{
-          
+          addCook(values)
           actions.setSubmitting(false)
         }}
         validationSchema= {Yup.object({
@@ -68,4 +69,13 @@ CookForm.propTypes = {
 
 }
 
-export default CookForm
+
+const mapStateToProps = (state) => ({
+  
+})
+
+const mapDispatchToProps = dispatch =>({
+  addCook : cook => dispatch(addNewCook(cook))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(CookForm)
