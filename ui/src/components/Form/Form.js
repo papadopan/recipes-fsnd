@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import RecipeForm from "./RecipeForm"
+import CookForm from "./CookForm"
+
 
 const MainDiv = styled.div`
   display: flex;
@@ -27,6 +29,10 @@ const Choices = styled.span`
     `}
 `;
 
+
+
+
+
 const NewContentForm = (props) => {
   return (
     <MainDiv>
@@ -34,17 +40,8 @@ const NewContentForm = (props) => {
         <Choices selected>Recipe</Choices>
         <Choices>Cook</Choices>
       </Filtering>
-      <Formik>
-        <Form>
-          <Field name="lastName" placeholder="Last Name" />
-          <ErrorMessage name="first_name" component="div" />
-          <Field type="email" name="email" />
-          <ErrorMessage name="email" component="div" />
-          <Field type="password" name="password" />
-          <ErrorMessage name="password" component="div" />
-          <button type="submit">Submit</button>
-        </Form>
-      </Formik>
+      <RecipeForm/>
+      <CookForm/>
     </MainDiv>
   );
 };
