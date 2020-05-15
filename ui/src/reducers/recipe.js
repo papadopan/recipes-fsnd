@@ -1,25 +1,37 @@
-import { RECIPE_REQUEST, RECIPE_SUCCESS, RECIPE_FAIL } from "../actions/recipe";
+import {
+  RECIPES_REQUEST,
+  RECIPES_SUCCESS,
+  RECIPES_FAIL,
+  RECIPE_SUCCESS,
+} from "../actions/recipe";
 
 const initialState = {
   loading: true,
   recipes: [],
+  recipe: null,
   error: null,
 };
 
 function recipeReducer(state = initialState, action) {
   switch (action.type) {
-    case RECIPE_REQUEST:
+    case RECIPES_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case RECIPE_SUCCESS:
+    case RECIPES_SUCCESS:
       return {
         ...state,
         loading: false,
         recipes: action.payload,
       };
-    case RECIPE_FAIL:
+    case RECIPE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        recipe: action.payload,
+      };
+    case RECIPES_FAIL:
       return {
         ...state,
         loading: false,

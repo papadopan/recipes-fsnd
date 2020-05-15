@@ -38,7 +38,7 @@ function App({ user, login }) {
           <Route exact path="/" component={Welcome} />
           <Route exact path="/recipe" component={Recipes} />
           <Route exact path="/create" component={Form} />
-          {/* <Route exact path="/recipe" component={RecipeDetails} /> */}
+          <Route exact path="/recipe/:id" component={RecipeDetails} />
           <Route exact path="/cook" component={Cook} />
         </Switch>
       </Content>

@@ -72,7 +72,7 @@ export const addNewCook = (cook) => async (dispatch) => {
   dispatch(addNewCookRequest());
   try {
     // send the request
-    const response = axios({
+    const response = await axios({
       url: "http://127.0.0.1:5000/api/cook",
       method: "post",
       data: cook,

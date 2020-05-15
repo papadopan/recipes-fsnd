@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Tag } from "antd";
 import IngredientList from "../IngredientList";
+
+import { getRecipeById } from "../../../actions/recipe";
+import { connect } from "react-redux";
 
 const MainDiv = styled.div`
   padding: 3em 0;
@@ -55,34 +58,40 @@ const TagList = styled.div`
 `;
 
 const RecipeDetails = (props) => {
+  useEffect(() => {
+    props.getRecipeById(props.match.params.id);
+  }, []);
+
+  if (!props.recipe) {
+    return <div>empty</div>;
+  }
   return (
     <MainDiv>
       <ImgDiv>
         <Img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
       </ImgDiv>
       <DetailsDiv>
-        <StyledP>Pasta with pesto</StyledP>
+        <StyledP>{props.recipe.title}</StyledP>
         <TagList>
           <Tag color="default">vegetarian</Tag>
           <Tag color="default">1h30min</Tag>
           <Tag color="default">4 portion(s)</Tag>
         </TagList>
-        <StyledDescription>
-          bdkj cjkdn cdjnc cenck cnkcnwd kwnkcldw lcnldwn pcwmlkdmcm clkwdn
-          clwdkncwd ckncwlkdnc clknwlkcd ncwnkldcn ncklwc kcnwlnd bdkj cjkdn
-          cdjnc cenck cnkcnwd kwnkcldw lcnldwn pcwmlkdmcm clkwdn clwdkncwd
-          ckncwlkdnc clknwlkcd ncwnkldcn ncklwc kcnwlnd bdkj cjkdn cdjnc cenck
-          cnkcnwd kwnkcldw lcnldwn pcwmlkdmcm clkwdn clwdkncwd ckncwlkdnc
-          clknwlkcd ncwnkldcn ncklwc kcnwlnd bdkj cjkdn cdjnc cenck cnkcnwd
-          kwnkcldw lcnldwn pcwmlkdmcm clkwdn clwdkncwd ckncwlkdnc clknwlkcd
-          ncwnkldcn ncklwc kcnwlnd
-        </StyledDescription>
+        <StyledDescription>{props.recipe.description}</StyledDescription>
       </DetailsDiv>
-      <IngredientList />
+      <IngredientList data={props.recipe.ingredients} />
     </MainDiv>
   );
 };
 
 RecipeDetails.propTypes = {};
 
-export default RecipeDetails;
+const mapStateToProps = (state) => ({
+  recipe: state.recipe.recipe,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getRecipeById: (id) => dispatch(getRecipeById(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

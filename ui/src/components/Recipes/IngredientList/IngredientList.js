@@ -3,37 +3,16 @@ import PropTypes from "prop-types";
 import { Table } from "antd";
 import styled from "styled-components";
 
-const data = [
-  {
-    key: "1",
-    ingredient: "John Brown",
-    amount: 32,
-    measurement: "gr",
-  },
-  {
-    key: "2",
-    ingredient: "Jim Green",
-    amount: 42,
-    measurement: "table spoon",
-  },
-  {
-    key: "3",
-    ingredient: "Joe Black",
-    amount: 32,
-    measurement: "table spoon",
-  },
-];
-
 const columns = [
   {
     title: "Ingredient",
-    dataIndex: "ingredient",
-    key: "ingredient",
+    dataIndex: "name",
+    key: "name",
   },
   {
-    title: "Amount",
-    dataIndex: "amount",
-    key: "amount",
+    title: "Quantity",
+    dataIndex: "quantity",
+    key: "quantity",
   },
   {
     title: "Measurement",
@@ -47,7 +26,7 @@ const MainDiv = styled.div`
   max-width: 1000px;
   margin: 0 auto;
 `;
-const IngredientList = (props) => {
+const IngredientList = ({ data }) => {
   return (
     <MainDiv>
       <Table columns={columns} dataSource={data} pagination={false} bordered />
