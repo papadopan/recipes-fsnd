@@ -12,6 +12,7 @@ class RecipeModel(db.Model):
     ingredients = db.Column(db.String(10000), nullable=True)
     portions= db.Column(db.String(20), nullable=True)
     time= db.Column(db.String(20), nullable=True)
+    category= db.Column(db.String(20), nullable=True)
 
     cook_id = db.Column(db.Integer, db.ForeignKey("cook.id"), nullable=False)
     # category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True)

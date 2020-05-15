@@ -74,9 +74,9 @@ const RecipeDetails = (props) => {
       <DetailsDiv>
         <StyledP>{props.recipe.title}</StyledP>
         <TagList>
-          <Tag color="default">vegetarian</Tag>
-          <Tag color="default">1h30min</Tag>
-          <Tag color="default">4 portion(s)</Tag>
+          <Tag color="default">{props.recipe.category}</Tag>
+          <Tag color="default">{props.recipe.time}</Tag>
+          <Tag color="default">{props.recipe.portions}portion(s)</Tag>
         </TagList>
         <StyledDescription>{props.recipe.description}</StyledDescription>
       </DetailsDiv>
@@ -89,12 +89,10 @@ RecipeDetails.propTypes = {};
 
 const mapStateToProps = (state) => ({
   recipe: state.recipe.recipe,
-  categories: state.recipe.categories,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getRecipeById: (id) => dispatch(getRecipeById(id)),
-  fetchCategories: () => dispatch(fetchCategories()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

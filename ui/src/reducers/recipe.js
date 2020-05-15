@@ -5,12 +5,6 @@ import {
   RECIPE_SUCCESS,
 } from "../actions/recipe";
 
-import {
-  FETCH_CATEGORY_FAIL,
-  FETCH_CATEGORY_SUCCESS,
-  FETCH_CATEGORY_REQUEST,
-} from "../actions/category";
-
 const initialState = {
   loading: true,
   recipes: [],
@@ -44,23 +38,7 @@ function recipeReducer(state = initialState, action) {
         loading: false,
         error: action.payload,
       };
-    case FETCH_CATEGORY_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case FETCH_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        categories: action.payload,
-      };
-    case FETCH_CATEGORY_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+
     default:
       return state;
   }
