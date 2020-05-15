@@ -5,6 +5,7 @@ from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError
 from schemas.image import ImageSchema
 from flask_uploads import IMAGES, UploadSet
+import json
 
 recipe_schemas = RecipeSchema()
 image_schemas = ImageSchema()
@@ -24,11 +25,14 @@ class Recipe(Resource):
                 "success": False,
                 "code": 404
             }, 404
+
+        recipe = recipe_schemas.dump(recipe)
+        recipe["ingredients"] = [{'name': r['name'], 'quantity': r['quantity'],'measurement': r['measurement'] } for r in json.loads(recipe["ingredients"])]
         
         return {
             "success": True,
             "code":200,
-            "result": recipe_schemas.dump(recipe)
+            "result": recipe
         }, 200
     def patch(self, id):
         recipe = RecipeModel.find_by_id(id)
@@ -102,6 +106,7 @@ class RecipesList(Resource):
     def post(self):
         # fetch data from the body as json
         data = request.get_json()
+        data["ingredients"] = json.dumps(data["ingredients"])
 
         # search if that name of the recipe exists
         if RecipeModel.find_by_title(data["title"]):

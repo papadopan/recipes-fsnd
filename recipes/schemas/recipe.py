@@ -7,6 +7,6 @@ from models.category import CategoryModel
 class RecipeSchema(ma.ModelSchema):
     class Meta:
         model = RecipeModel
-        load_only = ("id", "recipes", "category")
+        load_only = ("recipes", "category")
         include_fk = True
 
