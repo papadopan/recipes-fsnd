@@ -4,6 +4,9 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import { Input, Select, Button } from "antd";
 import * as Yup from "yup";
 
+import { connect } from "react-redux";
+import { addRecipe } from "../../../actions/recipe";
+
 const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
   <div>
     <Input type="text" {...field} {...props} />
@@ -25,7 +28,7 @@ const RecipeForm = (props) => {
         ingredients: [{ name: "", quantity: "", measurement: "" }],
       }}
       onSubmit={(values, actions) => {
-        console.log("--------->>>>>>>", values);
+        props.addRecipe(values);
         actions.setSubmitting(false);
       }}
       validationSchema={Yup.object({
@@ -136,4 +139,10 @@ const RecipeForm = (props) => {
 
 RecipeForm.propTypes = {};
 
-export default RecipeForm;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  addRecipe: (recipe) => dispatch(addRecipe(recipe)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeForm);

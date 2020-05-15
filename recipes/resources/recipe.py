@@ -108,6 +108,10 @@ class RecipesList(Resource):
         data = request.get_json()
         data["ingredients"] = json.dumps(data["ingredients"])
 
+
+        print("-------")
+        print(data)
+
         # search if that name of the recipe exists
         if RecipeModel.find_by_title(data["title"]):
             return {

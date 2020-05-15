@@ -16,8 +16,8 @@ const MainDiv = styled.div`
 const RecipeList = ({ recipes }) => {
   return (
     <MainDiv>
-      {recipes.map((recipe) => (
-        <RecipeBox recipe={recipe} />
+      {recipes.map((recipe, index) => (
+        <RecipeBox key={index} recipe={recipe} />
       ))}
     </MainDiv>
   );

@@ -63,8 +63,9 @@ const RecipeDetails = (props) => {
   }, []);
 
   if (!props.recipe) {
-    return <div>empty</div>;
+    return <div>waiting</div>;
   }
+
   return (
     <MainDiv>
       <ImgDiv>

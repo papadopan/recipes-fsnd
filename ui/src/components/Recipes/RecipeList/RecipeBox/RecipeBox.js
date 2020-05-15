@@ -2,7 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 import RecipeStats from "./RecipeStats";
+
+const SLink = styled(Link)`
+  color: black;
+`;
 
 const MainDiv = styled.div`
   border: 1px solid black;
@@ -41,10 +47,10 @@ const RecipeBox = ({ recipe }) => {
     <MainDiv>
       <Image src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
       <Details>
-        <div>
+        <SLink to={`recipe/${recipe.id}`}>
           <H1>{recipe.title}</H1>
           <p>{recipe.description}</p>
-        </div>
+        </SLink>
         <Stats>
           <RecipeStats icon="time" label="1 hour 3 mins" />
           <RecipeStats icon="category" label="vegeterian" />
