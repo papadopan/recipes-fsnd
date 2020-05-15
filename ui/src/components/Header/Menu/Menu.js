@@ -21,9 +21,9 @@ const ListItem = styled(Link)`
 const Menu = (props) => {
   return (
     <List>
-      <ListItem to="recipe">Recipes</ListItem>
-      <ListItem to="cook">Cooks</ListItem>
-      <ListItem to="create">Create</ListItem>
+      <ListItem to="/recipe">Recipes</ListItem>
+      <ListItem to="/cook">Cooks</ListItem>
+      <ListItem to="/create">Create</ListItem>
       <ListItem to="/">Login</ListItem>
     </List>
   );

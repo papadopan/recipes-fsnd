@@ -47,7 +47,7 @@ const RecipeBox = ({ recipe }) => {
     <MainDiv>
       <Image src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
       <Details>
-        <SLink to={`recipe/${recipe.id}`}>
+        <SLink to={`/recipe/${recipe.id}`}>
           <H1>{recipe.title}</H1>
           <p>{recipe.description}</p>
         </SLink>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import { Input, Select, Button } from "antd";
@@ -6,6 +6,7 @@ import * as Yup from "yup";
 
 import { connect } from "react-redux";
 import { addRecipe } from "../../../actions/recipe";
+import { fetchCategories } from "../../../actions/category";
 
 const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
   <div>
@@ -17,12 +18,16 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
 );
 
 const RecipeForm = (props) => {
+  useEffect(() => {
+    props.fetchCategories();
+  }, []);
   return (
     <Formik
       initialValues={{
+        cook_id: "1",
         title: "",
         description: "",
-        category: "",
+        category_id: "",
         portions: "",
         time: "",
         ingredients: [{ name: "", quantity: "", measurement: "" }],
@@ -38,7 +43,7 @@ const RecipeForm = (props) => {
         description: Yup.string()
           .max(200, "Description should be less than 200 characters")
           .required("Description is mandatory"),
-        category: Yup.string().required("Category is mandatory"),
+        category_id: Yup.string().required("Category is mandatory"),
         time: Yup.string().required("Time is a required field"),
         portions: Yup.string().required("Portions is a required field"),
         ingredients: Yup.array()
@@ -66,13 +71,16 @@ const RecipeForm = (props) => {
             component={TextComponent}
           />
           <label>Category:</label>
-          <Field name="category" as="select" placeholder="Category">
+          <Field name="category_id" as="select" placeholder="Category">
+            {console.log("---->>>>>>", props.categories)}
             <option> Fill in Category</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="vegan">Vegan</option>
-            <option value="meat lovers">Meat lovers</option>
+            {props.categories.map((cat, index) => (
+              <option key={index} value={cat.id}>
+                {cat.title}
+              </option>
+            ))}
           </Field>
-          <ErrorMessage name="category" component="div" />
+          <ErrorMessage name="category_id" component="div" />
           <Field
             name="portions"
             placeholder="Portions"
@@ -139,10 +147,13 @@ const RecipeForm = (props) => {
 
 RecipeForm.propTypes = {};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  categories: state.recipe.categories,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addRecipe: (recipe) => dispatch(addRecipe(recipe)),
+  fetchCategories: () => dispatch(fetchCategories()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeForm);

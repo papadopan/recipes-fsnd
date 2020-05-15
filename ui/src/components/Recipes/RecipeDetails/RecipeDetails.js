@@ -89,10 +89,12 @@ RecipeDetails.propTypes = {};
 
 const mapStateToProps = (state) => ({
   recipe: state.recipe.recipe,
+  categories: state.recipe.categories,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getRecipeById: (id) => dispatch(getRecipeById(id)),
+  fetchCategories: () => dispatch(fetchCategories()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

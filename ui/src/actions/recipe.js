@@ -90,13 +90,6 @@ export const addRecipe = (recipe) => async (dispatch) => {
   // init the request
   dispatch(addRecipeRequest());
 
-  console.log("0000000000", recipe);
-
-  recipe.cook_id = 1;
-  recipe.category_id = 1;
-
-  delete recipe.category;
-
   try {
     const response = await axios({
       method: "post",
