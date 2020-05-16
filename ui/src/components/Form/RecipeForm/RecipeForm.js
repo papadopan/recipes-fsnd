@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-import { Input, Select, Button } from "antd";
+import { Input, Select, Button, InputNumber } from "antd";
 import * as Yup from "yup";
 
 import { connect } from "react-redux";
@@ -41,7 +41,10 @@ const RecipeForm = (props) => {
           .required("Description is mandatory"),
         category: Yup.string().required("Category is mandatory"),
         time: Yup.string().required("Time is a required field"),
-        portions: Yup.string().required("Portions is a required field"),
+        portions: Yup.string()
+          .min(1, "Recipe should be at least for one person")
+          .max(15, "Seems that a recipe can be up to 15 people")
+          .required("Portions is a required field"),
         ingredients: Yup.array()
           .of(
             Yup.object().shape({

@@ -10,7 +10,7 @@ class RecipeModel(db.Model):
     image_name = db.Column(db.String(50))
     image_file = db.Column(db.LargeBinary)
     ingredients = db.Column(db.String(10000), nullable=True)
-    portions= db.Column(db.String(20), nullable=True)
+    portions= db.Column(db.String(3), nullable=True)
     time= db.Column(db.String(20), nullable=True)
     category= db.Column(db.String(20), nullable=True)
 
