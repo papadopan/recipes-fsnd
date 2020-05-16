@@ -11,6 +11,9 @@ export const CREATE_RECIPE_REQUEST = "CREATE_RECIPE_REQUEST";
 export const CREATE_RECIPE_SUCCESS = "CREATE_RECIPE_SUCCESS";
 export const CREATE_RECIPE_FAIL = "CREATE_RECIPE_FAIL";
 
+export const UPDATE_RECIPE_REQUEST = "UPDATE_RECIPE_REQUEST";
+export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
+export const UPDATE_RECIPE_FAIL = "UPDATE_RECIPE_FAIL";
 // cook functions
 export function recipesRequest() {
   return {
@@ -57,6 +60,26 @@ export function addRecipeFail(error) {
   };
 }
 
+export function updateRecipeRequest() {
+  return {
+    type: UPDATE_RECIPE_REQUEST,
+  };
+}
+
+export function updateRecipeSuccess(recipe) {
+  return {
+    type: UPDATE_RECIPE_SUCCESS,
+    payload: recipe,
+  };
+}
+
+export function updateRecipeFail(error) {
+  return {
+    type: UPDATE_RECIPE_FAIL,
+    payload: error,
+  };
+}
+
 // access functions
 export const getAllRecipes = () => async (dispatch) => {
   // start the request
@@ -99,5 +122,22 @@ export const addRecipe = (recipe) => async (dispatch) => {
     dispatch(addRecipeSuccess(response.data.recipe));
   } catch (error) {
     dispatch(addRecipeFail(error));
+  }
+};
+
+export const updateRecipeById = (recipe, id) => async (dispatch) => {
+  // init the request
+  dispatch(updateRecipeRequest());
+
+  try {
+    // send the reqiest
+    const response = await axios({
+      method: "patch",
+      url: `http://127.0.0.1:5000/api/recipe/${id}`,
+      data: recipe,
+    });
+    dispatch(updateRecipeSuccess(response.data.result));
+  } catch (error) {
+    dispatch(updateRecipeFail(error));
   }
 };

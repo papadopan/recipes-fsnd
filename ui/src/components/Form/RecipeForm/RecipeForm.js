@@ -19,17 +19,23 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
 const RecipeForm = (props) => {
   return (
     <Formik
-      initialValues={{
-        cook_id: "1",
-        title: "",
-        description: "",
-        category: "",
-        portions: "",
-        time: "",
-        ingredients: [{ name: "", quantity: "", measurement: "" }],
-      }}
+      initialValues={
+        props.recipe
+          ? props.recipe
+          : {
+              cook_id: "1",
+              title: "",
+              description: "",
+              category: "",
+              portions: "",
+              time: "",
+              ingredients: [{ name: "", quantity: "", measurement: "" }],
+            }
+      }
       onSubmit={(values, actions) => {
-        props.addRecipe(values);
+        props.updateRecipe
+          ? props.updateRecipe(values)
+          : props.addRecipe(values);
         actions.setSubmitting(false);
       }}
       validationSchema={Yup.object({
@@ -84,7 +90,11 @@ const RecipeForm = (props) => {
             placeholder="Portions"
             component={TextComponent}
           />
-          <Field name="time" placeholder="Time" component={TextComponent} />
+          <Field
+            name="time"
+            placeholder="Time in mins"
+            component={TextComponent}
+          />
           <label>Ingredients</label>
           {console.log("Values", values)}
           <FieldArray

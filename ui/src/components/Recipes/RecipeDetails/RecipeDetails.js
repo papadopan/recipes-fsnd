@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Tag } from "antd";
 import IngredientList from "../IngredientList";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import EditModal from "../../Form/EditModal";
 
-import { getRecipeById } from "../../../actions/recipe";
+import { getRecipeById, updateRecipeById } from "../../../actions/recipe";
 import { connect } from "react-redux";
 
 const MainDiv = styled.div`
@@ -57,10 +59,37 @@ const TagList = styled.div`
   margin: 1em 0;
 `;
 
+const ActionsDiv = styled.div`
+  svg {
+    margin: 0 2em;
+    cursor: pointer;
+
+    :first-child {
+      :hover {
+        color: var(--color-main);
+      }
+    }
+    :last-child {
+      :hover {
+        color: var(--color-error);
+      }
+    }
+  }
+`;
+
 const RecipeDetails = (props) => {
   useEffect(() => {
     props.getRecipeById(props.match.params.id);
   }, []);
+
+  const [modal, setModal] = useState(false);
+
+  const _updateRecipe = (values) => {
+    console.log("------");
+    console.log(props.match.params.id, values);
+    console.log("------");
+    props.updateRecipeById(values, props.match.params.id);
+  };
 
   if (!props.recipe) {
     return <div>waiting</div>;
@@ -75,9 +104,20 @@ const RecipeDetails = (props) => {
         <StyledP>{props.recipe.title}</StyledP>
         <TagList>
           <Tag color="default">{props.recipe.category}</Tag>
-          <Tag color="default">{props.recipe.time}</Tag>
-          <Tag color="default">{props.recipe.portions}portion(s)</Tag>
+          <Tag color="default">{props.recipe.time} mins</Tag>
+          <Tag color="default">{props.recipe.portions} portion(s)</Tag>
         </TagList>
+        <ActionsDiv>
+          <AiOutlineEdit size="2em" onClick={() => setModal(!modal)} />
+          <AiOutlineDelete size="2em" />
+        </ActionsDiv>
+        <EditModal
+          visible={modal}
+          updateModal={() => setModal(!modal)}
+          recipe={props.recipe}
+          updateRecipe={(values) => _updateRecipe(values)}
+          id={props.match.params.id}
+        />
         <StyledDescription>{props.recipe.description}</StyledDescription>
       </DetailsDiv>
       <IngredientList data={props.recipe.ingredients} />
@@ -93,6 +133,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getRecipeById: (id) => dispatch(getRecipeById(id)),
+  updateRecipeById: (recipe, id) => dispatch(updateRecipeById(recipe, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

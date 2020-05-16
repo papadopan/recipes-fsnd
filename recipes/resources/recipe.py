@@ -50,6 +50,10 @@ class Recipe(Resource):
         
         recipe.title = data["title"]
         recipe.description = data["description"]
+        recipe.ingredients = json.dumps(data["ingredients"])
+        recipe.category = data["category"]
+        recipe.time = data["time"]
+        recipe.portions = data["portions"]
 
             
         # save the update data
@@ -62,11 +66,14 @@ class Recipe(Resource):
                 "success": False
             }, 500
 
+
+        recipe = recipe_schemas.dump(recipe)
+        recipe["ingredients"] = [{'name': r['name'], 'quantity': r['quantity'],'measurement': r['measurement'] } for r in json.loads(recipe["ingredients"])]
         return {
             "message": "recipe successfully updated",
             "code":200,
             "success": True,
-            "result": recipe_schemas.dump(recipe)
+            "result": recipe
         }, 200
     def delete(self, id):
         recipe = RecipeModel.find_by_id(id=id)
