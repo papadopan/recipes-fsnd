@@ -10,7 +10,7 @@ const InnerDiv = styled.div`
   align-items: center;
   justify-content: center;
   background: white;
-  width: 300px;
+  width: 260px;
   height: 300px;
   border-radius: 5px;
   box-shadow: 2px 8px 16px rgba(24, 50, 115, 0.2);

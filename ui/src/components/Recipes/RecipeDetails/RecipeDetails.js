@@ -90,6 +90,7 @@ const RecipeDetails = (props) => {
 
   const _updateRecipe = (values) => {
     props.updateRecipeById(values, props.match.params.id);
+    setModal(!modal);
   };
 
   if (!props.recipe) {

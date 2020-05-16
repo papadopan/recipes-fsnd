@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-import { Input, Select, Button, InputNumber } from "antd";
+import { Input, Button } from "antd";
 import * as Yup from "yup";
 
 import { connect } from "react-redux";
 import { addRecipe } from "../../../actions/recipe";
+import { getAllCooks } from "../../../actions/cook";
 
 const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
   <div>
@@ -17,13 +18,20 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
 );
 
 const RecipeForm = (props) => {
+  useEffect(() => {
+    props.getAllCooks();
+  }, []);
+
+  if (props.cooks.length === 0) {
+    return <div>Please add first a cook</div>;
+  }
   return (
     <Formik
       initialValues={
         props.recipe
           ? props.recipe
           : {
-              cook_id: "1",
+              cook_id: "",
               title: "",
               description: "",
               category: "",
@@ -83,6 +91,15 @@ const RecipeForm = (props) => {
             <option value="lunch"> Lunch</option>
             <option value="dinner"> Dinner</option>
             <option value="snak"> snak</option>
+          </Field>
+          <label>Created By:</label>
+          <Field name="cook_id" as="select" placeholder="Select Cook">
+            <option> Select Cook</option>
+            {props.cooks.map((cook, index) => (
+              <option value={cook.id}>
+                {cook.first_name} {cook.last_name}
+              </option>
+            ))}
           </Field>
           <ErrorMessage name="category" component="div" />
           <Field
@@ -157,10 +174,12 @@ RecipeForm.propTypes = {};
 
 const mapStateToProps = (state) => ({
   categories: state.recipe.categories,
+  cooks: state.cook.cooks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addRecipe: (recipe) => dispatch(addRecipe(recipe)),
+  getAllCooks: () => dispatch(getAllCooks()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeForm);
