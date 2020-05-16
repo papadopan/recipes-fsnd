@@ -6,6 +6,9 @@ import {
   UPDATE_RECIPE_SUCCESS,
   UPDATE_RECIPE_FAIL,
   UPDATE_RECIPE_REQUEST,
+  DELETE_RECIPE_FAIL,
+  DELETE_RECIPE_REQUEST,
+  DELETE_RECIPE_SUCCESS,
 } from "../actions/recipe";
 
 const initialState = {
@@ -61,6 +64,23 @@ function recipeReducer(state = initialState, action) {
         error: action.payload,
       };
 
+    case DELETE_RECIPE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        recipe: null,
+      };
+    case DELETE_RECIPE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_RECIPE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

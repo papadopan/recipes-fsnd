@@ -6,7 +6,11 @@ import IngredientList from "../IngredientList";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import EditModal from "../../Form/EditModal";
 
-import { getRecipeById, updateRecipeById } from "../../../actions/recipe";
+import {
+  getRecipeById,
+  updateRecipeById,
+  deleteRecipeById,
+} from "../../../actions/recipe";
 import { connect } from "react-redux";
 
 const MainDiv = styled.div`
@@ -85,9 +89,6 @@ const RecipeDetails = (props) => {
   const [modal, setModal] = useState(false);
 
   const _updateRecipe = (values) => {
-    console.log("------");
-    console.log(props.match.params.id, values);
-    console.log("------");
     props.updateRecipeById(values, props.match.params.id);
   };
 
@@ -109,7 +110,10 @@ const RecipeDetails = (props) => {
         </TagList>
         <ActionsDiv>
           <AiOutlineEdit size="2em" onClick={() => setModal(!modal)} />
-          <AiOutlineDelete size="2em" />
+          <AiOutlineDelete
+            size="2em"
+            onClick={() => props.deleteRecipeById(props.match.params.id)}
+          />
         </ActionsDiv>
         <EditModal
           visible={modal}
@@ -134,6 +138,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getRecipeById: (id) => dispatch(getRecipeById(id)),
   updateRecipeById: (recipe, id) => dispatch(updateRecipeById(recipe, id)),
+  deleteRecipeById: (id) => dispatch(deleteRecipeById(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

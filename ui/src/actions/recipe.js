@@ -1,4 +1,5 @@
 import axios from "axios";
+import { push } from "connected-react-router";
 
 // cook types
 
@@ -14,6 +15,11 @@ export const CREATE_RECIPE_FAIL = "CREATE_RECIPE_FAIL";
 export const UPDATE_RECIPE_REQUEST = "UPDATE_RECIPE_REQUEST";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
 export const UPDATE_RECIPE_FAIL = "UPDATE_RECIPE_FAIL";
+
+export const DELETE_RECIPE_REQUEST = "DELETE_RECIPE_REQUEST";
+export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
+export const DELETE_RECIPE_FAIL = "DELETE_RECIPE_FAIL";
+
 // cook functions
 export function recipesRequest() {
   return {
@@ -80,6 +86,23 @@ export function updateRecipeFail(error) {
   };
 }
 
+export function deleteRecipeRequest() {
+  return {
+    type: DELETE_RECIPE_REQUEST,
+  };
+}
+export function deleteRecipeSuccess() {
+  return {
+    type: DELETE_RECIPE_SUCCESS,
+  };
+}
+export function deleteRecipeFail(error) {
+  return {
+    type: DELETE_RECIPE_FAIL,
+    payload: error,
+  };
+}
+
 // access functions
 export const getAllRecipes = () => async (dispatch) => {
   // start the request
@@ -139,5 +162,22 @@ export const updateRecipeById = (recipe, id) => async (dispatch) => {
     dispatch(updateRecipeSuccess(response.data.result));
   } catch (error) {
     dispatch(updateRecipeFail(error));
+  }
+};
+
+export const deleteRecipeById = (id) => async (dispatch) => {
+  // init request
+  dispatch(deleteRecipeRequest());
+
+  try {
+    const response = await axios({
+      method: "delete",
+      url: `http://127.0.0.1:5000/api/recipe/${id}`,
+    });
+
+    dispatch(deleteRecipeSuccess());
+    dispatch(push("/recipe"));
+  } catch (error) {
+    dispatch(deleteRecipeFail(error));
   }
 };
