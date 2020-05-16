@@ -54,6 +54,7 @@ class Recipe(Resource):
         recipe.category = data["category"]
         recipe.time = data["time"]
         recipe.portions = data["portions"]
+        recipe.cook_id = data["cook_id"]
 
             
         # save the update data

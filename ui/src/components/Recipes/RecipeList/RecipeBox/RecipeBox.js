@@ -53,9 +53,9 @@ const RecipeBox = ({ recipe }) => {
         <H1>{recipe.title}</H1>
         <p>{recipe.description}</p>
         <Stats>
-          <RecipeStats icon="time" label="1 hour 3 mins" />
-          <RecipeStats icon="category" label="vegeterian" />
-          <RecipeStats icon="portion" label="4 portion(s)" />
+          <RecipeStats icon="time" label={`${recipe.time} mins`} />
+          <RecipeStats icon="category" label={recipe.category} />
+          <RecipeStats icon="portion" label={`${recipe.portions} portion(s)`} />
         </Stats>
         <SLink to={`/recipe/${recipe.id}`}>
           <BsArrowRight size="2em" />

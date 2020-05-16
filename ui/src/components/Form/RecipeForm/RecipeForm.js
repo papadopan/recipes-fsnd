@@ -86,11 +86,11 @@ const RecipeForm = (props) => {
           <label>Category:</label>
           <Field name="category" as="select" placeholder="Category">
             <option> Fill in Category</option>
-            <option value="breakfast"> Breakfast</option>
+            <option value="breakfast"> breakfast</option>
             <option value="brunch"> Brunch</option>
             <option value="lunch"> Lunch</option>
-            <option value="dinner"> Dinner</option>
-            <option value="snak"> snak</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
           </Field>
           <label>Created By:</label>
           <Field name="cook_id" as="select" placeholder="Select Cook">
