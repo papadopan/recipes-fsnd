@@ -16,7 +16,7 @@ const MainDiv = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 10em;
+  font-size: 6em;
   font-weight: 300;
   color: var(--color-yellow);
 `;

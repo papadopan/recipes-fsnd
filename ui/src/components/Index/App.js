@@ -16,24 +16,27 @@ const { Content, Header } = Layout;
 
 const AntHeader = styled(Header)`
   background: var(--color-main);
+  min-height: 6vh;
 `;
 
 const AntFooter = styled(Layout.Footer)`
   background: var(--color-main);
   text-align: center;
   color: var(--color-white);
+  min-height: 9vh;
 `;
 
-const AntLayout = styled(Layout)`
-  min-heigth: 100vh;
+const AntContent = styled(Content)`
+  min-height: 85vh;
 `;
+
 function App({ user, login }) {
   return (
-    <AntLayout>
+    <Layout>
       <AntHeader>
         <RecipeHeader />
       </AntHeader>
-      <Content>
+      <AntContent>
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route exact path="/recipe" component={Recipes} />
@@ -41,11 +44,11 @@ function App({ user, login }) {
           <Route exact path="/recipe/:id" component={RecipeDetails} />
           <Route exact path="/cook" component={Cook} />
         </Switch>
-      </Content>
+      </AntContent>
       <AntFooter>
         <Footer />
       </AntFooter>
-    </AntLayout>
+    </Layout>
   );
 }
 
