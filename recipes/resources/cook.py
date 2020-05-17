@@ -4,6 +4,8 @@ from marshmallow import ValidationError
 from schemas.cook import CookSchema
 from models.cook import CookModel
 
+from auth import AuthError, requires_auth
+
 
 cook_schema = CookSchema()
 cook_list_schema = CookSchema(many=True)
@@ -25,7 +27,7 @@ class Cook(Resource):
             "code": 200,
             "result": cook_schema.dump(cook)
         }, 200
-    
+ 
     def patch(self, id):
         cook = CookModel.find_by_id(id)
 
@@ -89,7 +91,6 @@ class Cook(Resource):
 
     
 
-
 class CookList(Resource):
     def get(self):
         return{
@@ -100,7 +101,8 @@ class CookList(Resource):
             "result":cook_list_schema.dump(CookModel.query.all())
         }
     
-    def post(self):
+    @requires_auth("actions:admin") 
+    def post(self, permission):
         # fetch data
         data = request.get_json()
 

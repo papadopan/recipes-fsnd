@@ -111,11 +111,15 @@ const RecipeDetails = (props) => {
           <Tag color="default">{props.recipe.portions} portion(s)</Tag>
         </TagList>
         <ActionsDiv>
-          <AiOutlineEdit size="2em" onClick={() => setModal(!modal)} />
-          <AiOutlineDelete
-            size="2em"
-            onClick={() => props.deleteRecipeById(props.match.params.id)}
-          />
+          {(props.type === "user" || props.type === "admin") && (
+            <AiOutlineEdit size="2em" onClick={() => setModal(!modal)} />
+          )}
+          {props.type === "admin" && (
+            <AiOutlineDelete
+              size="2em"
+              onClick={() => props.deleteRecipeById(props.match.params.id)}
+            />
+          )}
         </ActionsDiv>
         <EditModal
           visible={modal}
@@ -135,6 +139,7 @@ RecipeDetails.propTypes = {};
 
 const mapStateToProps = (state) => ({
   recipe: state.recipe.recipe,
+  type: state.auth.type,
 });
 
 const mapDispatchToProps = (dispatch) => ({

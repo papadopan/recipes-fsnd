@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import empty from "../../utils/images/empty.svg";
+import jwt_decode from "jwt-decode";
 
 import { getAllRecipes } from "../../actions/recipe";
+import { loginUser } from "../../actions/auth";
+
 import { Spin, Space } from "antd";
 
 import RecipeHeader from "./RecipeList/RecipeHeader";
@@ -34,12 +37,17 @@ const P = styled.p`
   margin: 1em;
 `;
 
-const Recipes = ({ getAllRecipes, recipes, loading }) => {
+const Recipes = (props) => {
   useEffect(() => {
-    getAllRecipes();
+    props.getAllRecipes();
+
+    if (!props.loggedin && props.location && props.location.hash) {
+      let h = props.location.hash.substr(1).split("&")[0].split("=")[1];
+      props.loginUser(jwt_decode(h).permissions[0]);
+    }
   }, []);
 
-  if (loading) {
+  if (props.loading) {
     return (
       <MainDiv>
         <Space>
@@ -52,8 +60,8 @@ const Recipes = ({ getAllRecipes, recipes, loading }) => {
   return (
     <MainDiv>
       <RecipeHeader />
-      {recipes.length > 0 ? (
-        <RecipeList recipes={recipes} />
+      {props.recipes.length > 0 ? (
+        <RecipeList recipes={props.recipes} />
       ) : (
         <StyledDiv>
           <Img src={empty} />
@@ -69,10 +77,12 @@ Recipes.propTypes = {};
 const mapStateToProps = (state) => ({
   recipes: state.recipe.recipes,
   loading: state.recipe.loading,
+  loggedin: state.auth.loggedin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getAllRecipes: () => dispatch(getAllRecipes()),
+  loginUser: (permissions) => dispatch(loginUser(permissions)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

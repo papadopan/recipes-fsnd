@@ -7,11 +7,27 @@ import styled from "styled-components";
 import { addNewCook } from "../../../actions/cook";
 import { connect } from "react-redux";
 import { Spin, Space } from "antd";
+import empty from "../../../utils/images/empty.svg";
 
 const Error = styled.div`
   color: var(--color-error);
 `;
 
+const Img = styled.img`
+  width: 200px;
+  height: 200px;
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const P = styled.p`
+  font-size: 2em;
+  margin: 1em;
+`;
 const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
   <div style={{ margin: "10px" }}>
     <Input type="text" {...field} {...props} />
@@ -21,7 +37,15 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
   </div>
 );
 
-const CookForm = ({ addCook }) => {
+const CookForm = ({ addCook, type }) => {
+  if (type != "admin") {
+    return (
+      <StyledDiv>
+        <Img src={empty} />
+        <P>Only admins are allowed to add a new cook...</P>
+      </StyledDiv>
+    );
+  }
   return (
     <Formik
       initialValues={{
@@ -81,7 +105,9 @@ const CookForm = ({ addCook }) => {
 
 CookForm.propTypes = {};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  type: state.auth.type,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addCook: (cook) => dispatch(addNewCook(cook)),

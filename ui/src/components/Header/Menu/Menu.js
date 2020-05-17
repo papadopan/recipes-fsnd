@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const List = styled.ul`
   list-style: none;
@@ -18,17 +19,35 @@ const ListItem = styled(Link)`
   }
 `;
 
-const Menu = (props) => {
+const Menu = ({ loggedin, type }) => {
   return (
     <List>
-      <ListItem to="/recipe">Recipes</ListItem>
-      <ListItem to="/cook">Cooks</ListItem>
-      <ListItem to="/create">Create</ListItem>
-      <ListItem to="/">Login</ListItem>
+      {loggedin && (
+        <React.Fragment>
+          <ListItem to="/recipe">Recipes</ListItem>
+        </React.Fragment>
+      )}
+      {(type === "user" || type === "admin") && (
+        <React.Fragment>
+          <ListItem to="/create">Create</ListItem>
+          <ListItem to="/cook">Cooks</ListItem>
+        </React.Fragment>
+      )}
+
+      <a href="https://dev-t0uvp9wb.eu.auth0.com/v2/logout?client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr">
+        logout
+      </a>
     </List>
   );
 };
 
 Menu.propTypes = {};
 
-export default Menu;
+const mapStateToProps = (state) => ({
+  loggedin: state.auth.loggedin,
+  type: state.auth.type,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

@@ -11,6 +11,8 @@ recipe_schemas = RecipeSchema()
 image_schemas = ImageSchema()
 recipe_list_schemas = RecipeSchema(many=True)
 
+from auth import AuthError, requires_auth
+
 
 
 images = UploadSet("images", IMAGES)
@@ -34,6 +36,8 @@ class Recipe(Resource):
             "code":200,
             "result": recipe
         }, 200
+
+    @requires_auth("actions:user")
     def patch(self, id):
         recipe = RecipeModel.find_by_id(id)
 
@@ -76,6 +80,8 @@ class Recipe(Resource):
             "success": True,
             "result": recipe
         }, 200
+
+    @requires_auth("actions:admin")
     def delete(self, id):
         recipe = RecipeModel.find_by_id(id=id)
 

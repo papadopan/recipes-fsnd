@@ -11,6 +11,7 @@
     "connected-react-router": "^6.8.0",
     "formik": "^2.1.4",
     "history": "^4.10.1",
+    "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
