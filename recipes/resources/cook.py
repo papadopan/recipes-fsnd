@@ -38,11 +38,11 @@ class Cook(Resource):
         
         data = request.get_json()
 
-        country = data["country"]
-        city = data["city"]
-
-        cook.country = country
-        cook.city = city
+        cook.country = data["country"]
+        cook.city = data["city"]
+        cook.first_name = data["first_name"]
+        cook.last_name = data["last_name"]
+        cook.email = data["email"]
 
         # update the data
         try:            
