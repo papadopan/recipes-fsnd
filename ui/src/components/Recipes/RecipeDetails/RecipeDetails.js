@@ -57,6 +57,7 @@ const StyledDescription = styled.p`
   width: 100%;
   max-width: 500px;
   line-height: 2em;
+  text-align: center;
 `;
 
 const TagList = styled.div`
