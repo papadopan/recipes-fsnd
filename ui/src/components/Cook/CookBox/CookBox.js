@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import { AiOutlineEnvironment, AiOutlineMail } from "react-icons/ai";
 import { GiKnifeFork } from "react-icons/gi";
 import styled from "styled-components";
+import { AiOutlineDelete } from "react-icons/ai";
+import { connect } from "react-redux";
+
+import { deleteCookById } from "../../../actions/cook";
 
 const InnerDiv = styled.div`
   display: flex;
@@ -44,7 +48,7 @@ const Img = styled.img`
   border: 4px solid var(--color-white);
 `;
 
-const CookBox = ({ cook }) => {
+const CookBox = ({ cook, deleteCook, permissions }) => {
   return (
     <InnerDiv>
       <Img src="https://images.unsplash.com/photo-1586297098710-0382a496c814?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
@@ -67,10 +71,23 @@ const CookBox = ({ cook }) => {
           <Label>{cook.recipe_list.length} recipes</Label>
         </Item>
       </PersonalDetails>
+      {permissions.includes("delete:cook") && (
+        <div onClick={() => deleteCook(cook.id)}>
+          <AiOutlineDelete size="1.5em" />
+        </div>
+      )}
     </InnerDiv>
   );
 };
 
 CookBox.propTypes = {};
 
-export default CookBox;
+const mapStateToProps = (state) => ({
+  permissions: state.auth.permissions,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  deleteCook: (id) => dispatch(deleteCookById(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CookBox);

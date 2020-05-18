@@ -10,6 +10,10 @@ export const COOK_CREATE_REQUEST = "COOK_CREATE_REQUEST";
 export const COOK_CREATE_SUCCESS = "COOK_CREATE_SUCCESS";
 export const COOK_CREATE_FAIL = "COOK_CREATE_FAIL";
 
+export const DELETE_REQUEST = "DELETE_REQUEST";
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
+export const DELETE_FAIL = "DELETE_FAIL";
+
 // cook functions
 export function cooksRequest() {
   return {
@@ -51,6 +55,26 @@ export function addNewCookFail(error) {
   };
 }
 
+export function deleteRequest() {
+  return {
+    type: DELETE_REQUEST,
+  };
+}
+
+export function deleteSuccess(cook) {
+  return {
+    type: DELETE_SUCCESS,
+    payload: cook,
+  };
+}
+
+export function deleteFail(error) {
+  return {
+    type: DELETE_FAIL,
+    payload: error,
+  };
+}
+
 // access functions
 
 export const getAllCooks = () => async (dispatch) => {
@@ -85,5 +109,28 @@ export const addNewCook = (cook) => async (dispatch, getState) => {
   } catch (error) {
     //request failed
     dispatch(addNewCookFail(error));
+  }
+};
+
+export const deleteCookById = (id) => async (dispatch, getState) => {
+  dispatch(deleteRequest());
+  const token = getState().auth.token;
+  const cooks = getState().cook.cooks;
+  try {
+    const response = await axios({
+      method: "delete",
+      url: `http://127.0.0.1:5000/api/cook/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    let updated = [];
+    if (cooks.length > 1) {
+      updated = cooks.splice(response.data.result, 1);
+    }
+
+    dispatch(deleteSuccess(updated));
+    dispatch(push("/cook"));
+  } catch (error) {
+    dispatch(deleteFail(error));
   }
 };

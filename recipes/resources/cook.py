@@ -61,8 +61,8 @@ class Cook(Resource):
             "code": 200,
             "result": cook_schema.dump(cook)
         }
-        
-    def delete(self, id):
+    @requires_auth("delete:cook")
+    def delete(self,permission,id):
         cook = CookModel.find_by_id(id)  
 
         if cook is None:

@@ -19,6 +19,14 @@ const ListItem = styled(Link)`
   }
 `;
 
+const A = styled.a`
+  color: var(--color-white);
+
+  :hover {
+    color: var(--color-yellow);
+  }
+`;
+
 const Menu = (props) => {
   return (
     <List>
@@ -31,13 +39,13 @@ const Menu = (props) => {
       )}
 
       {props.token ? (
-        <a href="https://dev-t0uvp9wb.eu.auth0.com/v2/logout?client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr">
+        <A href="https://dev-t0uvp9wb.eu.auth0.com/v2/logout?client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr">
           logout
-        </a>
+        </A>
       ) : (
-        <a href="https://dev-t0uvp9wb.eu.auth0.com/authorize?audience=recipe&response_type=token&client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr&redirect_uri=http://localhost:3000/recipe">
+        <A href="https://dev-t0uvp9wb.eu.auth0.com/authorize?audience=recipe&response_type=token&client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr&redirect_uri=http://localhost:3000/recipe">
           Login
-        </a>
+        </A>
       )}
     </List>
   );

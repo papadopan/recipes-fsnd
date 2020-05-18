@@ -5,6 +5,9 @@ import {
   COOK_CREATE_FAIL,
   COOK_CREATE_REQUEST,
   COOK_CREATE_SUCCESS,
+  DELETE_REQUEST,
+  DELETE_SUCCESS,
+  DELETE_FAIL,
 } from "../actions/cook";
 
 const initialState = {
@@ -45,6 +48,24 @@ function cookReducer(state = initialState, action) {
       return {
         ...state,
         error: action.error,
+      };
+    case DELETE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_SUCCESS:
+      return {
+        ...state,
+        cooks: action.payload,
+        loading: false,
+      };
+
+    case DELETE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;

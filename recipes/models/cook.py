@@ -11,7 +11,7 @@ class CookModel(db.Model):
     country = db.Column(db.String(30), nullable=False)
     city= db.Column(db.String(30), nullable=False)
 
-    recipe_list = db.relationship("RecipeModel", backref="recipes", lazy=True)
+    recipe_list = db.relationship("RecipeModel", backref="recipes", lazy=True, cascade="delete")
 
     def save_to_db(self):
         db.session.add(self)

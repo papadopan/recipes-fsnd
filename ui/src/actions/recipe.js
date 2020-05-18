@@ -146,6 +146,7 @@ export const addRecipe = (recipe) => async (dispatch, getState) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(addRecipeSuccess(response.data.recipe));
+    dispatch(push("/recipe"));
   } catch (error) {
     dispatch(addRecipeFail(error));
   }

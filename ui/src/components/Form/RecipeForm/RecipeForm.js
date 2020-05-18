@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import { Input, Button } from "antd";
 import * as Yup from "yup";
+import styled from "styled-components";
+import empty from "../../../utils/images/empty.svg";
 
 import { connect } from "react-redux";
 import { addRecipe } from "../../../actions/recipe";
@@ -16,14 +18,33 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
     )}
   </div>
 );
+const Img = styled.img`
+  width: 200px;
+  height: 200px;
+`;
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const P = styled.p`
+  font-size: 2em;
+  margin: 1em;
+`;
 const RecipeForm = (props) => {
   useEffect(() => {
     props.getAllCooks();
   }, []);
 
   if (props.cooks.length === 0) {
-    return <div>Please add first a cook</div>;
+    return (
+      <StyledDiv>
+        <Img src={empty} />
+        <P>There is no cook, try to add a new one first...</P>
+      </StyledDiv>
+    );
   }
   return (
     <Formik
