@@ -111,10 +111,10 @@ const RecipeDetails = (props) => {
           <Tag color="default">{props.recipe.portions} portion(s)</Tag>
         </TagList>
         <ActionsDiv>
-          {(props.type === "user" || props.type === "admin") && (
+          {props.permissions.includes("patch:recipe") && (
             <AiOutlineEdit size="2em" onClick={() => setModal(!modal)} />
           )}
-          {props.type === "admin" && (
+          {props.permissions.includes("delete:recipe") && (
             <AiOutlineDelete
               size="2em"
               onClick={() => props.deleteRecipeById(props.match.params.id)}
@@ -139,7 +139,7 @@ RecipeDetails.propTypes = {};
 
 const mapStateToProps = (state) => ({
   recipe: state.recipe.recipe,
-  type: state.auth.type,
+  permissions: state.auth.permissions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

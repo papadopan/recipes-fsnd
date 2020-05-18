@@ -19,24 +19,26 @@ const ListItem = styled(Link)`
   }
 `;
 
-const Menu = ({ loggedin, type }) => {
+const Menu = (props) => {
   return (
     <List>
-      {loggedin && (
-        <React.Fragment>
-          <ListItem to="/recipe">Recipes</ListItem>
-        </React.Fragment>
-      )}
-      {(type === "user" || type === "admin") && (
-        <React.Fragment>
+      <ListItem to="/recipe">Recipes</ListItem>
+      {props.token && (
+        <>
           <ListItem to="/create">Create</ListItem>
           <ListItem to="/cook">Cooks</ListItem>
-        </React.Fragment>
+        </>
       )}
 
-      <a href="https://dev-t0uvp9wb.eu.auth0.com/v2/logout?client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr">
-        logout
-      </a>
+      {props.token ? (
+        <a href="https://dev-t0uvp9wb.eu.auth0.com/v2/logout?client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr">
+          logout
+        </a>
+      ) : (
+        <a href="https://dev-t0uvp9wb.eu.auth0.com/authorize?audience=recipe&response_type=token&client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr&redirect_uri=http://localhost:3000/recipe">
+          Login
+        </a>
+      )}
     </List>
   );
 };
@@ -44,8 +46,7 @@ const Menu = ({ loggedin, type }) => {
 Menu.propTypes = {};
 
 const mapStateToProps = (state) => ({
-  loggedin: state.auth.loggedin,
-  type: state.auth.type,
+  token: state.auth.token,
 });
 
 const mapDispatchToProps = {};

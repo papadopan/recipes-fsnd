@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import empty from "../../utils/images/empty.svg";
-import jwt_decode from "jwt-decode";
 
 import { getAllRecipes } from "../../actions/recipe";
 import { loginUser } from "../../actions/auth";
@@ -41,9 +40,9 @@ const Recipes = (props) => {
   useEffect(() => {
     props.getAllRecipes();
 
-    if (!props.loggedin && props.location && props.location.hash) {
-      let h = props.location.hash.substr(1).split("&")[0].split("=")[1];
-      props.loginUser(jwt_decode(h).permissions[0]);
+    if (!props.token && props.location && props.location.hash) {
+      let token = props.location.hash.substr(1).split("&")[0].split("=")[1];
+      props.loginUser(token);
     }
   }, []);
 
@@ -82,7 +81,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getAllRecipes: () => dispatch(getAllRecipes()),
-  loginUser: (permissions) => dispatch(loginUser(permissions)),
+  loginUser: (token) => dispatch(loginUser(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

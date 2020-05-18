@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { push } from "connected-react-router";
 // cook types
 
 export const COOKS_REQUEST = "COOKS_REQUEST";
@@ -67,17 +67,21 @@ export const getAllCooks = () => async (dispatch) => {
   }
 };
 
-export const addNewCook = (cook) => async (dispatch) => {
+export const addNewCook = (cook) => async (dispatch, getState) => {
   // init request
   dispatch(addNewCookRequest());
+
+  const token = getState().auth.token;
   try {
     // send the request
     const response = await axios({
       url: "http://127.0.0.1:5000/api/cook",
       method: "post",
       data: cook,
+      headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(addNewCookSuccess(cook));
+    dispatch(push("/cook"));
   } catch (error) {
     //request failed
     dispatch(addNewCookFail(error));

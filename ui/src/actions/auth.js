@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+
 // action types
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -12,10 +14,13 @@ export function loginRequest() {
   };
 }
 
-export function loginSuccess(user) {
+export function loginSuccess(permissions, token) {
   return {
     type: LOGIN_SUCCESS,
-    payload: user,
+    payload: {
+      permissions,
+      token,
+    },
   };
 }
 
@@ -27,15 +32,14 @@ export function loginError(error) {
 }
 
 // function available to the app
-export const loginUser = (permissions) => {
+export const loginUser = (token) => {
   return function (dispatch) {
     // send login request
     dispatch(loginRequest());
-    let type = "simple";
-    if (permissions && permissions.length > 0) {
-      type = permissions.split(":")[1];
-    }
 
-    dispatch(loginSuccess(type));
+    let permissions = jwt_decode(token).permissions;
+
+    dispatch(loginSuccess(token));
+    dispatch(loginSuccess(permissions, token));
   };
 };

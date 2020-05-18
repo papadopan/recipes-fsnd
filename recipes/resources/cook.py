@@ -101,7 +101,7 @@ class CookList(Resource):
             "result":cook_list_schema.dump(CookModel.query.all())
         }
     
-    @requires_auth("actions:admin") 
+    @requires_auth("post:cook") 
     def post(self, permission):
         # fetch data
         data = request.get_json()

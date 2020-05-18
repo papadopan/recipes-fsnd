@@ -132,15 +132,18 @@ export const getRecipeById = (id) => async (dispatch) => {
   }
 };
 
-export const addRecipe = (recipe) => async (dispatch) => {
+export const addRecipe = (recipe) => async (dispatch, getState) => {
   // init the request
   dispatch(addRecipeRequest());
+
+  const token = getState().auth.token;
 
   try {
     const response = await axios({
       method: "post",
       url: "http://127.0.0.1:5000/api/recipe",
       data: recipe,
+      headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(addRecipeSuccess(response.data.recipe));
   } catch (error) {
@@ -148,9 +151,10 @@ export const addRecipe = (recipe) => async (dispatch) => {
   }
 };
 
-export const updateRecipeById = (recipe, id) => async (dispatch) => {
+export const updateRecipeById = (recipe, id) => async (dispatch, getState) => {
   // init the request
   dispatch(updateRecipeRequest());
+  const token = getState().auth.token;
 
   try {
     // send the reqiest
@@ -158,6 +162,7 @@ export const updateRecipeById = (recipe, id) => async (dispatch) => {
       method: "patch",
       url: `http://127.0.0.1:5000/api/recipe/${id}`,
       data: recipe,
+      headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(updateRecipeSuccess(response.data.result));
   } catch (error) {
@@ -165,14 +170,15 @@ export const updateRecipeById = (recipe, id) => async (dispatch) => {
   }
 };
 
-export const deleteRecipeById = (id) => async (dispatch) => {
+export const deleteRecipeById = (id) => async (dispatch, getState) => {
   // init request
   dispatch(deleteRecipeRequest());
-
+  const token = getState().auth.token;
   try {
     const response = await axios({
       method: "delete",
       url: `http://127.0.0.1:5000/api/recipe/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     dispatch(deleteRecipeSuccess());

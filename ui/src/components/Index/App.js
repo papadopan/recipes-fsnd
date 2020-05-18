@@ -12,6 +12,8 @@ import { Layout } from "antd";
 import styled from "styled-components";
 import { Switch, Route } from "react-router-dom";
 
+import ProtectedRoute from "../ProtectedRoute";
+
 const { Content, Header } = Layout;
 
 const AntHeader = styled(Header)`
@@ -40,9 +42,9 @@ function App({ user, login }) {
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route exact path="/recipe" component={Recipes} />
-          <Route exact path="/create" component={Form} />
-          <Route exact path="/recipe/:id" component={RecipeDetails} />
-          <Route exact path="/cook" component={Cook} />
+          <Route path="/recipe/:id" component={RecipeDetails} />
+          <ProtectedRoute path="/create" component={Form} />
+          <ProtectedRoute path="/cook" component={Cook} />
         </Switch>
       </AntContent>
       <AntFooter>

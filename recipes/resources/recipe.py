@@ -37,8 +37,8 @@ class Recipe(Resource):
             "result": recipe
         }, 200
 
-    @requires_auth("actions:user")
-    def patch(self, id):
+    @requires_auth("patch:recipe")
+    def patch(self, permission, id):
         recipe = RecipeModel.find_by_id(id)
 
         # check if the recipe exists
@@ -81,8 +81,8 @@ class Recipe(Resource):
             "result": recipe
         }, 200
 
-    @requires_auth("actions:admin")
-    def delete(self, id):
+    @requires_auth("delete:recipe")
+    def delete(self, permission, id):
         recipe = RecipeModel.find_by_id(id=id)
 
         if recipe is None :
@@ -117,7 +117,9 @@ class RecipesList(Resource):
             "count": RecipeModel.query.count(),
             "result": recipe_list_schemas.dump(RecipeModel.query.all())
         }
-    def post(self):
+
+    @requires_auth("post:recipe")
+    def post(self, permission):
         # fetch data from the body as json
         data = request.get_json()
         data["ingredients"] = json.dumps(data["ingredients"])

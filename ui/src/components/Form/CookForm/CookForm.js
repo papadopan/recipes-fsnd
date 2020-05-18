@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Formik, Form, Field, ErrorMessage, validateYupSchema } from "formik";
-import { Input, Select, Button } from "antd";
+import { Formik, Form, Field } from "formik";
+import { Input, Button } from "antd";
 import * as Yup from "yup";
 import styled from "styled-components";
 import { addNewCook } from "../../../actions/cook";
 import { connect } from "react-redux";
-import { Spin, Space } from "antd";
+
 import empty from "../../../utils/images/empty.svg";
 
 const Error = styled.div`
@@ -37,12 +37,12 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
   </div>
 );
 
-const CookForm = ({ addCook, type }) => {
-  if (type != "admin") {
+const CookForm = ({ addCook, permissions }) => {
+  if (!permissions.includes("post:cook")) {
     return (
       <StyledDiv>
         <Img src={empty} />
-        <P>Only admins are allowed to add a new cook...</P>
+        <P>Your account has no permissions to add a new cook...</P>
       </StyledDiv>
     );
   }
@@ -106,7 +106,7 @@ const CookForm = ({ addCook, type }) => {
 CookForm.propTypes = {};
 
 const mapStateToProps = (state) => ({
-  type: state.auth.type,
+  permissions: state.auth.permissions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
