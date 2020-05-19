@@ -224,12 +224,12 @@ class RecipeTestCase(unittest.TestCase):
         assert data["message"] == "recipe was not found"
 
 
-    def test_delete_recipe_by_id_not_found(self):
-        res = self.client().delete("/api/recipe/10000000")
-        data = json.loads(res.data)
+    # def test_delete_recipe_by_id_not_found(self):
+    #     res = self.client().delete("/api/recipe/10000000")
+    #     data = json.loads(res.data)
 
-        assert data["code"] == 404
-        assert data["success"] == False
+    #     assert data["code"] == 404
+    #     assert data["success"] == False
 
     # def test_delete_recipe_by_id(self):
     #     res = self.client().get("/api/recipe/1")
