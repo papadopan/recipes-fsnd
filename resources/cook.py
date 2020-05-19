@@ -28,7 +28,8 @@ class Cook(Resource):
             "result": cook_schema.dump(cook)
         }, 200
  
-    def patch(self, id):
+    @requires_auth("patch:cook")
+    def patch(self, permission,id):
         cook = CookModel.find_by_id(id)
 
         if cook is None:
