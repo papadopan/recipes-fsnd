@@ -37,3 +37,25 @@ https://dev-t0uvp9wb.eu.auth0.com/v2/logout?client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6
 #### Heroku deployment url
 
 https://recipes-fsnd.herokuapp.com/api
+
+#### Motivation
+
+I always wanted to create a recipe app, since I think is something usefull for everyone nowadays.
+I want to expand this idea and make it more complete app that I will deploy for both backend and frontend
+It is an app that I would like to have therefore I want to build it
+
+#### Documenting API
+
+##### Recipe
+
+- A get request to `/api/recipe` will return all the recipes
+- A get request to `/api/recipe/<id>` will return the recipe with this specific id
+- A patch request to `/api/recipe/<id>` will update this specific recipe
+- A delete request to `/api/recipe/<id>` will delete this specific recipe
+
+##### Cooks
+
+- A get request to `/api/cook` will return all the cooks
+- A get request to `/api/cook/<id>` will return a cook with this specific id
+- A patch request to `/api/cook/<id>` will update this specific cook details
+- A delete request to `/api/cook/<id>` will delete this specific cook

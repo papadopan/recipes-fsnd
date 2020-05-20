@@ -8,6 +8,8 @@ category_schema = CategorySchema()
 category_list_schema = CategorySchema(many=True)
 
 class Category(Resource):
+
+
     def patch(self, id):
         # check if exists
         category = CategoryModel.find_by_id(id=id)
@@ -27,9 +29,9 @@ class Category(Resource):
         category.description = data["description"]
 
         #update to db
-        try:
+        try: 
             category.update_to_db()
-        except:
+        except: 
             return {
                 "message":"There was an error please try again",
                 "code": 500
@@ -46,7 +48,7 @@ class Category(Resource):
         # check if exists
         category = CategoryModel.find_by_id(id=id)
 
-        if category is None:
+        if category is None: 
             return {
                 "message": "Category was not found",
                 "success": False,
@@ -54,9 +56,9 @@ class Category(Resource):
             }, 404
         
         # delete 
-        try:
+        try: 
             category.delete_from_db()
-        except:
+        except: 
             return {
                 "message":"There is an error, please try again",
                 "success": False,
@@ -72,7 +74,7 @@ class Category(Resource):
 
 
 class CategoryList(Resource):
-    def get(self):
+    def get(self): 
         return {
             "message": "All categories",
             "success": True,
@@ -80,14 +82,14 @@ class CategoryList(Resource):
             "count":CategoryModel.query.count(),
             "result": category_list_schema.dump(CategoryModel.query.all())
         }
-    def post(self):
+    def post(self): 
         # fetch the data
         data = request.get_json()
 
         # search if exists
         category = CategoryModel.find_by_title(title=data["title"])
 
-        if category:
+        if category: 
             return {
                 "message": "Category already exists",
                 "success": False, 
@@ -95,15 +97,15 @@ class CategoryList(Resource):
             }, 400
 
         # serialize the data
-        try:
+        try: 
             category = category_schema.load(data)
         except ValidationError as err:
             return err.messages, 500
         
         # save the new category
-        try:
+        try: 
             category.save_to_db()
-        except:
+        except: 
             return {
                 "message":"There is an error please try again",
                 "success": False,
