@@ -45,6 +45,52 @@ def catch_err(error):
                 }), error.status_code
 
 
+@app.errorhandler(400)
+def bad_request(error):
+  return jsonify({
+      'success': False,
+      'error': 400,
+      'message': 'bad request'
+  }), 400
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+  return jsonify({
+      'success': False,
+      'error': 500,
+      'message': 'internal server error'
+  }), 500
+
+
+@app.errorhandler(401)
+def unauthorized_error(error):
+  return jsonify({
+      'success': False,
+      'error': 401,
+      'message': 'unauthorized error'
+  }), 401
+
+
+@app.errorhandler(403)
+def forbidden(error):
+  return jsonify({
+      'success': False,
+      'error': 403,
+      'message': 'forbidden'
+  }), 403
+
+
+@app.errorhandler(404)
+def not_found(error):
+  return jsonify({
+      'success': False,
+      'error': 404,
+      'message': 'resource not found'
+  }), 404
+
+
+
 
 
 from flask_uploads import configure_uploads,IMAGES, UploadSet
