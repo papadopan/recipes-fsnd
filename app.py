@@ -1,4 +1,4 @@
-from flask import Flask , jsonify
+from flask import Flask,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_restful import Api
@@ -6,19 +6,13 @@ from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from auth import AuthError
 
-
-
-
 # config the app
 app = Flask(__name__)
 app.config.from_object('config')
 
-
-
 # setup db and migration tool
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 
 # setup restfull
 api = Api(app)
@@ -34,7 +28,6 @@ def after_request(response):
 
     return response
 
-
 @app.errorhandler(AuthError)
 def catch_err(error):
     return jsonify({
@@ -44,7 +37,6 @@ def catch_err(error):
                 "message": error.error["description"],
                 }), error.status_code
 
-
 @app.errorhandler(400)
 def bad_request(error):
   return jsonify({
@@ -52,7 +44,6 @@ def bad_request(error):
       'error': 400,
       'message': 'bad request'
   }), 400
-
 
 @app.errorhandler(500)
 def internal_server_error(error):
@@ -62,7 +53,6 @@ def internal_server_error(error):
       'message': 'internal server error'
   }), 500
 
-
 @app.errorhandler(401)
 def unauthorized_error(error):
   return jsonify({
@@ -70,7 +60,6 @@ def unauthorized_error(error):
       'error': 401,
       'message': 'unauthorized error'
   }), 401
-
 
 @app.errorhandler(403)
 def forbidden(error):
@@ -80,7 +69,6 @@ def forbidden(error):
       'message': 'forbidden'
   }), 403
 
-
 @app.errorhandler(404)
 def not_found(error):
   return jsonify({
@@ -88,10 +76,6 @@ def not_found(error):
       'error': 404,
       'message': 'resource not found'
   }), 404
-
-
-
-
 
 from flask_uploads import configure_uploads,IMAGES, UploadSet
 from resources.recipe import Recipe, RecipesList, RecipeImage, images
@@ -110,11 +94,6 @@ api.add_resource(Cook, "/api/cook/<int:id>")
 api.add_resource(CookList, "/api/cook")
 api.add_resource(CategoryList, "/api/category")
 api.add_resource(Category, "/api/category/<int:id>")
-
-
-
-
-
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

@@ -2,10 +2,8 @@ import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
-
-from app import app , db
+from app import app, db
 from models.recipe import RecipeModel
-
 
 database_path = "postgresql+psycopg2://antoniospapadopoulos@localhost:5432/recipes_test"
 
@@ -35,8 +33,6 @@ class RecipeTestCase(unittest.TestCase):
     def tearDown(self):
         """Executed after reach test"""
         pass
-
-
     def test_add_new_cook(self):
         res = self.client().post("/api/cook",json={
             "first_name":"Jim",
@@ -48,7 +44,7 @@ class RecipeTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         assert data["code"] == 201
-        assert data["success"] == True
+        assert data["success"] is True
         assert data["message"] == "Cook succesfully added"
         assert data["cook"] != {}
 
@@ -70,7 +66,7 @@ class RecipeTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         assert data["message"] == "Cook fetched successfully"
-        assert data["success"] == True
+        assert data["success"] is True
         assert data["code"] == 200
         assert data["result"]["id"] == 1
 
@@ -94,7 +90,7 @@ class RecipeTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         assert data["message"] == "Cook was updated successfully"
-        assert data["success"] == True
+        assert data["success"] is True
         assert data["result"]['city'] == "Madrid"
         assert data["result"]['country'] == "Spain"
   
@@ -112,7 +108,7 @@ class RecipeTestCase(unittest.TestCase):
         assert data["message"] == "Cook was not found"
         assert data["success"] == False
 
-    def test_add_new_recipe(self):
+    def test_add_new_recipe(self): 
         res = self.client().post("/api/recipe",json ={
 	        "title":"Apple pie",
 	        "description":"This is a dessert for my tea time ",
@@ -130,8 +126,8 @@ class RecipeTestCase(unittest.TestCase):
         data =json.loads(res.data)
         
         assert data["code"] == 201
-        assert data["success"] == True
-        assert data["created"] == True
+        assert data["success"] is True
+        assert data["created"] is True
 
     def test_add_same_recipe(self):
         res = self.client().post("/api/recipe",json ={
@@ -159,7 +155,7 @@ class RecipeTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         assert data["count"] == 1
-        assert data["success"] == True
+        assert data["success"] is True
         assert data["message"] == "List of all the recipes"
 
     def test_update_recipe_by_id(self):
@@ -181,7 +177,7 @@ class RecipeTestCase(unittest.TestCase):
 
         assert data["message"] == "recipe successfully updated"
         assert data["code"] == 200
-        assert data["success"] == True
+        assert data["success"] is True
         assert data["result"]["title"] == "Lemon pie"
 
     def test_update_recipe_by_id_not_found(self):
@@ -211,7 +207,7 @@ class RecipeTestCase(unittest.TestCase):
         res = self.client().get("/api/recipe/1")
         data = json.loads(res.data)
 
-        assert data["success"] == True
+        assert data["success"] is True
         assert data["result"]['id'] == 1
         assert data["result"]['title'] == "Apple pie"
 

@@ -4,8 +4,6 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-# 
-
 # update the values with my current account
 AUTH0_DOMAIN = 'dev-t0uvp9wb.eu.auth0.com'
 ALGORITHMS = ['RS256']
@@ -20,12 +18,7 @@ class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
-
-
-
 ## Auth Header
-
-
 def get_token_auth_header():
     auth = request.headers.get("Authorization", None)
     if auth is None: 
@@ -50,8 +43,6 @@ def get_token_auth_header():
             'code': 401,
             'description': 'Authorization token must be a Bearer token'
         }, 401)
-    
-
     token = parts[1]
     return token
 
