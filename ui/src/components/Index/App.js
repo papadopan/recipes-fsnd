@@ -25,11 +25,11 @@ const AntFooter = styled(Layout.Footer)`
   background: var(--color-main);
   text-align: center;
   color: var(--color-white);
-  min-height: 9vh;
+  min-height: 6vh;
 `;
 
 const AntContent = styled(Content)`
-  min-height: 85vh;
+  min-height: 88vh;
 `;
 
 function App({ user, login }) {
