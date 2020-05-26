@@ -21,7 +21,7 @@ class User(Resource):
 
         try:
             user = user_schema.load(data)
-            user.password = data["_password"]
+            user.set_password = data["_password"]
         except ValidationError as err:
             return err.messages, 500 
 
@@ -45,3 +45,41 @@ class User(Resource):
         response.status_code=201
         
         return response
+
+
+class UserLogin(Resource):
+    def post(self):
+        data = request.get_json()
+
+        user = UserModel.get_user_by_email(data["email"])
+
+        if user is None:
+            response = jsonify({
+                "message":"user does not exists",
+                "code": 404
+            })
+            response.status_code = 404
+            return response
+
+        access_token = create_access_token(identity=user.email)
+        refresh_token = create_refresh_token(identity=user.email)
+
+        if user.is_correct_password(data["password"]):
+            response = jsonify({
+                "access_token":access_token,
+                "refresh_token":refresh_token,
+                "success": True,
+                "code":200
+            })
+            response.status_code = 200
+            return response
+        
+        response = jsonify({
+            "message":"Credentians are not valid",
+            "success": False,
+            "code": 400
+        })
+        response.status_code = 400
+
+        return response
+        
