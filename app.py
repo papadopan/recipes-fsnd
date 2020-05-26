@@ -4,7 +4,9 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
-from auth import AuthError
+from flask_jwt_extended import JWTManager 
+from flask_bcrypt import Bcrypt
+
 
 # config the app
 app = Flask(__name__)
@@ -13,6 +15,12 @@ app.config.from_object('config')
 # setup db and migration tool
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+#jwt manager
+jwt = JWTManager(app)
+
+#bcrypt app
+bcrypt = Bcrypt(app)
 
 # setup restfull
 api = Api(app)
@@ -28,14 +36,6 @@ def after_request(response):
 
     return response
 
-@app.errorhandler(AuthError)
-def catch_err(error):
-    return jsonify({
-                "success": False,
-                "error": error.status_code,
-                "code": error.error['code'],
-                "message": error.error["description"],
-                }), error.status_code
 
 @app.errorhandler(400)
 def bad_request(error):

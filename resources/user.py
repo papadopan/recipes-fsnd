@@ -3,14 +3,13 @@ from flask import request, jsonify
 from schemas.user import UserSchema
 from models.user import UserModel
 from marshmallow import ValidationError
-
+from flask_jwt_extended import create_access_token, create_refresh_token
 
 user_schema = UserSchema()
 
 
 class User(Resource):
-    def post(self):
-        
+    def post(self):     
         data = request.get_json()
 
         if UserModel.get_user_by_email(data["email"]):
@@ -22,6 +21,7 @@ class User(Resource):
 
         try:
             user = user_schema.load(data)
+            user.password = data["_password"]
         except ValidationError as err:
             return err.messages, 500 
 
@@ -33,8 +33,15 @@ class User(Resource):
                 "status": 500
             })
 
-        return jsonify({
-            "user": user,
+        access_token = create_access_token(identity=user.email)
+        refresh_token = create_refresh_token(identity=user.email)
+        response = jsonify({
+            "user": user_schema.dump(user),
             "success": True,
-            "status": 201
+            "status": 201, 
+            "access_token": access_token,
+            "refresh_token": refresh_token
         })
+        response.status_code=201
+        
+        return response

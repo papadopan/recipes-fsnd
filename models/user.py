@@ -1,4 +1,5 @@
-from app import db
+from app import db, bcrypt
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 
 
 class UserModel(db.Model):
@@ -7,7 +8,7 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
-    password = db.Column(db.String(30), nullable=False)
+    _password = db.Column(db.Binary(60), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
 
     def save_to_db(self):
@@ -20,6 +21,19 @@ class UserModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, plaintext_password):
+        self._password = bcrypt.generate_password_hash(plaintext_password, 12)
+
+    @hybrid_method
+    def is_correct_password(self, plaintext_password):
+        return bcrypt.check_password_hash(self.password, plaintext_password)
+
 
     @classmethod
     def get_user_by_email(cls, email):

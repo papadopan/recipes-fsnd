@@ -3,5 +3,6 @@ SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://antoniospapadopoulos@localhost:
 SQLALCHEMY_TRACK_MODIFICATIONS = "FALSE"
 PROPAGATE_EXCEPTIONS="TRUE"
 UPLOADED_IMAGES_DEST="upload"
+JWT_SECRET_KEY = "Thi$I$@veryImport@ntKey$"
 
 
