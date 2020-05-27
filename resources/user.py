@@ -1,15 +1,19 @@
 from flask_restful  import Resource
 from flask import request, jsonify
 from schemas.user import UserSchema
+from schemas.confirmation import ConfirmationSchema
 from models.user import UserModel
+from models.confirmation import ConfirmationModel
 from marshmallow import ValidationError
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required,get_raw_jwt, get_jwt_identity
 from app import blacklist
 
+
 user_schema = UserSchema()
+confirmation_schema = ConfirmationSchema()
 
 
-class User(Resource):
+class UserRegister(Resource):
     def post(self):     
         data = request.get_json()
 
@@ -38,14 +42,11 @@ class User(Resource):
             response.status_code = 500
             return response
 
-        access_token = create_access_token(identity=user.email)
-        refresh_token = create_refresh_token(identity=user.email)
+        
         response = jsonify({
             "user": user_schema.dump(user),
             "success": True,
             "status": 201, 
-            "access_token": access_token,
-            "refresh_token": refresh_token
         })
         response.status_code=201
         

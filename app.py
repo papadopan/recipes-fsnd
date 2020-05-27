@@ -88,7 +88,8 @@ from flask_uploads import configure_uploads,IMAGES, UploadSet
 from resources.recipe import Recipe, RecipesList, RecipeImage, images
 from resources.cook import Cook, CookList
 from resources.category import CategoryList, Category
-from resources.user import User, UserLogin, UserLogout
+from resources.user import UserRegister, UserLogin, UserLogout
+from resources.confirmation import Confirmation
 
 # set up config for Flask Uploads
 images = UploadSet("images", IMAGES)
@@ -102,9 +103,10 @@ api.add_resource(Cook, "/api/cook/<int:id>")
 api.add_resource(CookList, "/api/cook")
 api.add_resource(CategoryList, "/api/category")
 api.add_resource(Category, "/api/category/<int:id>")
-api.add_resource(User, "/api/signup")
+api.add_resource(UserRegister, "/api/signup")
 api.add_resource(UserLogin, "/api/login")
 api.add_resource(UserLogout, "/api/logout")
+api.add_resource(Confirmation, "/api/confirmation/<int:id>")
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

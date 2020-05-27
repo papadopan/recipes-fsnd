@@ -1,5 +1,6 @@
 from app import db, bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from models.confirmation import ConfirmationModel
 
 
 class UserModel(db.Model):
@@ -10,6 +11,9 @@ class UserModel(db.Model):
     last_name = db.Column(db.String(30), nullable=False)
     _password = db.Column(db.Binary(60), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
+    validated = db.Column(db.Boolean, nullable=False, default=False)
+
+    # confirmation = db.relationship("ConfirmationModel", backref="user")
 
     def save_to_db(self):
         db.session.add(self)
