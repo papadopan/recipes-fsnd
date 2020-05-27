@@ -18,6 +18,13 @@ migrate = Migrate(app, db)
 
 #jwt manager
 jwt = JWTManager(app)
+blacklist = set()
+
+#check if the token is revoked
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token['jti']
+    return jti in blacklist
 
 #bcrypt app
 bcrypt = Bcrypt(app)
@@ -81,7 +88,7 @@ from flask_uploads import configure_uploads,IMAGES, UploadSet
 from resources.recipe import Recipe, RecipesList, RecipeImage, images
 from resources.cook import Cook, CookList
 from resources.category import CategoryList, Category
-from resources.user import User, UserLogin
+from resources.user import User, UserLogin, UserLogout
 
 # set up config for Flask Uploads
 images = UploadSet("images", IMAGES)
@@ -97,6 +104,7 @@ api.add_resource(CategoryList, "/api/category")
 api.add_resource(Category, "/api/category/<int:id>")
 api.add_resource(User, "/api/signup")
 api.add_resource(UserLogin, "/api/login")
+api.add_resource(UserLogout, "/api/logout")
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

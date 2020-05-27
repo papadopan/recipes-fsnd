@@ -28,7 +28,7 @@ class Cook(Resource):
             "result": cook_schema.dump(cook)
         }, 200
  
-    @requires_auth("patch:cook")
+ 
     def patch(self, permission,id):
         cook = CookModel.find_by_id(id)
 
@@ -62,7 +62,7 @@ class Cook(Resource):
             "code": 200,
             "result": cook_schema.dump(cook)
         }
-    @requires_auth("delete:cook")
+    
     def delete(self,permission,id):
         cook = CookModel.find_by_id(id)  
 
@@ -102,7 +102,7 @@ class CookList(Resource):
             "result":cook_list_schema.dump(CookModel.query.all())
         }
     
-    @requires_auth("post:cook") 
+    
     def post(self, permission):
         # fetch data
         data = request.get_json()

@@ -3,7 +3,8 @@ from flask import request, jsonify
 from schemas.user import UserSchema
 from models.user import UserModel
 from marshmallow import ValidationError
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required,get_raw_jwt, get_jwt_identity
+from app import blacklist
 
 user_schema = UserSchema()
 
@@ -13,11 +14,13 @@ class User(Resource):
         data = request.get_json()
 
         if UserModel.get_user_by_email(data["email"]):
-            return jsonify({
+            response = jsonify({
                 "message":"this email is already registered",
                 "success": False,
                 "status": 400
             })
+            response.status_code = 400
+            return response
 
         try:
             user = user_schema.load(data)
@@ -28,10 +31,12 @@ class User(Resource):
         try: 
             user.save_to_db()
         except:
-            return jsonify({
+            response = jsonify({
                 "message": "There was an error while saving, please try again",
                 "status": 500
             })
+            response.status_code = 500
+            return response
 
         access_token = create_access_token(identity=user.email)
         refresh_token = create_refresh_token(identity=user.email)
@@ -55,13 +60,13 @@ class UserLogin(Resource):
 
         if user is None:
             response = jsonify({
-                "message":"user does not exists",
+                "message":"this email is not registered",
                 "code": 404
             })
             response.status_code = 404
             return response
 
-        access_token = create_access_token(identity=user.email)
+        access_token = create_access_token(identity=user.email, fresh=True)
         refresh_token = create_refresh_token(identity=user.email)
 
         if user.is_correct_password(data["password"]):
@@ -83,3 +88,16 @@ class UserLogin(Resource):
 
         return response
         
+
+class UserLogout(Resource):
+    @jwt_required
+    def post(self):
+        jti = get_raw_jwt()['jti']
+        blacklist.add(jti)
+        response = jsonify({
+            "message": "Successfully logout",
+            "code":200,
+            "email":get_jwt_identity()
+        })
+        response.status_code = 200
+        return response

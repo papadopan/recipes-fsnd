@@ -6,6 +6,7 @@ from marshmallow import ValidationError
 from schemas.image import ImageSchema
 from flask_uploads import IMAGES, UploadSet
 import json
+from flask_jwt_extended import jwt_required
 
 recipe_schemas = RecipeSchema()
 image_schemas = ImageSchema()
@@ -37,7 +38,7 @@ class Recipe(Resource):
             "result": recipe
         }, 200
 
-    @requires_auth("patch:recipe")
+    
     def patch(self, permission,id):
         recipe = RecipeModel.find_by_id(id)
 
@@ -81,7 +82,7 @@ class Recipe(Resource):
             "result": recipe
         }, 200
 
-    @requires_auth("delete:recipe")
+    
     def delete(self,permission, id):
         recipe = RecipeModel.find_by_id(id=id)
 
@@ -110,6 +111,7 @@ class Recipe(Resource):
         }
 
 class RecipesList(Resource):
+    @jwt_required
     def get(self):
         return {
             "message": "List of all the recipes", 
@@ -117,7 +119,7 @@ class RecipesList(Resource):
             "count": RecipeModel.query.count(),
             "result": recipe_list_schemas.dump(RecipeModel.query.all())
         }
-    @requires_auth("post:recipe")
+
     def post(self, permission):
         # fetch data from the body as json
         data = request.get_json()
