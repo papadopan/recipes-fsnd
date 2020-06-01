@@ -6,7 +6,8 @@ from models.user import UserModel
 from models.confirmation import ConfirmationModel
 from marshmallow import ValidationError
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required,get_raw_jwt, get_jwt_identity
-from app import blacklist
+from app import blacklist, mail
+from flask_mail import Message
 
 
 user_schema = UserSchema()
@@ -78,6 +79,10 @@ class UserLogin(Resource):
                 "code":200
             })
             response.status_code = 200
+            msg = Message("Hello",
+                  sender="from@example.com",
+                  recipients=["antonios.papadopan@gmail.com"])
+            mail.send(msg)
             return response
         
         response = jsonify({

@@ -6,6 +6,7 @@ from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager 
 from flask_bcrypt import Bcrypt
+from flask_mail import Mail
 
 
 # config the app
@@ -25,6 +26,9 @@ blacklist = set()
 def check_if_token_in_blacklist(decrypted_token):
     jti = decrypted_token['jti']
     return jti in blacklist
+
+#mail 
+mail = Mail(app)
 
 #bcrypt app
 bcrypt = Bcrypt(app)
@@ -109,6 +113,7 @@ api.add_resource(UserLogout, "/api/logout")
 api.add_resource(Confirmation, "/api/confirmation/<int:id>")
 
 if __name__ == '__main__':
+    mail.init_app(app)
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
 

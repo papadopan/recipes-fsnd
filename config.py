@@ -8,3 +8,10 @@ JWT_BLACKLIST_ENABLED=True
 JWT_BLACKLIST_TOKEN_CHECKS=["access", "refresh"]
 
 
+
+MAIL_SERVER="smtp.gmail.com"
+MAIL_PORT=465
+MAIL_USERNAME="papadopan7@gmail.com"
+MAIL_PASSWORD="uyopmjyeafsmyszc"
+MAIL_USE_TLS=False
+MAIL_USE_SSL=True
