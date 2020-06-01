@@ -43,8 +43,8 @@ function App({ user, login }) {
           <Route exact path="/" component={Welcome} />
           <Route exact path="/recipe" component={Recipes} />
           <Route path="/recipe/:id" component={RecipeDetails} />
-          <ProtectedRoute path="/create" component={Form} />
-          <ProtectedRoute path="/cook" component={Cook} />
+          <Route path="/create" component={Form} />
+          <Route path="/cook" component={Cook} />
         </Switch>
       </AntContent>
       <AntFooter>

@@ -31,22 +31,8 @@ const Menu = (props) => {
   return (
     <List>
       <ListItem to="/recipe">Recipes</ListItem>
-      {props.token && (
-        <>
-          <ListItem to="/create">Create</ListItem>
-          <ListItem to="/cook">Cooks</ListItem>
-        </>
-      )}
-
-      {props.token ? (
-        <A href="https://dev-t0uvp9wb.eu.auth0.com/v2/logout?client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr">
-          logout
-        </A>
-      ) : (
-        <A href="https://dev-t0uvp9wb.eu.auth0.com/authorize?audience=recipe&response_type=token&client_id=TRwKMTOnA42a0hdGKI6rd3nuQ6D8VZmr&redirect_uri=http://localhost:3000/recipe">
-          Login
-        </A>
-      )}
+      <ListItem to="/create">Create</ListItem>
+      <ListItem to="/cook">Cooks</ListItem>
     </List>
   );
 };

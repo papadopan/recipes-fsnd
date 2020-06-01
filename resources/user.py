@@ -58,8 +58,8 @@ class UserRegister(Resource):
         # send verification email 
         msg = Message("Hello",
             sender="from@example.com",
-            recipients=["antonios.papadopan@gmail.com"])
-        url="http://localhost:5000/api/confirmation/f97071699a064dc09cfc5c929b3ef886"
+            recipients=[data["email"]])
+        url=f"http://localhost:5000/api/confirmation/{conf.id}"
         msg.html = f"<a href={url}>Confirm Your account</a>"
         mail.send(msg)
         return response
