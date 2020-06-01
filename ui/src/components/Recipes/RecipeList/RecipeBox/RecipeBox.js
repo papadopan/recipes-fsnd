@@ -16,7 +16,7 @@ const SLink = styled(Link)`
 const MainDiv = styled.div`
   box-shadow: 2px 8px 16px rgba(24, 50, 115, 0.2);
   width: 100%;
-  max-width: 520px;
+  max-width: 450px;
   height: 220px;
   border-radius: 5px;
   display: flex;

@@ -125,9 +125,6 @@ class RecipesList(Resource):
         data = request.get_json()
         data["ingredients"] = json.dumps(data["ingredients"])
 
-        print("----->>>>>>>>>")
-        print(data)
-
         # search if that name of the recipe exists
         if RecipeModel.find_by_title(data["title"]):
             return {
@@ -140,7 +137,7 @@ class RecipesList(Resource):
         try:
             recipe = recipe_schemas.load(data)
         except ValidationError as err:
-            return err.messages, 400
+            return err.messages, 500
       
 
         try:
