@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import RecipeForm from "./RecipeForm"
-import CookForm from "./CookForm"
-
+import RecipeForm from "./RecipeForm";
+import CookForm from "./CookForm";
 
 const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 1em 3em;
 `;
 
 const Filtering = styled.div`
@@ -21,32 +21,40 @@ const Choices = styled.span`
   margin: 0 1em;
   font-size: 5em;
   color: var(--color-grey);
-  cursor:pointer;
+  cursor: pointer;
 
   ${({ active }) =>
-  active &&
+    active &&
     css`
       color: var(--color-main);
-    `}
+    `};
 `;
 
-
-
 const NewContentForm = (props) => {
-  const [selected, setSelected] = useState('recipe')
-  const getForm = name =>{
+  const [selected, setSelected] = useState("recipe");
+  const getForm = (name) => {
     let returnForm = {
-      recipe: <RecipeForm/>,
-      cook: <CookForm/>
-    }
+      recipe: <RecipeForm />,
+      cook: <CookForm />,
+    };
 
     return returnForm[name];
-  }
+  };
   return (
     <MainDiv>
       <Filtering>
-        <Choices active={selected ==="recipe"} onClick={()=>setSelected("recipe")}>Recipe</Choices>
-        <Choices active={selected ==="cook"} onClick={()=>setSelected("cook")}>Cook</Choices>
+        <Choices
+          active={selected === "recipe"}
+          onClick={() => setSelected("recipe")}
+        >
+          Recipe
+        </Choices>
+        <Choices
+          active={selected === "cook"}
+          onClick={() => setSelected("cook")}
+        >
+          Cook
+        </Choices>
       </Filtering>
       {getForm(selected)}
     </MainDiv>
