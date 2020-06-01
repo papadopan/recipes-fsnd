@@ -11,7 +11,7 @@ from flask_mail import Message
 
 
 user_schema = UserSchema()
-confirmation_schema = ConfirmationSchema()
+
 
 
 class UserRegister(Resource):
@@ -34,7 +34,10 @@ class UserRegister(Resource):
             return err.messages, 500 
 
         try: 
-            user.save_to_db()
+            user.save_to_db()   
+            u = user_schema.dump(user)
+            conf = ConfirmationModel(user_id=u["id"])
+            conf.save_to_db()       
         except:
             response = jsonify({
                 "message": "There was an error while saving, please try again",
@@ -51,8 +54,12 @@ class UserRegister(Resource):
         })
         response.status_code=201
         
+        # send verification email 
+        msg = Message("Hello",
+            sender="from@example.com",
+            recipients=["antonios.papadopan@gmail.com"])
+        mail.send(msg)
         return response
-
 
 class UserLogin(Resource):
     def post(self):
@@ -71,6 +78,15 @@ class UserLogin(Resource):
         access_token = create_access_token(identity=user.email, fresh=True)
         refresh_token = create_refresh_token(identity=user.email)
 
+        if user.validated == False:
+            response = jsonify({
+                "message":"Account is not validated yet.",
+                "success": False,
+                "status": 400
+            })
+            response.status_code= 400
+            return response
+
         if user.is_correct_password(data["password"]):
             response = jsonify({
                 "access_token":access_token,
@@ -79,10 +95,6 @@ class UserLogin(Resource):
                 "code":200
             })
             response.status_code = 200
-            msg = Message("Hello",
-                  sender="from@example.com",
-                  recipients=["antonios.papadopan@gmail.com"])
-            mail.send(msg)
             return response
         
         response = jsonify({
@@ -94,7 +106,6 @@ class UserLogin(Resource):
 
         return response
         
-
 class UserLogout(Resource):
     @jwt_required
     def post(self):

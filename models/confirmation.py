@@ -8,9 +8,9 @@ class ConfirmationModel(db.Model):
     id = db.Column(db.String(50), primary_key=True)
     expiration = db.Column(db.Integer, nullable=False)
     confirmed = db.Column(db.Boolean, nullable=False)
-    # user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
-    def __init__(self,userid, **kwargs):
+    def __init__(self,user_id, **kwargs):
         super().__init__(**kwargs)
         self.id = uuid4().hex
         self.user_id = user_id

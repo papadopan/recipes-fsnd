@@ -13,7 +13,7 @@ class UserModel(db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     validated = db.Column(db.Boolean, nullable=False, default=False)
 
-    # confirmation = db.relationship("ConfirmationModel", backref="user")
+    confirmation = db.relationship("ConfirmationModel", backref="user", lazy=True)
 
     def save_to_db(self):
         db.session.add(self)
