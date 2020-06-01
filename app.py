@@ -92,8 +92,8 @@ from flask_uploads import configure_uploads,IMAGES, UploadSet
 from resources.recipe import Recipe, RecipesList, RecipeImage, images
 from resources.cook import Cook, CookList
 from resources.category import CategoryList, Category
-from resources.user import UserRegister, UserLogin, UserLogout
-from resources.confirmation import Confirmation
+from resources.user import UserRegister, UserLogin, UserLogout, UserConfirmation
+
 
 # set up config for Flask Uploads
 images = UploadSet("images", IMAGES)
@@ -110,7 +110,7 @@ api.add_resource(Category, "/api/category/<int:id>")
 api.add_resource(UserRegister, "/api/signup")
 api.add_resource(UserLogin, "/api/login")
 api.add_resource(UserLogout, "/api/logout")
-api.add_resource(Confirmation, "/api/confirmation/<int:id>")
+api.add_resource(UserConfirmation, "/api/confirmation/<string:id>")
 
 if __name__ == '__main__':
     mail.init_app(app)

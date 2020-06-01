@@ -1,5 +1,5 @@
 from flask_restful  import Resource
-from flask import request, jsonify
+from flask import request, jsonify, make_response, render_template
 from schemas.user import UserSchema
 from schemas.confirmation import ConfirmationSchema
 from models.user import UserModel
@@ -11,6 +11,7 @@ from flask_mail import Message
 
 
 user_schema = UserSchema()
+confirmation_schema = ConfirmationSchema()
 
 
 
@@ -58,6 +59,8 @@ class UserRegister(Resource):
         msg = Message("Hello",
             sender="from@example.com",
             recipients=["antonios.papadopan@gmail.com"])
+        url="http://localhost:5000/api/confirmation/f97071699a064dc09cfc5c929b3ef886"
+        msg.html = f"<a href={url}>Confirm Your account</a>"
         mail.send(msg)
         return response
 
@@ -118,3 +121,43 @@ class UserLogout(Resource):
         })
         response.status_code = 200
         return response
+
+class UserConfirmation(Resource):
+    def get(self, id):
+        confirmation = ConfirmationModel.find_by_id(id)
+        if not confirmation:
+            response =jsonify({
+                "message":"This id does not belong to the database",
+                "success": False,
+                "code": 404
+            })
+            response.status_code = 404
+            return response
+        
+        if confirmation.expired:
+            response = jsonify({
+                "message": "Confirmation link has been expired",
+                "code": 400
+            })
+            response.status_code = 400
+            return response
+
+        if confirmation.confirmed:
+            response = jsonify({
+                "message":"Confirmation link for this user already confirmed",
+                "code": 400
+            })
+            response.status_code=400
+            return response
+
+        # mark this confirmation record as confirmed and save
+        confirmation.confirmed = True
+        confirmation.save_to_db()
+
+        headers = {"Content-Type": "text/html"}
+        return make_response(
+            render_template("confirmation_page.html", email=confirmation.user.email),
+            200,
+            headers,
+        )
+        
