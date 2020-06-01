@@ -70,7 +70,7 @@ class UserLogin(Resource):
 
         user = UserModel.get_user_by_email(data["email"])
 
-        if user is None:
+        if not user:
             response = jsonify({
                 "message":"this email is not registered",
                 "code": 404
@@ -78,27 +78,28 @@ class UserLogin(Resource):
             response.status_code = 404
             return response
 
-        access_token = create_access_token(identity=user.email, fresh=True)
-        refresh_token = create_refresh_token(identity=user.email)
-
-        if user.validated == False:
-            response = jsonify({
-                "message":"Account is not validated yet.",
-                "success": False,
-                "status": 400
-            })
-            response.status_code= 400
-            return response
-
         if user.is_correct_password(data["password"]):
+            if user.confirmation[0] and user.confirmation[0].confirmed:
+                access_token = create_access_token(identity=user.email, fresh=True)
+                refresh_token = create_refresh_token(identity=user.email)
+                
+                response = jsonify({
+                    "access_token":access_token,
+                    "refresh_token":refresh_token,
+                    "success": True,
+                    "code":200
+                })
+                response.status_code = 200
+                return response
             response = jsonify({
-                "access_token":access_token,
-                "refresh_token":refresh_token,
-                "success": True,
-                "code":200
+                "message":"Your account has not been activated yet",
+                "code":400
             })
-            response.status_code = 200
+            response.status_code=400
             return response
+
+
+
         
         response = jsonify({
             "message":"Credentians are not valid",
