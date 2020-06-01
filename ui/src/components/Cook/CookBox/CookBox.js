@@ -43,12 +43,12 @@ const Label = styled.span`
 `;
 const Img = styled.img`
   border-radius: 50%;
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   border: 4px solid var(--color-white);
 `;
 
-const CookBox = ({ cook, deleteCook, permissions }) => {
+const CookBox = ({ cook, deleteCook }) => {
   return (
     <InnerDiv>
       <Img src="https://images.unsplash.com/photo-1586297098710-0382a496c814?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
@@ -71,20 +71,17 @@ const CookBox = ({ cook, deleteCook, permissions }) => {
           <Label>{cook.recipe_list.length} recipes</Label>
         </Item>
       </PersonalDetails>
-      {permissions.includes("delete:cook") && (
-        <div onClick={() => deleteCook(cook.id)}>
-          <AiOutlineDelete size="1.5em" />
-        </div>
-      )}
+
+      <div onClick={() => deleteCook(cook.id)}>
+        <AiOutlineDelete size="1.5em" />
+      </div>
     </InnerDiv>
   );
 };
 
 CookBox.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  permissions: state.auth.permissions,
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   deleteCook: (id) => dispatch(deleteCookById(id)),

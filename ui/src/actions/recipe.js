@@ -132,18 +132,15 @@ export const getRecipeById = (id) => async (dispatch) => {
   }
 };
 
-export const addRecipe = (recipe) => async (dispatch, getState) => {
+export const addRecipe = (recipe) => async (dispatch) => {
   // init the request
   dispatch(addRecipeRequest());
-
-  const token = getState().auth.token;
 
   try {
     const response = await axios({
       method: "post",
       url: "http://127.0.0.1:5000/api/recipe",
       data: recipe,
-      headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(addRecipeSuccess(response.data.recipe));
     dispatch(push("/recipe"));

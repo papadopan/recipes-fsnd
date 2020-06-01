@@ -40,7 +40,7 @@ const StyledP = styled.p`
     color: var(--color-main);
     font-weight: 500;
     font-size: 1.8em;
-    padding: 1em 0em;
+    padding: 0.5em 0em;
     text-transform: uppercase;
   }
 `;
@@ -66,7 +66,7 @@ const TagList = styled.div`
 
 const ActionsDiv = styled.div`
   svg {
-    margin: 0 2em;
+    margin: 0 1em;
     cursor: pointer;
 
     :first-child {
@@ -105,22 +105,12 @@ const RecipeDetails = (props) => {
       </ImgDiv>
       <DetailsDiv>
         <StyledP>{props.recipe.title}</StyledP>
+
         <TagList>
           <Tag color="default">{props.recipe.category}</Tag>
           <Tag color="default">{props.recipe.time} mins</Tag>
           <Tag color="default">{props.recipe.portions} portion(s)</Tag>
         </TagList>
-        <ActionsDiv>
-          {props.permissions.includes("patch:recipe") && (
-            <AiOutlineEdit size="2em" onClick={() => setModal(!modal)} />
-          )}
-          {props.permissions.includes("delete:recipe") && (
-            <AiOutlineDelete
-              size="2em"
-              onClick={() => props.deleteRecipeById(props.match.params.id)}
-            />
-          )}
-        </ActionsDiv>
         <EditModal
           visible={modal}
           updateModal={() => setModal(!modal)}
@@ -129,6 +119,13 @@ const RecipeDetails = (props) => {
           id={props.match.params.id}
         />
         <StyledDescription>{props.recipe.description}</StyledDescription>
+        <ActionsDiv>
+          <AiOutlineEdit size="2em" onClick={() => setModal(!modal)} />
+          <AiOutlineDelete
+            size="2em"
+            onClick={() => props.deleteRecipeById(props.match.params.id)}
+          />
+        </ActionsDiv>
       </DetailsDiv>
       <IngredientList data={props.recipe.ingredients} />
     </MainDiv>

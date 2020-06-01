@@ -120,7 +120,7 @@ const RecipeForm = (props) => {
                 title: "",
                 description: "",
                 category: "",
-                portions: 0,
+                portions: "",
                 time: "",
                 ingredients: [{ name: "", quantity: "", measurement: "" }],
               }
@@ -201,35 +201,46 @@ const RecipeForm = (props) => {
               onChange={(value) => setFieldValue("time", value)}
             />
             <label>Ingredients</label>
-            {console.log("Values", values)}
             <FieldArray
               name="ingredients"
               render={(arrayHelpers) => (
                 <div>
                   {values.ingredients.map((ingredient, index) => (
-                    <div key={index}>
-                      <Field
-                        index={index}
-                        name={`ingredients[${index}].name`}
-                        placeholder="Name"
-                      />
-                      <ErrorMessage name={`ingredients[${index}].name`} />
-                      <Field
-                        index={index}
-                        name={`ingredients[${index}]quantity`}
-                        placeholder="Quantity"
-                      />
-                      <ErrorMessage name={`ingredients[${index}].quantity`} />
-                      <Field
-                        index={index}
-                        name={`ingredients[${index}]measurement`}
-                        placeholder="Measurement"
-                      />
-                      <ErrorMessage
-                        name={`ingredients[${index}].measurement`}
-                      />
+                    <div
+                      key={index}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <div>
+                        <Field
+                          index={index}
+                          name={`ingredients[${index}].name`}
+                          placeholder="Name"
+                          component={TextComponent}
+                        />
+                        <ErrorMessage name={`ingredients[${index}].name`} />
+                      </div>
+                      <div>
+                        <Field
+                          index={index}
+                          name={`ingredients[${index}]quantity`}
+                          placeholder="Quantity"
+                          component={TextComponent}
+                        />
+                        <ErrorMessage name={`ingredients[${index}].quantity`} />
+                      </div>
+                      <div>
+                        <Field
+                          index={index}
+                          name={`ingredients[${index}]measurement`}
+                          placeholder="Measurement"
+                          component={TextComponent}
+                        />
+                        <ErrorMessage
+                          name={`ingredients[${index}].measurement`}
+                        />
+                      </div>
                       <Button
-                        type="button"
+                        size="medium"
                         onClick={() => arrayHelpers.remove(index)}
                       >
                         x
@@ -251,13 +262,13 @@ const RecipeForm = (props) => {
                 </div>
               )}
             />
-            <button
+            <Button
               onClick={handleSubmit}
               disabled={isSubmitting}
               type="submit"
             >
               Submit
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>

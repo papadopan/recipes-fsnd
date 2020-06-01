@@ -38,14 +38,14 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
 );
 
 const CookForm = ({ addCook, permissions }) => {
-  if (!permissions.includes("post:cook")) {
-    return (
-      <StyledDiv>
-        <Img src={empty} />
-        <P>Your account has no permissions to add a new cook...</P>
-      </StyledDiv>
-    );
-  }
+  // if (!permissions.includes("post:cook")) {
+  //   return (
+  //     <StyledDiv>
+  //       <Img src={empty} />
+  //       <P>Your account has no permissions to add a new cook...</P>
+  //     </StyledDiv>
+  //   );
+  // }
   return (
     <Formik
       initialValues={{

@@ -14,7 +14,7 @@ const SLink = styled(Link)`
 `;
 
 const MainDiv = styled.div`
-  border: 1px solid black;
+  box-shadow: 2px 8px 16px rgba(24, 50, 115, 0.2);
   width: 100%;
   max-width: 520px;
   height: 220px;
@@ -25,7 +25,7 @@ const MainDiv = styled.div`
 
 const Image = styled.img`
   width: 200px;
-  height: 218px;
+  height: 100%;
   border-radius: 5px;
 `;
 

@@ -29,7 +29,7 @@ class Cook(Resource):
         }, 200
  
  
-    def patch(self, permission,id):
+    def patch(self,id):
         cook = CookModel.find_by_id(id)
 
         if cook is None:
@@ -63,7 +63,7 @@ class Cook(Resource):
             "result": cook_schema.dump(cook)
         }
     
-    def delete(self,permission,id):
+    def delete(self,id):
         cook = CookModel.find_by_id(id)  
 
         if cook is None:
@@ -103,7 +103,7 @@ class CookList(Resource):
         }
     
     
-    def post(self, permission):
+    def post(self):
         # fetch data
         data = request.get_json()
 

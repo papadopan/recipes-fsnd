@@ -39,7 +39,7 @@ class Recipe(Resource):
         }, 200
 
     
-    def patch(self, permission,id):
+    def patch(self,id):
         recipe = RecipeModel.find_by_id(id)
 
         # check if the recipe exists
@@ -83,7 +83,7 @@ class Recipe(Resource):
         }, 200
 
     
-    def delete(self,permission, id):
+    def delete(self, id):
         recipe = RecipeModel.find_by_id(id=id)
 
         if recipe is None :
@@ -111,7 +111,7 @@ class Recipe(Resource):
         }
 
 class RecipesList(Resource):
-    @jwt_required
+    
     def get(self):
         return {
             "message": "List of all the recipes", 
@@ -120,10 +120,13 @@ class RecipesList(Resource):
             "result": recipe_list_schemas.dump(RecipeModel.query.all())
         }
 
-    def post(self, permission):
+    def post(self):
         # fetch data from the body as json
         data = request.get_json()
         data["ingredients"] = json.dumps(data["ingredients"])
+
+        print("----->>>>>>>>>")
+        print(data)
 
         # search if that name of the recipe exists
         if RecipeModel.find_by_title(data["title"]):

@@ -114,6 +114,7 @@ api.add_resource(UserConfirmation, "/api/confirmation/<string:id>")
 
 if __name__ == '__main__':
     mail.init_app(app)
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    # port = int(os.environ.get("PORT", 5000))
+    port = 5000
+    app.run(port=port, debug=True)
 

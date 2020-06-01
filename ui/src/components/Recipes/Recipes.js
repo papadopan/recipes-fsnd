@@ -76,7 +76,6 @@ Recipes.propTypes = {};
 const mapStateToProps = (state) => ({
   recipes: state.recipe.recipes,
   loading: state.recipe.loading,
-  loggedin: state.auth.loggedin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
