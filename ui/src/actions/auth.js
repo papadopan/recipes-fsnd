@@ -1,4 +1,5 @@
-import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { push } from "connected-react-router";
 
 // action types
 
@@ -14,12 +15,12 @@ export function loginRequest() {
   };
 }
 
-export function loginSuccess(permissions, token) {
+export function loginSuccess(data) {
   return {
     type: LOGIN_SUCCESS,
     payload: {
-      permissions,
-      token,
+      access: data.access_token,
+      refresh: data.refresh_token,
     },
   };
 }
@@ -31,15 +32,23 @@ export function loginError(error) {
   };
 }
 
-// function available to the app
-export const loginUser = (token) => {
-  return function (dispatch) {
-    // send login request
-    dispatch(loginRequest());
+// functions
 
-    let permissions = jwt_decode(token).permissions;
+//login user
+export const loginUser = (data) => async (dispatch) => {
+  //dispatch send request
+  dispatch(loginRequest());
 
-    dispatch(loginSuccess(token));
-    dispatch(loginSuccess(permissions, token));
-  };
+  try {
+    const response = await axios({
+      method: "post",
+      url: `http://localhost:5000/api/login`,
+      data: data,
+    });
+
+    dispatch(loginSuccess(response.data));
+    dispatch(push("/recipe"));
+  } catch (error) {
+    dispatch(loginError(error.response.data));
+  }
 };

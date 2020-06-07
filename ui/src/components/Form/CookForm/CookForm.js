@@ -38,68 +38,70 @@ const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
 );
 
 const CookForm = ({ addCook, permissions }) => {
-  // if (!permissions.includes("post:cook")) {
-  //   return (
-  //     <StyledDiv>
-  //       <Img src={empty} />
-  //       <P>Your account has no permissions to add a new cook...</P>
-  //     </StyledDiv>
-  //   );
-  // }
   return (
-    <Formik
-      initialValues={{
-        first_name: "",
-        last_name: "",
-        email: "",
-        country: "",
-        city: "",
-      }}
-      onSubmit={(values, actions) => {
-        addCook(values);
-        actions.setSubmitting(false);
-      }}
-      validationSchema={Yup.object({
-        first_name: Yup.string()
-          .max(20, "First Name can not be that long")
-          .required("First name is mandatory"),
-        last_name: Yup.string()
-          .max(20, "Last Name can not be that long")
-          .required("Last name is mandatory"),
-        email: Yup.string().email().required("Email is mandatory"),
-        country: Yup.string()
-          .max(20, "Country can not be that long")
-          .required("Country is mandatory"),
-        city: Yup.string()
-          .max(20, "City can not be that long")
-          .required("City is mandatory"),
-      })}
-    >
-      {({ isSubmitting, handleSubmit }) => (
-        <Form>
-          <Field
-            name="first_name"
-            placeholder="First Name"
-            component={TextComponent}
-          />
-          <Field
-            name="last_name"
-            placeholder="Last Name"
-            component={TextComponent}
-          />
-          <Field name="email" placeholder="E-mail" component={TextComponent} />
-          <Field
-            name="country"
-            placeholder="Country"
-            component={TextComponent}
-          />
-          <Field name="city" placeholder="City" component={TextComponent} />
-          <Button onClick={handleSubmit} disabled={isSubmitting} type="submit">
-            Submit
-          </Button>
-        </Form>
-      )}
-    </Formik>
+    <StyledDiv>
+      <Formik
+        initialValues={{
+          first_name: "",
+          last_name: "",
+          email: "",
+          country: "",
+          city: "",
+        }}
+        onSubmit={(values, actions) => {
+          addCook(values);
+          actions.setSubmitting(false);
+        }}
+        validationSchema={Yup.object({
+          first_name: Yup.string()
+            .max(20, "First Name can not be that long")
+            .required("First name is mandatory"),
+          last_name: Yup.string()
+            .max(20, "Last Name can not be that long")
+            .required("Last name is mandatory"),
+          email: Yup.string().email().required("Email is mandatory"),
+          country: Yup.string()
+            .max(20, "Country can not be that long")
+            .required("Country is mandatory"),
+          city: Yup.string()
+            .max(20, "City can not be that long")
+            .required("City is mandatory"),
+        })}
+      >
+        {({ isSubmitting, handleSubmit }) => (
+          <Form>
+            <Field
+              name="first_name"
+              placeholder="First Name"
+              component={TextComponent}
+            />
+            <Field
+              name="last_name"
+              placeholder="Last Name"
+              component={TextComponent}
+            />
+            <Field
+              name="email"
+              placeholder="E-mail"
+              component={TextComponent}
+            />
+            <Field
+              name="country"
+              placeholder="Country"
+              component={TextComponent}
+            />
+            <Field name="city" placeholder="City" component={TextComponent} />
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              type="submit"
+            >
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </StyledDiv>
   );
 };
 

@@ -1,9 +1,8 @@
 import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_REQUEST } from "../actions/auth";
 
 const initialState = {
-  permissions: [],
-  token: null,
   loading: false,
+  error: null,
 };
 
 function userReducer(state = initialState, action) {
@@ -17,9 +16,14 @@ function userReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        permissions: action.payload.permissions,
-        token: action.payload.token,
-        loggedin: true,
+        access: action.payload.access,
+        refresh: action.payload.refresh,
+      };
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;

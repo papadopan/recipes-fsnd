@@ -14,7 +14,7 @@ const Header = styled(Link)`
 `;
 
 const Logo = (props) => {
-  return <Header to="/">MyCook</Header>;
+  return <Header to="/">CookBook</Header>;
 };
 
 Logo.propTypes = {};

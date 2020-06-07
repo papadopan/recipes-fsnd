@@ -78,6 +78,15 @@ class UserLogin(Resource):
             response.status_code = 404
             return response
 
+        if not user.is_correct_password(data["password"]):
+            response= jsonify({
+                "message":"password is not correct",
+                "code":400,
+                "success":False
+            })
+            response.status_code=400
+            return response
+
         if user.is_correct_password(data["password"]):
             if user.confirmation[0] and user.confirmation[0].confirmed:
                 access_token = create_access_token(identity=user.email, fresh=True)

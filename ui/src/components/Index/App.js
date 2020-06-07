@@ -12,8 +12,6 @@ import { Layout } from "antd";
 import styled from "styled-components";
 import { Switch, Route } from "react-router-dom";
 
-import ProtectedRoute from "../ProtectedRoute";
-
 const { Content, Header } = Layout;
 
 const AntHeader = styled(Header)`
@@ -25,11 +23,11 @@ const AntFooter = styled(Layout.Footer)`
   background: var(--color-main);
   text-align: center;
   color: var(--color-white);
-  min-height: 6vh;
+  min-height: 4vh;
 `;
 
 const AntContent = styled(Content)`
-  min-height: 88vh;
+  min-height: 90vh;
 `;
 
 function App({ user, login }) {
