@@ -13,11 +13,20 @@ const MainDiv = styled.div`
   margin: 10px;
 `;
 
+const SubmitButton = styled(Button)`
+  height: 50px;
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-button);
+  border-radius: 4px;
+  color: var(--color-white);
+`;
+
 const Login = ({ login, loading, error }) => {
   if (loading) {
     return (
       <Row align="center" justify="center">
-        <Col span={24}>
+        <Col>
           <Spin />
         </Col>
       </Row>
@@ -54,9 +63,13 @@ const Login = ({ login, loading, error }) => {
             component={PasswordComponent}
           />
           <MainDiv>{error && error.message}</MainDiv>
-          <Button onClick={handleSubmit} disabled={isSubmitting} type="submit">
-            Submit
-          </Button>
+          <SubmitButton
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            type="submit"
+          >
+            Login
+          </SubmitButton>
         </Form>
       )}
     </Formik>

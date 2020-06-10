@@ -9,10 +9,11 @@ const Error = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-  background: var(--color-main);
+  background: var(--color-white);
   border: 0;
+  outline: 0;
+  border-bottom: 1px solid var(--color-grey);
   padding: 10px;
-  color: var(--color-white);
 `;
 
 const MainDiv = styled.div`

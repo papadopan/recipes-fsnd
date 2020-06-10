@@ -8,6 +8,7 @@ const theme = {
     error: "#F4282D",
     warning: "#FFDD00",
     yellow: "#FFE045",
+    button: "#E23181",
   },
   mediaQueries: {
     smallest: `only screen and (max-width: 25em)`,

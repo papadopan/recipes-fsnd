@@ -3,6 +3,7 @@ import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_REQUEST } from "../actions/auth";
 const initialState = {
   loading: false,
   error: null,
+  loggedin: false,
 };
 
 function userReducer(state = initialState, action) {
@@ -18,6 +19,7 @@ function userReducer(state = initialState, action) {
         loading: false,
         access: action.payload.access,
         refresh: action.payload.refresh,
+        loggedin: true,
       };
     case LOGIN_ERROR:
       return {

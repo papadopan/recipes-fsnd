@@ -6,7 +6,7 @@ import Logo from "./Logo";
 import Menu from "./Menu";
 
 const HeaderDiv = styled.div`
-  height: 4em;
+  height: 100%;
   background: var(--color-main);
   display: flex;
   justify-content: space-between;

@@ -4,33 +4,54 @@ import styled from "styled-components";
 import Login from "../LoginForm";
 import { Row, Col, Space } from "antd";
 
+import login from "../../utils/images/login.jpg";
 const MainDiv = styled.div`
   background: var(--color-secondary);
-  padding: 3em;
+  padding: 1em 3em;
+  height: 100%;
 `;
 
-const Title = styled.div`
-  color: var(--color-white);
-  font-size: 3em;
-  font-weight: 200;
-  font-family: Helvetica Neue;
-  letter-spacing: 1px;
-  margin-bottom: 2em;
+const FormDiv = styled.div`
+  background: var(--color-white);
+  height: 100%;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+`;
+
+const Title = styled.h1`
+  font-family: Open Sans;
+  font-size: 4em;
+  color: var(--color-main);
+  margin: 0;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 `;
 
 const Welcome = (props) => {
   return (
     <MainDiv>
-      <Row align="center" justify="center">
-        <Space direction="vertical">
-          <Col span={24}>
-            <Title>Create your account .</Title>
-          </Col>
-        </Space>
-      </Row>
-      <Row align="center" justify="center">
-        <Col span={6}>
-          <Login />
+      <Row justify="center" align="center">
+        <Col xs={24} sm={12} md={9} lg={9} xl={9}>
+          <Img src={login} />
+        </Col>
+        <Col xs={24} sm={12} md={9} lg={9} xl={9}>
+          <FormDiv>
+            <Row justify="middle" align="center" style={{ height: "100%" }}>
+              <Col>
+                <Space direction="vertical" size={60}>
+                  <div>
+                    <Title>Hello,</Title>
+                    <Title>welcome back</Title>
+                  </div>
+                  <Login />
+                </Space>
+              </Col>
+            </Row>
+          </FormDiv>
         </Col>
       </Row>
     </MainDiv>

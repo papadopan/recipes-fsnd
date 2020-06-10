@@ -20,6 +20,7 @@ html{
     --color-error: ${(props) => props.theme.colors.error};
     --color-warning: ${(props) => props.theme.colors.warning};
     --color-yellow: ${(props) => props.theme.colors.yellow};
+    --color-button: ${(props) => props.theme.colors.button};
 
 
     @media ${(props) => props.theme.mediaQueries.small}{
@@ -29,9 +30,10 @@ html{
 
 
 body {
-    font-family: Helvetica;
+    font-family: Open Sans,Helvetica Neue;
     font-weight: 400;
     height:100%;
     width:100%;
+    background: var(--color-secondary)
 }
 `;
