@@ -9,6 +9,8 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
+    country = db.Column(db.String(30), nullable=False)
+    city = db.Column(db.String(30), nullable=False)
     _password = db.Column(db.Binary(60), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
     validated = db.Column(db.Boolean, nullable=False, default=False)
