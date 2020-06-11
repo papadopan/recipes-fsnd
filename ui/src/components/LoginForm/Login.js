@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/auth";
 import { Row, Col, Spin } from "antd";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const MainDiv = styled.div`
   margin: 10px;
@@ -17,9 +18,16 @@ const SubmitButton = styled(Button)`
   height: 50px;
   width: 100%;
   max-width: 380px;
+  margin: 50px 0 0 0;
   background: var(--color-button);
   border-radius: 4px;
   color: var(--color-white);
+`;
+
+const Div = styled.div`
+  text-align: center;
+  width: 100%;
+  margin-top: 5px;
 `;
 
 const Login = ({ login, loading, error }) => {
@@ -70,6 +78,9 @@ const Login = ({ login, loading, error }) => {
           >
             Login
           </SubmitButton>
+          <Div>
+            <Link to="/signup">I do not have an account yet</Link>
+          </Div>
         </Form>
       )}
     </Formik>

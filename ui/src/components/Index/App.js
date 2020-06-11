@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/auth";
 import RecipeHeader from "../Header";
 import Recipes from "../Recipes";
 import RecipeDetails from "../Recipes/RecipeDetails";
 import Cook from "../Cook";
 import Form from "../Form";
 import Welcome from "../Welcome";
+import Signup from "../SignUpForm";
 import Footer from "../Footer";
 import { Layout } from "antd";
 import styled from "styled-components";
@@ -27,6 +27,10 @@ const AntFooter = styled(Layout.Footer)`
 const AntContent = styled(Content)``;
 
 function App({ user, login }) {
+  useEffect(() => {
+    console.log("Antonios");
+    return () => {};
+  }, []);
   return (
     <Layout>
       <AntHeader>
@@ -36,15 +40,16 @@ function App({ user, login }) {
         <Switch>
           <Route exact path="/" component={Recipes} />
           <Route exact path="/login" component={Welcome} />
+          <Route exact path="/signup" component={Signup} />
           <Route exact path="/recipe" component={Recipes} />
           <Route path="/recipe/:id" component={RecipeDetails} />
           <Route path="/create" component={Form} />
           <Route path="/cook" component={Cook} />
         </Switch>
       </AntContent>
-      {/* <AntFooter>
+      <AntFooter>
         <Footer />
-      </AntFooter> */}
+      </AntFooter>
     </Layout>
   );
 }
