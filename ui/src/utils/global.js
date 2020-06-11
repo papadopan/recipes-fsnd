@@ -22,7 +22,8 @@ html{
     --color-yellow: ${(props) => props.theme.colors.yellow};
     --color-button: ${(props) => props.theme.colors.button};
 
-
+    height:100vh;
+    width:100vw;
     @media ${(props) => props.theme.mediaQueries.small}{
         font-size:140%;
     }
@@ -32,8 +33,9 @@ html{
 body {
     font-family: Open Sans,Helvetica Neue;
     font-weight: 400;
-    height:100%;
-    width:100%;
+    height:100vh;
+    width:100vw;
     background: var(--color-secondary)
+
 }
 `;

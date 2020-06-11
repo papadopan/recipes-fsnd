@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { Formik, Field } from "formik";
 import { TextComponent, PasswordComponent } from "../common/FormComponents";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/auth";
+import { signupUser } from "../../actions/auth";
 import { Row, Col, Spin } from "antd";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -33,7 +33,7 @@ const Div = styled.div`
   align-items: center;
 `;
 
-const SignUpForm = ({ login, loading, error }) => {
+const SignUpForm = ({ signup, loading, error }) => {
   if (loading) {
     return (
       <Row align="center" justify="center">
@@ -54,7 +54,7 @@ const SignUpForm = ({ login, loading, error }) => {
         _password: "",
       }}
       onSubmit={(values, actions) => {
-        login(values);
+        signup(values);
         actions.setSubmitting(false);
       }}
       validationSchema={Yup.object({
@@ -118,7 +118,7 @@ const SignUpForm = ({ login, loading, error }) => {
             >
               Create Account
             </SubmitButton>
-            <Link to="/signup">Already a member? LogIn</Link>
+            <Link to="/login">Already a member? LogIn</Link>
           </Div>
         </Form>
       )}
@@ -134,7 +134,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (data) => dispatch(loginUser(data)),
+  signup: (data) => dispatch(signupUser(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

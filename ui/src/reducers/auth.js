@@ -1,9 +1,17 @@
-import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_REQUEST } from "../actions/auth";
+import {
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_REQUEST,
+  SIGNUP_REQUEST,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+} from "../actions/auth";
 
 const initialState = {
   loading: false,
   error: null,
   loggedin: false,
+  emailSent: false,
 };
 
 function userReducer(state = initialState, action) {
@@ -22,6 +30,24 @@ function userReducer(state = initialState, action) {
         loggedin: true,
       };
     case LOGIN_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case SIGNUP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        emailSent: action.payload,
+      };
+    case SIGNUP_ERROR:
       return {
         ...state,
         loading: false,

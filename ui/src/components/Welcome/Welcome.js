@@ -14,13 +14,14 @@ const MainDiv = styled.div`
 const FormDiv = styled.div`
   background: var(--color-white);
   height: 100%;
+  width: 100%;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 `;
 
 const Title = styled.h1`
   font-family: Open Sans;
-  font-size: 4em;
+  font-size: 3em;
   color: var(--color-main);
   margin: 0;
 `;
@@ -35,12 +36,16 @@ const Welcome = (props) => {
   return (
     <MainDiv>
       <Row justify="center" align="center">
-        <Col xs={24} sm={12} md={9} lg={9} xl={9}>
+        <Col xs={24} md={6} flex={1}>
           <Img src={login} />
         </Col>
-        <Col xs={24} sm={12} md={9} lg={9} xl={9}>
+        <Col xs={12} md={6}>
           <FormDiv>
-            <Row justify="middle" align="center" style={{ height: "100%" }}>
+            <Row
+              style={{ height: "100%" }}
+              justify="space-around"
+              align="middle"
+            >
               <Col>
                 <Space direction="vertical" size={60}>
                   <div>

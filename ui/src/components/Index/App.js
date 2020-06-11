@@ -24,12 +24,14 @@ const AntFooter = styled(Layout.Footer)`
   color: var(--color-white);
 `;
 
-const AntContent = styled(Content)``;
+const AntContent = styled(Content)`
+  margin-top: 60px;
+`;
 
 function App({ user, login }) {
   return (
     <Layout>
-      <AntHeader>
+      <AntHeader style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <RecipeHeader />
       </AntHeader>
       <AntContent>
@@ -43,9 +45,6 @@ function App({ user, login }) {
           <Route path="/cook" component={Cook} />
         </Switch>
       </AntContent>
-      <AntFooter>
-        <Footer />
-      </AntFooter>
     </Layout>
   );
 }
