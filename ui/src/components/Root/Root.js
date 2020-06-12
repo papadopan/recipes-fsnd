@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { Switch, Route } from "react-router-dom";
 
 import ProtectedRoute from "../routes/ProtectedRoute";
+import SimpleRoute from "../routes/SimpleRoute";
 
 const { Content, Header } = Layout;
 
@@ -22,8 +23,8 @@ function Root({ user, login }) {
       <AntContent>
         <Switch>
           <ProtectedRoute exact path="/" component={App} />
-          <Route path="/login" component={Welcome} />
-          <Route path="/signup" component={Signup} />
+          <SimpleRoute path="/login" component={Welcome} />
+          <SimpleRoute path="/signup" component={Signup} />
         </Switch>
       </AntContent>
     </Layout>

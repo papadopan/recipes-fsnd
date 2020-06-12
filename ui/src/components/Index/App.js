@@ -38,7 +38,7 @@ function App({ user, login }) {
         <Switch>
           <Route exact path="/" component={Recipes} />
           <Route path="/recipe/:id" component={RecipeDetails} />
-          <Route path="/create" component={Form} />
+          <Route exact path="/create" component={Form} />
           <Route path="/cook" component={Cook} />
         </Switch>
       </AntContent>
