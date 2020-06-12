@@ -7,6 +7,9 @@ export default createGlobalStyle`
     margin:0;
     padding:0;
     box-sizing:inherit
+
+    
+   
 }
 
 html{
@@ -27,6 +30,8 @@ html{
     @media ${(props) => props.theme.mediaQueries.small}{
         font-size:140%;
     }
+
+    
 }
 
 

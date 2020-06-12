@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button } from "antd";
+import { Form } from "antd";
 import * as Yup from "yup";
 import { Formik, Field } from "formik";
 import { TextComponent, PasswordComponent } from "../common/FormComponents";
@@ -10,18 +10,10 @@ import { Row, Col, Spin } from "antd";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import Button from "../common/Buttons";
+
 const MainDiv = styled.div`
   margin: 10px;
-`;
-
-const SubmitButton = styled(Button)`
-  height: 50px;
-  width: 100%;
-  max-width: 380px;
-  margin: 50px 0 0 0;
-  background: var(--color-button);
-  border-radius: 4px;
-  color: var(--color-white);
 `;
 
 const Div = styled.div`
@@ -71,13 +63,12 @@ const Login = ({ login, loading, error }) => {
             component={PasswordComponent}
           />
           <MainDiv>{error && error.message}</MainDiv>
-          <SubmitButton
+          <Button
             onClick={handleSubmit}
             disabled={isSubmitting}
             type="submit"
-          >
-            Login
-          </SubmitButton>
+            text="Login"
+          />
           <Div>
             <Link to="/signup">I do not have an account yet</Link>
           </Div>

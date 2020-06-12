@@ -28,6 +28,7 @@ const Title = styled.h1`
 
 const Img = styled.img`
   width: 100%;
+  height: 100%;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 `;
@@ -36,16 +37,12 @@ const Welcome = (props) => {
   return (
     <MainDiv>
       <Row justify="center" align="center">
-        <Col xs={24} md={6} flex={1}>
+        <Col xs={24} md={24} lg={7}>
           <Img src={login} />
         </Col>
-        <Col xs={12} md={6}>
+        <Col xs={24} lg={7}>
           <FormDiv>
-            <Row
-              style={{ height: "100%" }}
-              justify="space-around"
-              align="middle"
-            >
+            <Row justify="middle" align="center" style={{ height: "100%" }}>
               <Col>
                 <Space direction="vertical" size={60}>
                   <div>
