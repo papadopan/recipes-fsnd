@@ -1,10 +1,37 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Recipes from "../Recipes";
 
-const Root = (props) => {
-  return <div></div>;
-};
+import App from "../Index";
+import Welcome from "../Welcome";
+import Signup from "../SignUp";
 
-Root.propTypes = {};
+import { Layout } from "antd";
+import styled from "styled-components";
+import { Switch, Route } from "react-router-dom";
 
-export default Root;
+import ProtectedRoute from "../routes/ProtectedRoute";
+
+const { Content, Header } = Layout;
+
+const AntContent = styled(Content)``;
+
+function Root({ user, login }) {
+  return (
+    <Layout>
+      <AntContent>
+        <Switch>
+          <ProtectedRoute exact path="/" component={App} />
+          <Route path="/login" component={Welcome} />
+          <Route path="/signup" component={Signup} />
+        </Switch>
+      </AntContent>
+    </Layout>
+  );
+}
+
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispath) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Root);

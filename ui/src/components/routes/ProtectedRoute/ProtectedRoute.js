@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 const ProtectedRoute = (props) => {
   if (!props.token) {
-    return <Redirect to="/" />;
+    return <Redirect to="/login" />;
   }
   return <Route path={props.path} component={props.component} />;
 };

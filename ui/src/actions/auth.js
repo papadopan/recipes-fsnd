@@ -67,7 +67,7 @@ export const loginUser = (data) => async (dispatch) => {
     });
 
     dispatch(loginSuccess(response.data));
-    dispatch(push("/recipe"));
+    dispatch(push("/"));
   } catch (error) {
     dispatch(loginError(error.response.data));
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/Index";
+// import App from "./components/Index";
+import Root from "./components/Root";
 import { Provider } from "react-redux";
 import store, { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
@@ -17,7 +18,7 @@ ReactDOM.render(
       <ConnectedRouter history={history}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          <App />
+          <Root />
         </ThemeProvider>
       </ConnectedRouter>
     </Provider>

@@ -12,6 +12,7 @@ const initialState = {
   error: null,
   loggedin: false,
   emailSent: false,
+  token: false,
 };
 
 function userReducer(state = initialState, action) {
@@ -28,6 +29,7 @@ function userReducer(state = initialState, action) {
         access: action.payload.access,
         refresh: action.payload.refresh,
         loggedin: true,
+        token: true,
       };
     case LOGIN_ERROR:
       return {
