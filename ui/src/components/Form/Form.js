@@ -20,6 +20,7 @@ const Filtering = styled.div`
 const Choices = styled.span`
   margin: 0 1em;
   font-size: 5em;
+  font-weight: 100;
   color: var(--color-grey);
   cursor: pointer;
 
@@ -47,14 +48,14 @@ const NewContentForm = (props) => {
           active={selected === "recipe"}
           onClick={() => setSelected("recipe")}
         >
-          Recipe
+          Add a new Recipe
         </Choices>
-        <Choices
+        {/* <Choices
           active={selected === "cook"}
           onClick={() => setSelected("cook")}
         >
           Cook
-        </Choices>
+        </Choices> */}
       </Filtering>
       {getForm(selected)}
     </MainDiv>

@@ -30,7 +30,7 @@ const A = styled.a`
 const Menu = (props) => {
   return (
     <List>
-      <ListItem to="/recipe">Recipes</ListItem>
+      <ListItem to="/">Recipes</ListItem>
       <ListItem to="/create">Create</ListItem>
       <ListItem to="/cook">Cooks</ListItem>
     </List>

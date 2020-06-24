@@ -4,9 +4,9 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 const ProtectedRoute = (props) => {
-  if (!props.token) {
-    return <Redirect to="/login" />;
-  }
+  // if (!props.token) {
+  //   return <Redirect to="/login" />;
+  // }
   return <Route path={props.path} component={props.component} />;
 };
 

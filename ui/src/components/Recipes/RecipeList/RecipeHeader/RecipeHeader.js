@@ -1,35 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
+import Intro from "../../../../utils/images/intro.jpg";
 
 const Headers = styled.p`
   font-size: 4em;
   font-weight: 300;
-  margin-right: 0.5em;
   color: var(--color-secondary);
-
-  ${({ separator }) =>
-    separator &&
-    css`
-      color: var(--color-secondary);
-    `}
-
-  ${({ active }) =>
-    active &&
-    css`
-      color: var(--color-grey);
-    `}
 `;
 
 const MainDiv = styled.div`
   display: flex;
   flex-direction: row;
+  height: 200px;
+  background-image: url(${Intro});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-attachment: fixed;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1em;
 `;
 
 const RecipeHeader = (props) => {
   return (
     <MainDiv>
-      <Headers>Recipes</Headers>
+      <Headers>Find the next recipe for your meal</Headers>
     </MainDiv>
   );
 };
