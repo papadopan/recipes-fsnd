@@ -57,6 +57,7 @@ const Recipes = (props) => {
   return (
     <MainDiv>
       <RecipeHeader />
+
       {props.recipes.length > 0 ? (
         <RecipeList recipes={props.recipes} />
       ) : (

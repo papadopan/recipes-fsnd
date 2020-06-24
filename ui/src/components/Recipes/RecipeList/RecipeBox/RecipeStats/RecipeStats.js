@@ -2,13 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClockCircle, AiOutlineTag } from "react-icons/ai";
 import { GiKnifeFork } from "react-icons/gi";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const RecipeStats = ({ icon, label }) => {
   return (
-    <div>
+    <Wrapper>
       {icon2Comp[icon]}
       <p>{label}</p>
-    </div>
+    </Wrapper>
   );
 };
 

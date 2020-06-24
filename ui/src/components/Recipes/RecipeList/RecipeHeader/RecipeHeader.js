@@ -4,9 +4,13 @@ import styled, { css } from "styled-components";
 import Intro from "../../../../utils/images/intro.jpg";
 
 const Headers = styled.p`
-  font-size: 4em;
+  font-size: 3em;
   font-weight: 300;
   color: var(--color-secondary);
+
+  ::selection {
+    background: var(--color-yellow);
+  }
 `;
 
 const MainDiv = styled.div`
@@ -16,7 +20,7 @@ const MainDiv = styled.div`
   background-image: url(${Intro});
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center left;
+  background-position: center center;
   background-attachment: fixed;
   align-items: center;
   justify-content: flex-end;
@@ -26,7 +30,7 @@ const MainDiv = styled.div`
 const RecipeHeader = (props) => {
   return (
     <MainDiv>
-      <Headers>Find the next recipe for your meal</Headers>
+      <Headers>The next recipe is always, the better</Headers>
     </MainDiv>
   );
 };
