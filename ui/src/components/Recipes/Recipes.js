@@ -11,6 +11,7 @@ import { Spin, Space } from "antd";
 
 import RecipeHeader from "./RecipeList/RecipeHeader";
 import RecipeList from "./RecipeList";
+import FilterList from "./FilterList";
 
 const MainDiv = styled.div`
   padding: 2em;
@@ -57,7 +58,7 @@ const Recipes = (props) => {
   return (
     <MainDiv>
       <RecipeHeader />
-
+      <FilterList />
       {props.recipes.length > 0 ? (
         <RecipeList recipes={props.recipes} />
       ) : (
