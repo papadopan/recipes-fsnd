@@ -5,9 +5,6 @@ import Recipes from "../Recipes";
 import RecipeDetails from "../Recipes/RecipeDetails";
 import Cook from "../Cook";
 import Form from "../Form";
-import Welcome from "../Welcome";
-import Signup from "../SignUp";
-import Footer from "../Footer";
 import { Layout } from "antd";
 import styled from "styled-components";
 import { Switch, Route } from "react-router-dom";
@@ -38,7 +35,7 @@ function App({ user, login }) {
         <Switch>
           <Route exact path="/" component={Recipes} />
           <Route path="/recipe/:id" component={RecipeDetails} />
-          <Route exact path="/create" component={Form} />
+          <Route path="/create" component={Form} />
           <Route path="/cook" component={Cook} />
         </Switch>
       </AntContent>

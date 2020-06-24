@@ -17,12 +17,13 @@ const StyledButton = styled(Button)`
     background: var(--color-secondary);
     border: 0;
     color: var(--color-white);
+    transition: 0.5s;
   }
 `;
 
 const Buttons = ({ text, type, onClick, disabled }) => {
   return (
-    <StyledButton type={type} onClick={onClick} disabed={disabled}>
+    <StyledButton type={type} onClick={onClick} disabled={disabled}>
       {text}
     </StyledButton>
   );

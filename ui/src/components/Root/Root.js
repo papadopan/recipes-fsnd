@@ -22,9 +22,9 @@ function Root({ user, login }) {
     <Layout>
       <AntContent>
         <Switch>
-          <ProtectedRoute exact path="/" component={App} />
-          <SimpleRoute path="/login" component={Welcome} />
-          <SimpleRoute path="/signup" component={Signup} />
+          <SimpleRoute exact path="/signup" component={Signup} />
+          <SimpleRoute exact path="/login" component={Welcome} />
+          <ProtectedRoute path="/" component={App} />
         </Switch>
       </AntContent>
     </Layout>
