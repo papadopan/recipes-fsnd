@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "commitizen": "^4.1.2"
+  }
+}
