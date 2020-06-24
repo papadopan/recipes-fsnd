@@ -9,6 +9,8 @@ const MainDiv = styled.div`
   background: var(--color-secondary);
   padding: 1em 3em;
   height: 100%;
+  align-items: center;
+  display: flex;
 `;
 
 const FormDiv = styled.div`

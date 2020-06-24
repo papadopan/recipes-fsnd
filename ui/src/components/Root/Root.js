@@ -19,7 +19,7 @@ const AntContent = styled(Content)``;
 
 function Root({ user, login }) {
   return (
-    <Layout>
+    <Layout style={{ height: "100vh" }}>
       <AntContent>
         <Switch>
           <SimpleRoute exact path="/signup" component={Signup} />
