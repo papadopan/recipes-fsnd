@@ -67,6 +67,7 @@ export const loginUser = (data) => async (dispatch) => {
     });
 
     dispatch(loginSuccess(response.data));
+    localStorage.setItem("loggedIn", response.data.access_token);
     dispatch(push("/"));
   } catch (error) {
     dispatch(loginError(error.response.data));

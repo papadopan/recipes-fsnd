@@ -12,7 +12,7 @@ const initialState = {
   error: null,
   loggedin: false,
   emailSent: false,
-  token: false,
+  token: localStorage.getItem("loggedIn"),
 };
 
 function userReducer(state = initialState, action) {

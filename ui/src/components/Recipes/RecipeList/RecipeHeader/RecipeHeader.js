@@ -20,7 +20,7 @@ const MainDiv = styled.div`
   background-image: url(${Intro});
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: top;
   background-attachment: fixed;
   align-items: center;
   justify-content: flex-end;
