@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
+  letter-spacing: 1px;
 
   ${({ link }) =>
     link &&
