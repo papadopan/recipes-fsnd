@@ -31,6 +31,9 @@ class Recipe(Resource):
         recipe["ingredients"] = [{'name': r['name'], 'quantity': r['quantity'],
                                   'measurement': r['measurement']} for r in json.loads(recipe["ingredients"])]
 
+        recipe["sections"] = [{'name': r['name']}
+                              for r in json.loads(recipe["sections"])]
+
         return {
             "success": True,
             "code": 200,
@@ -54,6 +57,7 @@ class Recipe(Resource):
         recipe.title = data["title"]
         recipe.description = data["description"]
         recipe.ingredients = json.dumps(data["ingredients"])
+        recipe.sections = json.dumps(data["sections"])
         recipe.category = data["category"]
         recipe.time = data["time"]
         recipe.portions = data["portions"]

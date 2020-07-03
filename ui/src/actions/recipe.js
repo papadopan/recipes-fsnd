@@ -136,6 +136,10 @@ export const addRecipe = (recipe) => async (dispatch) => {
   // init the request
   dispatch(addRecipeRequest());
 
+  console.log("====================================");
+  console.log(recipe);
+  console.log("====================================");
+
   try {
     const response = await axios({
       method: "post",

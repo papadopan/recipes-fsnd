@@ -17,7 +17,6 @@ class RecipeModel(db.Model):
     time = db.Column(db.Integer, nullable=True)
     category = db.Column(db.String(20), nullable=True)
 
-    cook_id = db.Column(db.Integer, db.ForeignKey("cook.id"), nullable=False)
     # category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True)
 
     image_file = db.relationship("ImageModel", backref="recipe", lazy=True)
