@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-import { Input, Button, InputNumber, Select } from "antd";
+import { Button } from "antd";
 import * as Yup from "yup";
 import styled from "styled-components";
 import empty from "../../../utils/images/empty.svg";
@@ -14,10 +14,8 @@ import {
   TextComponent,
   TextAreaComponent,
   SelectComponent,
+  NumberComponent,
 } from "../../common/FormComponents";
-
-const { TextArea } = Input;
-const { Option } = Select;
 
 const options = [
   { value: "breakfast", label: "Breakfast" },
@@ -25,53 +23,12 @@ const options = [
   { value: "brunch", label: "Brunch" },
   { value: "Dinner", label: "Dinner" },
   { value: "snack", label: "Snack" },
+  { value: "any time", label: "Any Time" },
 ];
-
-const NumberComponent = ({ field, form: { touched, errors }, ...props }) => (
-  <StyledInput>
-    <label>{props.placeholder}:</label>
-    <InputNumber
-      {...field}
-      {...props}
-      onChange={(value) => props.onChange(value)}
-    />
-    {touched[field.name] && errors[field.name] && (
-      <Error>{errors[field.name]}</Error>
-    )}
-  </StyledInput>
-);
-
-// const SelectComponent = ({ field, form: { touched, errors }, ...props }) => (
-//   <StyledInput>
-//     <label>{props.fieldPlaceholder}:</label>
-//     <Select
-//       style={{ marginLeft: "5px" }}
-//       placeholder={props.placeholder}
-//       onChange={(value) => props.onChange(value)}
-//     >
-//       {props.options.map((option, index) => (
-//         <Option key={index} value={option.value}>
-//           {option.label}
-//         </Option>
-//       ))}
-//     </Select>
-//     {touched[field.name] && errors[field.name] && (
-//       <Error>{errors[field.name]}</Error>
-//     )}
-//   </StyledInput>
-// );
 
 const Img = styled.img`
   width: 200px;
   height: 200px;
-`;
-
-const StyledInput = styled.div`
-  margin: 0.5em 0;
-`;
-
-const Error = styled.div`
-  color: var(--color-error);
 `;
 
 const StyledDiv = styled.div`
@@ -86,17 +43,9 @@ const P = styled.p`
 `;
 const RecipeForm = (props) => {
   useEffect(() => {
-    props.getAllCooks();
+    // props.getAllCooks();
   }, []);
 
-  if (props.cooks.length === 0) {
-    return (
-      <StyledDiv>
-        <Img src={empty} />
-        <P>There is no cook, try to add a new one first...</P>
-      </StyledDiv>
-    );
-  }
   return (
     <StyledDiv>
       <Formik
@@ -110,6 +59,7 @@ const RecipeForm = (props) => {
                 portions: "",
                 time: "",
                 ingredients: [{ name: "", quantity: "", measurement: "" }],
+                sections: [{ name: "" }],
               }
         }
         onSubmit={(values, actions) => {
@@ -130,8 +80,14 @@ const RecipeForm = (props) => {
           time: Yup.string().required("Time is a required field"),
           portions: Yup.number()
             .min(1, "Recipe should be at least for one person")
-            .max(15, "Seems that a recipe can be up to 15 people")
             .required("Portions is a required field"),
+          sections: Yup.array().of(
+            Yup.object().shape({
+              name: Yup.string()
+                .min(1, "Step is very short")
+                .required("Required"),
+            })
+          ),
           ingredients: Yup.array()
             .of(
               Yup.object().shape({
@@ -158,7 +114,7 @@ const RecipeForm = (props) => {
             />
             <Field
               name="category"
-              fieldPlaceholder="This food would be an excellent choice as"
+              fieldPlaceholder="I would cook this recipe for"
               placeholder="e.x. Lunch"
               component={SelectComponent}
               onChange={(value) => setFieldValue("category", value)}
@@ -166,41 +122,54 @@ const RecipeForm = (props) => {
             />
             <Field
               name="portions"
-              placeholder="Portions"
+              placeholder="e.x 4"
+              fieldPlaceholder="I would cook this recipe for"
+              followingPlaceholder="people"
               component={NumberComponent}
-              onChange={(value) => setFieldValue("portions", value)}
+              onChange={(value) => {
+                if (parseInt(value)) {
+                  setFieldValue("portions", value);
+                }
+              }}
             />
             <Field
               name="time"
-              placeholder="Time in mins"
+              placeholder="e.x 60"
+              fieldPlaceholder="I would cook this recipe in"
+              followingPlaceholder="minutes"
               component={NumberComponent}
               onChange={(value) => setFieldValue("time", value)}
             />
-            <label>Ingredients</label>
+            <h2>Ingredients List</h2>
             <FieldArray
               name="ingredients"
               render={(arrayHelpers) => (
-                <div>
+                <div style={{ marginBottom: "50px" }}>
                   {values.ingredients.map((ingredient, index) => (
                     <div
                       key={index}
-                      style={{ display: "flex", alignItems: "center" }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
                     >
-                      <div>
+                      <div style={{ marginRight: "5px" }}>
                         <Field
                           index={index}
                           name={`ingredients[${index}].name`}
                           placeholder="Name"
                           component={TextComponent}
+                          margin="0 0 5px 0 "
                         />
                         <ErrorMessage name={`ingredients[${index}].name`} />
                       </div>
-                      <div>
+                      <div style={{ marginRight: "5px" }}>
                         <Field
                           index={index}
                           name={`ingredients[${index}]quantity`}
                           placeholder="Quantity"
                           component={TextComponent}
+                          margin="0 0 5px 0 "
                         />
                         <ErrorMessage name={`ingredients[${index}].quantity`} />
                       </div>
@@ -210,6 +179,7 @@ const RecipeForm = (props) => {
                           name={`ingredients[${index}]measurement`}
                           placeholder="Measurement"
                           component={TextComponent}
+                          margin="0 0 5px 0 "
                         />
                         <ErrorMessage
                           name={`ingredients[${index}].measurement`}
@@ -217,27 +187,83 @@ const RecipeForm = (props) => {
                       </div>
                       <Button
                         size="medium"
+                        style={{ marginLeft: "5px" }}
                         onClick={() => arrayHelpers.remove(index)}
                       >
                         x
                       </Button>
                     </div>
                   ))}
-                  <Button
-                    type="button"
-                    onClick={() =>
-                      arrayHelpers.push({
-                        name: "",
-                        quantity: "",
-                        measurement: "",
-                      })
-                    }
-                  >
-                    Add new ingredient
-                  </Button>
+                  <div>
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        arrayHelpers.push({
+                          name: "",
+                          quantity: "",
+                          measurement: "",
+                        })
+                      }
+                    >
+                      Add new ingredient
+                    </Button>
+                  </div>
                 </div>
               )}
             />
+
+            <h2>Steps to Cook</h2>
+            <FieldArray
+              name="sections"
+              render={(arrayHelpers) => (
+                <div style={{ marginBottom: "50px" }}>
+                  {values.sections.map((section, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div style={{ marginRight: "5px", width: "100%" }}>
+                        <Field
+                          index={index}
+                          name={`sections[${index}].name`}
+                          placeholder="Explain the recipe step by step"
+                          component={TextAreaComponent}
+                          margin="0 0 5px 0 "
+                          rows={4}
+                        />
+                        <ErrorMessage name={`ingredients[${index}].name`} />
+                      </div>
+
+                      <Button
+                        size="medium"
+                        style={{ marginLeft: "5px" }}
+                        onClick={() => arrayHelpers.remove(index)}
+                      >
+                        x
+                      </Button>
+                    </div>
+                  ))}
+                  <div>
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        arrayHelpers.push({
+                          name: "",
+                          quantity: "",
+                          measurement: "",
+                        })
+                      }
+                    >
+                      Add new step
+                    </Button>
+                  </div>
+                </div>
+              )}
+            />
+
             <Button
               onClick={handleSubmit}
               disabled={isSubmitting}

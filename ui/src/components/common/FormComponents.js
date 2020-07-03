@@ -24,7 +24,7 @@ const StyledInput = styled(Input)`
 `;
 
 const MainDiv = styled.div`
-  margin: 0 0 50px 0;
+  margin: ${(props) => (props.margin ? props.margin : "0 0 40px 0")};
   position: relative;
 `;
 
@@ -45,7 +45,7 @@ export const TextComponent = ({
   form: { touched, errors },
   ...props
 }) => (
-  <MainDiv>
+  <MainDiv margin={props.margin}>
     <StyledInput type="text" {...field} {...props} />
     {touched[field.name] && errors[field.name] && (
       <Error>{errors[field.name]}</Error>
@@ -70,8 +70,8 @@ export const TextAreaComponent = ({
   form: { touched, errors },
   ...props
 }) => (
-  <MainDiv>
-    <StyledTextArea rows={10} {...field} {...props} />
+  <MainDiv margin={props.margin}>
+    <StyledTextArea rows={props.rows || 10} {...field} {...props} />
     {touched[field.name] && errors[field.name] && (
       <Error>{errors[field.name]}</Error>
     )}
@@ -83,8 +83,8 @@ export const NumberComponent = ({
   form: { touched, errors },
   ...props
 }) => (
-  <StyledInput>
-    <label>{props.placeholder}:</label>
+  <MainDiv>
+    <label style={{ marginRight: "5px" }}>{props.fieldPlaceholder}:</label>
     <InputNumber
       {...field}
       {...props}
@@ -93,7 +93,8 @@ export const NumberComponent = ({
     {touched[field.name] && errors[field.name] && (
       <Error>{errors[field.name]}</Error>
     )}
-  </StyledInput>
+    <label style={{ marginLeft: "5px" }}>{props.followingPlaceholder}</label>
+  </MainDiv>
 );
 
 export const SelectComponent = ({

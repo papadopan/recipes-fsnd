@@ -1,3 +1,4 @@
+from auth import AuthError, requires_auth
 from flask_restful import Resource
 from flask import jsonify, request
 from models.recipe import RecipeModel
@@ -11,9 +12,6 @@ from flask_jwt_extended import jwt_required
 recipe_schemas = RecipeSchema()
 image_schemas = ImageSchema()
 recipe_list_schemas = RecipeSchema(many=True)
-
-from auth import AuthError, requires_auth
-
 
 
 images = UploadSet("images", IMAGES)
@@ -30,79 +28,76 @@ class Recipe(Resource):
             }, 404
 
         recipe = recipe_schemas.dump(recipe)
-        recipe["ingredients"] = [{'name': r['name'], 'quantity': r['quantity'],'measurement': r['measurement'] } for r in json.loads(recipe["ingredients"])]
-        
+        recipe["ingredients"] = [{'name': r['name'], 'quantity': r['quantity'],
+                                  'measurement': r['measurement']} for r in json.loads(recipe["ingredients"])]
+
         return {
             "success": True,
-            "code":200,
+            "code": 200,
             "result": recipe
         }, 200
 
-    
-    def patch(self,id):
+    def patch(self, id):
         recipe = RecipeModel.find_by_id(id)
 
         # check if the recipe exists
         if recipe is None:
             return {
-                "message": "recipe was not found", 
+                "message": "recipe was not found",
                 "code": 404,
                 "success": False
             }, 404
-        
+
         # fetch the arguments
-        data = request.get_json()   
-        
+        data = request.get_json()
+
         recipe.title = data["title"]
         recipe.description = data["description"]
         recipe.ingredients = json.dumps(data["ingredients"])
         recipe.category = data["category"]
         recipe.time = data["time"]
         recipe.portions = data["portions"]
-        recipe.cook_id = data["cook_id"]
 
-            
         # save the update data
         try:
             recipe.update_to_db()
         except:
             return {
-                "message":"Error during update",
+                "message": "Error during update",
                 "code": 500,
                 "success": False
             }, 500
 
-
         recipe = recipe_schemas.dump(recipe)
-        recipe["ingredients"] = [{'name': r['name'], 'quantity': r['quantity'],'measurement': r['measurement'] } for r in json.loads(recipe["ingredients"])]
+        recipe["ingredients"] = [{'name': r['name'], 'quantity': r['quantity'],
+                                  'measurement': r['measurement']} for r in json.loads(recipe["ingredients"])]
         return {
             "message": "recipe successfully updated",
-            "code":200,
+            "code": 200,
             "success": True,
             "result": recipe
         }, 200
 
-    
     def delete(self, id):
         recipe = RecipeModel.find_by_id(id=id)
 
-        if recipe is None :
+        if recipe is None:
             return {
                 "message": "recipe was not found",
-                "code":404,
-                "success":False,
+                "code": 404,
+                "success": False,
             }, 404
-        
+
         # delete from db
         try:
             recipe.delete_from_db()
         except:
             return {
-                "message":"Error with the delete process",
+                "message": "Error with the delete process",
                 "code": 500,
                 "success": False,
             }, 500
-        
+
         return {
             "message": "Recipe was deleted",
             "success": True,
@@ -110,12 +105,13 @@ class Recipe(Resource):
             "result": recipe_schemas.dump(recipe)
         }
 
+
 class RecipesList(Resource):
-    
+
     def get(self):
         return {
-            "message": "List of all the recipes", 
-            "success": True, 
+            "message": "List of all the recipes",
+            "success": True,
             "count": RecipeModel.query.count(),
             "result": recipe_list_schemas.dump(RecipeModel.query.all())
         }
@@ -124,6 +120,7 @@ class RecipesList(Resource):
         # fetch data from the body as json
         data = request.get_json()
         data["ingredients"] = json.dumps(data["ingredients"])
+        data["sections"] = json.dumps(data["sections"])
 
         # search if that name of the recipe exists
         if RecipeModel.find_by_title(data["title"]):
@@ -131,14 +128,13 @@ class RecipesList(Resource):
                 "message": "Recipe already exists",
                 "code": 400,
                 "success": False
-            }, 400  
+            }, 400
 
         # validate through schemas
         try:
             recipe = recipe_schemas.load(data)
         except ValidationError as err:
             return err.messages, 500
-      
 
         try:
             recipe.save_to_db()
@@ -156,13 +152,13 @@ class RecipesList(Resource):
 
 
 class RecipeImage(Resource):
-    def post(self,id):
+    def post(self, id):
         # make sure the id belongs to a recipe
         recipe = RecipeModel.find_by_id(id=id)
 
         if recipe is None:
             return {
-                "message":"Recipe was not found",
+                "message": "Recipe was not found",
                 "success": False,
                 "code": 404
             }, 404
@@ -175,7 +171,7 @@ class RecipeImage(Resource):
             filename = images.save(files)
         except:
             return {
-                "message":"Make sure you are uploading an image",
+                "message": "Make sure you are uploading an image",
                 "success": False,
                 "code": 500
             }, 500
@@ -184,7 +180,7 @@ class RecipeImage(Resource):
         image = image_schemas.load({
             "name": filename,
             "data": files.mimetype,
-            "recipe_id":id
+            "recipe_id": id
         })
 
         try:
@@ -196,9 +192,8 @@ class RecipeImage(Resource):
                 "code": True
             }, 500
 
-        
         return {
-            "message":"Image uploaded",
+            "message": "Image uploaded",
             "success": True,
             "code": 201,
             "result": image_schemas.dump(image)
