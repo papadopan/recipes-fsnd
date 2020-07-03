@@ -5,59 +5,24 @@ import RecipeForm from "./RecipeForm";
 import CookForm from "./CookForm";
 
 const MainDiv = styled.div`
+  justify-content: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 1em 3em;
 `;
 
-const Filtering = styled.div`
-  padding: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Choices = styled.span`
-  margin: 0 1em;
-  font-size: 5em;
-  font-weight: 100;
-  color: var(--color-grey);
-  cursor: pointer;
-
-  ${({ active }) =>
-    active &&
-    css`
-      color: var(--color-main);
-    `};
+const Header = styled.span`
+  font-size: 2em;
+  margin 1em 0;
+  color: var(--color-main);
+  
 `;
 
 const NewContentForm = (props) => {
-  const [selected, setSelected] = useState("recipe");
-  const getForm = (name) => {
-    let returnForm = {
-      recipe: <RecipeForm />,
-      cook: <CookForm />,
-    };
-
-    return returnForm[name];
-  };
   return (
     <MainDiv>
-      <Filtering>
-        <Choices
-          active={selected === "recipe"}
-          onClick={() => setSelected("recipe")}
-        >
-          Add a new Recipe
-        </Choices>
-        {/* <Choices
-          active={selected === "cook"}
-          onClick={() => setSelected("cook")}
-        >
-          Cook
-        </Choices> */}
-      </Filtering>
-      {getForm(selected)}
+      <Header>My new Recipe</Header>
+      <RecipeForm />
     </MainDiv>
   );
 };

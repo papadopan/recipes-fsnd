@@ -32,7 +32,8 @@ const Menu = (props) => {
     <List>
       <ListItem to="/">Recipes</ListItem>
       <ListItem to="/create">Create</ListItem>
-      <ListItem to="/cook">Cooks</ListItem>
+      {/* <ListItem to="/cook">Cooks</ListItem> */}
+      <ListItem to="/profile">Profile</ListItem>
     </List>
   );
 };

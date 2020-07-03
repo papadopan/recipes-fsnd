@@ -4,6 +4,7 @@ import RecipeHeader from "../Header";
 import Recipes from "../Recipes";
 import RecipeDetails from "../Recipes/RecipeDetails";
 import Cook from "../Cook";
+import Profile from "../Profile";
 import Form from "../Form";
 import { Layout } from "antd";
 import styled from "styled-components";
@@ -37,6 +38,7 @@ function App({ user, login }) {
           <Route path="/recipe/:id" component={RecipeDetails} />
           <Route path="/create" component={Form} />
           <Route path="/cook" component={Cook} />
+          <Route path="/profile" component={Profile} />
         </Switch>
       </AntContent>
     </Layout>

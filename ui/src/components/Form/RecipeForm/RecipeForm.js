@@ -10,17 +10,22 @@ import { connect } from "react-redux";
 import { addRecipe } from "../../../actions/recipe";
 import { getAllCooks, cooksFail } from "../../../actions/cook";
 
+import {
+  TextComponent,
+  TextAreaComponent,
+  SelectComponent,
+} from "../../common/FormComponents";
+
 const { TextArea } = Input;
 const { Option } = Select;
 
-const TextComponent = ({ field, form: { touched, errors }, ...props }) => (
-  <StyledInput>
-    <Input type="text" {...field} {...props} />
-    {touched[field.name] && errors[field.name] && (
-      <Error>{errors[field.name]}</Error>
-    )}
-  </StyledInput>
-);
+const options = [
+  { value: "breakfast", label: "Breakfast" },
+  { value: "lunch", label: "Lunch" },
+  { value: "brunch", label: "Brunch" },
+  { value: "Dinner", label: "Dinner" },
+  { value: "snack", label: "Snack" },
+];
 
 const NumberComponent = ({ field, form: { touched, errors }, ...props }) => (
   <StyledInput>
@@ -36,42 +41,25 @@ const NumberComponent = ({ field, form: { touched, errors }, ...props }) => (
   </StyledInput>
 );
 
-const TextAreaComponent = ({ field, form: { touched, errors }, ...props }) => (
-  <StyledInput>
-    <TextArea rows={4} {...field} {...props} />
-    {touched[field.name] && errors[field.name] && (
-      <Error>{errors[field.name]}</Error>
-    )}
-  </StyledInput>
-);
-
-const options = [
-  { value: "breakfast", label: "Breakfast" },
-  { value: "lunch", label: "Lunch" },
-  { value: "brunch", label: "Brunch" },
-  { value: "Dinner", label: "Dinner" },
-  { value: "snack", label: "Snack" },
-];
-
-const SelectComponent = ({ field, form: { touched, errors }, ...props }) => (
-  <StyledInput>
-    <label>{props.placeholder}:</label>
-    <Select
-      style={{ marginLeft: "5px" }}
-      placeholder={props.placeholder}
-      onChange={(value) => props.onChange(value)}
-    >
-      {props.options.map((option, index) => (
-        <Option key={index} value={option.value}>
-          {option.label}
-        </Option>
-      ))}
-    </Select>
-    {touched[field.name] && errors[field.name] && (
-      <Error>{errors[field.name]}</Error>
-    )}
-  </StyledInput>
-);
+// const SelectComponent = ({ field, form: { touched, errors }, ...props }) => (
+//   <StyledInput>
+//     <label>{props.fieldPlaceholder}:</label>
+//     <Select
+//       style={{ marginLeft: "5px" }}
+//       placeholder={props.placeholder}
+//       onChange={(value) => props.onChange(value)}
+//     >
+//       {props.options.map((option, index) => (
+//         <Option key={index} value={option.value}>
+//           {option.label}
+//         </Option>
+//       ))}
+//     </Select>
+//     {touched[field.name] && errors[field.name] && (
+//       <Error>{errors[field.name]}</Error>
+//     )}
+//   </StyledInput>
+// );
 
 const Img = styled.img`
   width: 200px;
@@ -116,7 +104,6 @@ const RecipeForm = (props) => {
           props.recipe
             ? props.recipe
             : {
-                cook_id: "",
                 title: "",
                 description: "",
                 category: "",
@@ -134,10 +121,11 @@ const RecipeForm = (props) => {
         validationSchema={Yup.object({
           title: Yup.string()
             .max(50, "Title must be less than 50 characters")
-            .required("Title is mandatory"),
-          description: Yup.string()
-            .max(200, "Description should be less than 200 characters")
-            .required("Description is mandatory"),
+            .required("There is no recipe without a title"),
+          description: Yup.string().max(
+            200,
+            "Description should be less than 200 characters"
+          ),
           category: Yup.string().required("Category is mandatory"),
           time: Yup.string().required("Time is a required field"),
           portions: Yup.number()
@@ -165,29 +153,17 @@ const RecipeForm = (props) => {
             <Field name="title" placeholder="Title" component={TextComponent} />
             <Field
               name="description"
-              placeholder="Description"
+              placeholder="Give some details about the recipe and its history ..."
               component={TextAreaComponent}
             />
             <Field
               name="category"
-              placeholder="Choose from the list"
+              fieldPlaceholder="This food would be an excellent choice as"
+              placeholder="e.x. Lunch"
               component={SelectComponent}
               onChange={(value) => setFieldValue("category", value)}
               options={options}
             />
-            <Field
-              name="cook_id"
-              placeholder="Choose your cook"
-              component={SelectComponent}
-              onChange={(value) => setFieldValue("cook_id", value)}
-              options={props.cooks.map((cook, index) => {
-                return {
-                  value: cook.id,
-                  label: `${cook.first_name} ${cook.last_name}`,
-                };
-              })}
-            />
-
             <Field
               name="portions"
               placeholder="Portions"
