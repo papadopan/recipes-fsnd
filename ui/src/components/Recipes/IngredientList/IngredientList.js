@@ -29,6 +29,7 @@ const MainDiv = styled.div`
 const IngredientList = ({ data }) => {
   return (
     <MainDiv>
+      <h2>Ingredients</h2>
       <Table columns={columns} dataSource={data} pagination={false} bordered />
     </MainDiv>
   );

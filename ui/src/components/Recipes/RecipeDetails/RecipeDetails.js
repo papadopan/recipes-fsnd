@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Tag } from "antd";
 import IngredientList from "../IngredientList";
+import RecipeSteps from "../RecipeSteps";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import EditModal from "../../Form/EditModal";
 
@@ -128,6 +129,7 @@ const RecipeDetails = (props) => {
         </ActionsDiv>
       </DetailsDiv>
       <IngredientList data={props.recipe.ingredients} />
+      <RecipeSteps data={props.recipe.sections} />
     </MainDiv>
   );
 };
