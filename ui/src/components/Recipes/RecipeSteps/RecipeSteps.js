@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import StepItem from "./Stepitem";
 
 const MainDiv = styled.div`
   width: 100%;
@@ -34,7 +35,9 @@ const RecipeSteps = ({ data }) => {
       <Header>Steps</Header>
       <Ul>
         {data.map((item) => (
-          <Li>{item.name}</Li>
+          <Li>
+            <StepItem data={item.name} />
+          </Li>
         ))}
       </Ul>
     </MainDiv>

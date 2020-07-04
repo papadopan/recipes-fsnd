@@ -158,7 +158,7 @@ class RecipesList(Resource):
 class RecipeImage(Resource):
     def post(self, id):
         # make sure the id belongs to a recipe
-        recipe = RecipeModel.find_by_id(id=id)
+        recipe = RecipeModel.find_by_id(id)
 
         if recipe is None:
             return {
@@ -187,8 +187,12 @@ class RecipeImage(Resource):
             "recipe_id": id
         })
 
+        # update the recipe with the filename
+        recipe.image_name = files.filename
+
         try:
             image.save_to_db()
+            recipe.update_to_db()
         except:
             return {
                 "message": "There was an error while saving, please try again",

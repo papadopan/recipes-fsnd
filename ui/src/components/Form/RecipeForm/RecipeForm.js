@@ -18,12 +18,13 @@ import {
 } from "../../common/FormComponents";
 
 const options = [
-  { value: "breakfast", label: "Breakfast" },
-  { value: "lunch", label: "Lunch" },
-  { value: "brunch", label: "Brunch" },
-  { value: "Dinner", label: "Dinner" },
-  { value: "snack", label: "Snack" },
-  { value: "any time", label: "Any Time" },
+  { value: "vegeterian", label: "Vegeterian" },
+  { value: "vegan", label: "Vegan" },
+  { value: "chicken", label: "Chicken" },
+  { value: "porc", label: "Porc" },
+  { value: "beef", label: "Beef" },
+  { value: "salad", label: "Salad" },
+  { value: "sweet", label: "Sweet" },
 ];
 
 const Img = styled.img`

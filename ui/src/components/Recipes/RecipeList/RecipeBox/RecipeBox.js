@@ -42,15 +42,10 @@ const Stats = styled.div`
 `;
 
 const ImagedDiv = styled.div`
-  background-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.3),
-      rgba(0, 0, 0, 0.3)
-    ),
-    url("https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80");
+  background-image: ${(props) =>
+    `linear-gradient(to right,rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)),url(${props.src})`};
   height: 100%;
   width: 120px;
-
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -69,7 +64,13 @@ const RecipeBox = ({ recipe }) => {
   return (
     <MainDiv>
       <SLink to={`/recipe/${recipe.id}`}>
-        <ImagedDiv></ImagedDiv>
+        <ImagedDiv
+          src={
+            recipe.image_name
+              ? require(`../../../../utils/upload/${recipe.image_name}`)
+              : "https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+          }
+        ></ImagedDiv>
         <Div>
           <H1>{recipe.title}</H1>
           <Stats>

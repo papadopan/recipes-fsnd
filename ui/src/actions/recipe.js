@@ -20,6 +20,10 @@ export const DELETE_RECIPE_REQUEST = "DELETE_RECIPE_REQUEST";
 export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
 export const DELETE_RECIPE_FAIL = "DELETE_RECIPE_FAIL";
 
+export const UPLOAD_IMAGE_REQUEST = "UPLOAD_IMAGE_REQUEST";
+export const UPLOAD_IMAGE_SUCCESS = "UPLOAD_IMAGE_SUCCESS";
+export const UPLOAD_IMAGE_FAIL = "UPLOAD_IMAGE_FAIL";
+
 // cook functions
 export function recipesRequest() {
   return {
@@ -99,6 +103,26 @@ export function deleteRecipeSuccess() {
 export function deleteRecipeFail(error) {
   return {
     type: DELETE_RECIPE_FAIL,
+    payload: error,
+  };
+}
+
+export function uploadImageRequest() {
+  return {
+    type: UPLOAD_IMAGE_REQUEST,
+  };
+}
+
+export function uploadImageSuccess(image) {
+  return {
+    type: UPLOAD_IMAGE_SUCCESS,
+    payload: image,
+  };
+}
+
+export function uploadImageFail(error) {
+  return {
+    type: UPLOAD_IMAGE_REQUEST,
     payload: error,
   };
 }
@@ -183,5 +207,20 @@ export const deleteRecipeById = (id) => async (dispatch, getState) => {
     dispatch(push("/"));
   } catch (error) {
     dispatch(deleteRecipeFail(error));
+  }
+};
+
+// upload recipe image
+export const uploadRecipeImage = (image, id) => async (dispatch) => {
+  dispatch(uploadImageRequest());
+
+  try {
+    const response = await axios({
+      method: "post",
+      url: `http://127.0.0.1:5000/api/image/recipe/${id}`,
+      data: image,
+    });
+  } catch (error) {
+    dispatch(uploadImageFail(error));
   }
 };

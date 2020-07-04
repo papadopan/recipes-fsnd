@@ -5,12 +5,15 @@ import { Tag } from "antd";
 import IngredientList from "../IngredientList";
 import RecipeSteps from "../RecipeSteps";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { FaRegImages } from "react-icons/fa";
 import EditModal from "../../Form/EditModal";
+import Modal from "../../common/Modal";
 
 import {
   getRecipeById,
   updateRecipeById,
   deleteRecipeById,
+  uploadRecipeImage,
 } from "../../../actions/recipe";
 import { connect } from "react-redux";
 
@@ -83,12 +86,23 @@ const ActionsDiv = styled.div`
   }
 `;
 
+const UploadIcon = styled.div`
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const RecipeDetails = (props) => {
   useEffect(() => {
     props.getRecipeById(props.match.params.id);
   }, []);
 
   const [modal, setModal] = useState(false);
+  const [uploadModal, setUploadModal] = useState(false);
 
   const _updateRecipe = (values) => {
     props.updateRecipeById(values, props.match.params.id);
@@ -101,8 +115,25 @@ const RecipeDetails = (props) => {
 
   return (
     <MainDiv>
+      <Modal
+        visible={uploadModal}
+        title="Upload Recipe Image"
+        updateModal={() => setUploadModal(false)}
+        id={props.recipe.id}
+      />
       <ImgDiv>
-        <Img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+        <div style={{ position: "relative" }}>
+          <Img
+            src={
+              props.recipe.image_name
+                ? require(`../../../utils/upload/${props.recipe.image_name}`)
+                : "https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+            }
+          />
+          <UploadIcon onClick={() => setUploadModal(true)}>
+            <FaRegImages size={20} />
+          </UploadIcon>
+        </div>
       </ImgDiv>
       <DetailsDiv>
         <StyledP>{props.recipe.title}</StyledP>
@@ -145,6 +176,7 @@ const mapDispatchToProps = (dispatch) => ({
   getRecipeById: (id) => dispatch(getRecipeById(id)),
   updateRecipeById: (recipe, id) => dispatch(updateRecipeById(recipe, id)),
   deleteRecipeById: (id) => dispatch(deleteRecipeById(id)),
+  uploadImage: (image, id) => dispatch(uploadRecipeImage(image, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
