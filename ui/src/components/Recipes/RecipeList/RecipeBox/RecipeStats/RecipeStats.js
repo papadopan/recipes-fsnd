@@ -13,6 +13,7 @@ const Wrapper = styled.div`
 
 const P = styled.p`
   font-size: 0.8em;
+  font-weight: 300;
 `;
 
 const RecipeStats = ({ icon, label }) => {
@@ -25,9 +26,9 @@ const RecipeStats = ({ icon, label }) => {
 };
 
 let icon2Comp = {
-  time: <AiOutlineClockCircle size="1.5em" />,
-  category: <AiOutlineTag size="1.5em" />,
-  portion: <GiKnifeFork size="1.5em" />,
+  time: <AiOutlineClockCircle size="1.5em" color="rgba(0,0,0,0.6)" />,
+  category: <AiOutlineTag size="1.5em" color="rgba(0,0,0,0.6)" />,
+  portion: <GiKnifeFork size="1.5em" color="rgba(0,0,0,0.6)" />,
 };
 
 RecipeStats.propTypes = {};

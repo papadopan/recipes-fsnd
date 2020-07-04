@@ -75,10 +75,7 @@ const RecipeBox = ({ recipe }) => {
           <Stats>
             <RecipeStats icon="time" label={`${recipe.time} mins`} />
             <RecipeStats icon="category" label={recipe.category} />
-            <RecipeStats
-              icon="portion"
-              label={`${recipe.portions} portion(s)`}
-            />
+            <RecipeStats icon="portion" label={`${recipe.portions} portions`} />
           </Stats>
         </Div>
       </SLink>

@@ -180,7 +180,7 @@ export const deleteRecipeById = (id) => async (dispatch, getState) => {
     });
 
     dispatch(deleteRecipeSuccess());
-    dispatch(push("/recipe"));
+    dispatch(push("/"));
   } catch (error) {
     dispatch(deleteRecipeFail(error));
   }

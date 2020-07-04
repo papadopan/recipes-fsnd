@@ -39,7 +39,7 @@ const StyledP = styled.p`
 
   ::first-letter {
     color: var(--color-main);
-    font-weight: 500;
+    font-weight: 100;
     font-size: 1.8em;
     padding: 0.5em 0em;
     text-transform: uppercase;
