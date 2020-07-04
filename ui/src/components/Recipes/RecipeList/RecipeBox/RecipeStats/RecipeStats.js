@@ -11,11 +11,15 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
+const P = styled.p`
+  font-size: 0.8em;
+`;
+
 const RecipeStats = ({ icon, label }) => {
   return (
     <Wrapper>
       {icon2Comp[icon]}
-      <p>{label}</p>
+      <P>{label}</P>
     </Wrapper>
   );
 };

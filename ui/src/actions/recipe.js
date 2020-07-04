@@ -143,7 +143,7 @@ export const addRecipe = (recipe) => async (dispatch) => {
       data: recipe,
     });
     dispatch(addRecipeSuccess(response.data.recipe));
-    dispatch(push("/recipe"));
+    dispatch(push("/"));
   } catch (error) {
     dispatch(addRecipeFail(error));
   }

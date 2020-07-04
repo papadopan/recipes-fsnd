@@ -6,38 +6,39 @@ import { Link } from "react-router-dom";
 import RecipeStats from "./RecipeStats";
 
 const SLink = styled(Link)`
-  color: black;
+  color: var(--color-black);
+  flex-direction: row;
   display: flex;
-  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+
+  &:hover {
+    color: black;
+  }
 `;
 
 const MainDiv = styled.div`
   box-shadow: 2px 8px 16px rgba(24, 50, 115, 0.2);
   width: 100%;
-  max-width: 300px;
-  height: 300px;
+  max-width: 320px;
+  height: 120px;
   border-radius: 5px;
-
   margin: 1em;
+  padding: 0.5em;
 `;
 
 const H1 = styled.h1`
   color: var(--color-white);
   font-weight: 600;
-`;
-
-const Details = styled.div`
-  padding: 1em 0.5em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
+  margin-left: 1em;
+  color: black;
 `;
 
 const Stats = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  padding: 0 0.7em;
 `;
 
 const ImagedDiv = styled.div`
@@ -47,33 +48,40 @@ const ImagedDiv = styled.div`
       rgba(0, 0, 0, 0.3)
     ),
     url("https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80");
-  height: 220px;
-  width: 100%;
+  height: 100%;
+  width: 120px;
 
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  align-items: flex-end;
-  justify-content: flex-end;
-  display: flex;
   padding: 1em;
+  border-radius: 5px;
+`;
+
+const Div = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const RecipeBox = ({ recipe }) => {
   return (
     <MainDiv>
       <SLink to={`/recipe/${recipe.id}`}>
-        <ImagedDiv>
+        <ImagedDiv></ImagedDiv>
+        <Div>
           <H1>{recipe.title}</H1>
-        </ImagedDiv>
+          <Stats>
+            <RecipeStats icon="time" label={`${recipe.time} mins`} />
+            <RecipeStats icon="category" label={recipe.category} />
+            <RecipeStats
+              icon="portion"
+              label={`${recipe.portions} portion(s)`}
+            />
+          </Stats>
+        </Div>
       </SLink>
-      <Details>
-        <Stats>
-          <RecipeStats icon="time" label={`${recipe.time} mins`} />
-          <RecipeStats icon="category" label={recipe.category} />
-          <RecipeStats icon="portion" label={`${recipe.portions} portion(s)`} />
-        </Stats>
-      </Details>
     </MainDiv>
   );
 };
