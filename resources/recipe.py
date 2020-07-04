@@ -1,6 +1,6 @@
 from auth import AuthError, requires_auth
 from flask_restful import Resource
-from flask import jsonify, request
+from flask import jsonify, request, redirect
 from models.recipe import RecipeModel
 from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError

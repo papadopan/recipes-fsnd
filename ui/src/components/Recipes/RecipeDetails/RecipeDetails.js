@@ -125,7 +125,7 @@ const RecipeDetails = (props) => {
         <div style={{ position: "relative" }}>
           <Img
             src={
-              props.recipe.image_name
+              props.recipe.image_name !== null
                 ? require(`../../../utils/upload/${props.recipe.image_name}`)
                 : "https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
             }

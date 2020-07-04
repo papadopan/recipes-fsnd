@@ -23,6 +23,7 @@ const options = [
   { value: "chicken", label: "Chicken" },
   { value: "porc", label: "Porc" },
   { value: "beef", label: "Beef" },
+  { value: "pasta", label: "Pasta" },
   { value: "salad", label: "Salad" },
   { value: "sweet", label: "Sweet" },
 ];
