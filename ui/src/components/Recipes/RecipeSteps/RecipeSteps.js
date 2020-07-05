@@ -34,8 +34,8 @@ const RecipeSteps = ({ data }) => {
     <MainDiv>
       <Header>Steps</Header>
       <Ul>
-        {data.map((item) => (
-          <Li>
+        {data.map((item, index) => (
+          <Li key={index}>
             <StepItem data={item.name} />
           </Li>
         ))}

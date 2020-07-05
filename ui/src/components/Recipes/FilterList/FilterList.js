@@ -56,8 +56,8 @@ const categories = [
 const FilterList = (props) => {
   return (
     <Wrapper>
-      {categories.map((item) => (
-        <Filter item={item} />
+      {categories.map((item, index) => (
+        <Filter key={index} item={item} />
       ))}
     </Wrapper>
   );

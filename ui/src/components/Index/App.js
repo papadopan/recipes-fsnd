@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import RecipeHeader from "../Header";
 import Recipes from "../Recipes";
@@ -9,6 +9,7 @@ import Form from "../Form";
 import { Layout } from "antd";
 import styled from "styled-components";
 import { Switch, Route } from "react-router-dom";
+import { initCurrentUser } from "../../actions/auth";
 
 const { Content, Header } = Layout;
 
@@ -31,7 +32,10 @@ const AntContent = styled(Content)`
   margin-top: 64px;
 `;
 
-function App({ user, login }) {
+function App({ initCurrentUser }) {
+  useEffect(() => {
+    initCurrentUser();
+  }, []);
   return (
     <AntLayout>
       <AntHeader style={{ position: "fixed", zIndex: 1, width: "100%" }}>
@@ -52,6 +56,8 @@ function App({ user, login }) {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispath) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  initCurrentUser: () => dispatch(initCurrentUser()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
