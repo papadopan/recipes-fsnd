@@ -18,6 +18,11 @@ export const INIT_USER_REQUEST = "INIT_USER_REQUEST";
 export const INIT_USER_SUCCESS = "INIT_USER_SUCCESS";
 export const INIT_USER_FAIL = "INIT_USER_FAIL";
 
+//logout user
+export const LOGOUT_USER_REQUEST = "LOGOUT_USER_REQUEST";
+export const LOGOUT_USER_SUCCESS = "LOGOUT_USER_SUCCESS";
+export const LOGOUT_USER_FAIL = "LOGOUT_USER_FAIL";
+
 export function initUserRequest() {
   return {
     type: INIT_USER_REQUEST,
@@ -79,6 +84,22 @@ export function signupError(error) {
   };
 }
 
+export function logoutRequest() {
+  return {
+    type: LOGOUT_USER_REQUEST,
+  };
+}
+export function logoutSuccess() {
+  return {
+    type: LOGOUT_USER_SUCCESS,
+  };
+}
+export function logoutFail() {
+  return {
+    type: LOGOUT_USER_FAIL,
+  };
+}
+
 // functions
 //login user
 export const loginUser = (data) => async (dispatch) => {
@@ -135,5 +156,27 @@ export const initCurrentUser = () => async (dispatch) => {
     dispatch(initUserFail());
     localStorage.removeItem("cookbook_loggedin");
     dispatch(push("/login"));
+  }
+};
+
+// logout user
+
+export const logoutUser = () => async (dispatch) => {
+  // init request
+
+  dispatch(logoutRequest());
+
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:5000/api/logout`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("cookbook_loggedin")}`,
+      },
+    });
+    localStorage.removeItem("cookbook_loggedin");
+    dispatch(push("/login"));
+  } catch (error) {
+    dispatch(logoutFail(error));
   }
 };

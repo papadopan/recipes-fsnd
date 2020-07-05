@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AiOutlineLogout } from "react-icons/ai";
 import styled from "styled-components";
+import { logoutUser } from "../../../actions/auth";
 
 const Div = styled.div``;
 
@@ -22,6 +23,8 @@ ProfileSettings.propTypes = {};
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logoutUser()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileSettings);
