@@ -25,10 +25,10 @@ const MainDiv = styled.div`
 
 const Img = styled.img`
   height: 100%;
-  max-height: 400px;
+  max-height: 300px;
   border-radius: 5px;
   box-shadow: 2px 8px 16px rgba(24, 50, 115, 0.2);
-  margin: 1em 0;
+  margin: 0.5em 0;
 `;
 
 const ImgDiv = styled.div`
@@ -39,7 +39,7 @@ const ImgDiv = styled.div`
 const StyledP = styled.p`
   font-size: 3em;
   font-weight: 300;
-
+  margin: 0;
   ::first-letter {
     color: var(--color-main);
     font-weight: 100;

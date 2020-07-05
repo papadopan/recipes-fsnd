@@ -22,13 +22,18 @@ const AntFooter = styled(Layout.Footer)`
   color: var(--color-white);
 `;
 
+const AntLayout = styled(Layout)`
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+`;
 const AntContent = styled(Content)`
-  margin-top: 60px;
+  margin-top: 64px;
 `;
 
 function App({ user, login }) {
   return (
-    <Layout>
+    <AntLayout>
       <AntHeader style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <RecipeHeader />
       </AntHeader>
@@ -41,7 +46,7 @@ function App({ user, login }) {
           <Route path="/profile" component={Profile} />
         </Switch>
       </AntContent>
-    </Layout>
+    </AntLayout>
   );
 }
 

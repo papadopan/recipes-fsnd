@@ -116,8 +116,8 @@ const RecipeForm = (props) => {
             />
             <Field
               name="category"
-              fieldPlaceholder="I would cook this recipe for"
-              placeholder="e.x. Lunch"
+              fieldPlaceholder="I would categorize this recipe for"
+              placeholder="e.x. Vegan"
               component={SelectComponent}
               onChange={(value) => setFieldValue("category", value)}
               options={options}
@@ -234,7 +234,7 @@ const RecipeForm = (props) => {
                           placeholder="Explain the recipe step by step"
                           component={TextAreaComponent}
                           margin="0 0 5px 0 "
-                          rows={4}
+                          rows={3}
                         />
                         <ErrorMessage name={`ingredients[${index}].name`} />
                       </div>

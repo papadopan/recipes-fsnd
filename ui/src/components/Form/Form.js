@@ -8,7 +8,10 @@ const MainDiv = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
+  height: 100%;
+  flex: 1;
   flex-direction: column;
+  background: red;
 `;
 
 const Header = styled.span`
@@ -18,11 +21,21 @@ const Header = styled.span`
   
 `;
 
+const Choice = styled.div`
+  font-size: 3em;
+  text-align: left;
+  color: var(--color-main);
+  border: 1px solid var(--color-main);
+  padding: 1em;
+`;
+
 const NewContentForm = (props) => {
   return (
     <MainDiv>
-      <Header>My new Recipe</Header>
-      <RecipeForm />
+      <Choice>Add a new Recipe</Choice>
+      <Choice>Create a new CookBook</Choice>
+      {/* <Header>My new Recipe</Header>
+      <RecipeForm /> */}
     </MainDiv>
   );
 };
