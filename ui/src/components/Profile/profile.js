@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import ProfileSettings from "./ProfileSettings";
 
 import PersonalDetails from "./PersonalDetails";
 
 const profile = (props) => {
-  console.log("====================================");
-  console.log(props.user);
-  console.log("====================================");
   return (
     <div>
+      <ProfileSettings />
       <PersonalDetails />
     </div>
   );
@@ -17,9 +16,7 @@ const profile = (props) => {
 
 profile.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  user: state.auth.user,
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({});
 

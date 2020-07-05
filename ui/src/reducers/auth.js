@@ -11,6 +11,7 @@ import {
 
 const initialState = {
   loading: false,
+  loging_loading: false,
   error: null,
   loggedin: false,
   emailSent: false,
@@ -23,12 +24,12 @@ function userReducer(state = initialState, action) {
     case LOGIN_REQUEST:
       return {
         ...state,
-        loading: true,
+        loging_loading: true,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loging_loading: false,
         access: action.payload.access,
         refresh: action.payload.refresh,
         user: action.payload.user,
@@ -38,7 +39,7 @@ function userReducer(state = initialState, action) {
     case LOGIN_ERROR:
       return {
         ...state,
-        loading: false,
+        loging_loading: false,
         error: action.payload,
       };
 

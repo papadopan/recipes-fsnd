@@ -81,7 +81,7 @@ const Login = ({ login, loading, error }) => {
 Login.propTypes = {};
 
 const mapStateToProps = (state) => ({
-  loading: state.auth.loading,
+  loading: state.auth.loging_loading,
   error: state.auth.error,
 });
 
