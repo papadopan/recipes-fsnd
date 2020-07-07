@@ -18,7 +18,7 @@ The project has more endpoints but in order to deliver one that is working the o
   - get all cooks
   - get cook by id
   - update cook by id
-  - delete cook by id
+
 
 The relationship between cook and recipes are one to many.
 One cook can have many recipes
