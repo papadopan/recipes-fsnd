@@ -66,6 +66,13 @@ class UserRegister(Resource):
 class UserLogin(Resource):
     def post(self):
         data = request.get_json()
+        if data is None:
+            response = jsonify({
+                "success": False,
+                "status":500
+            })
+            response.status_code = 500
+            return response
 
         user = UserModel.get_user_by_email(data["email"])
 
@@ -177,11 +184,10 @@ class UserConfirmation(Resource):
 class UserLoggedIn(Resource):
 
     def get(self):
-        data = request.headers.get('Authorization').split(" ")[1]
-           
+        data = request.headers.get('Authorization').split(" ")[1]   
         try:
             email = decode_token(data)
-    
+            
             if email["identity"]:
                 user = UserModel.get_user_by_email(email["identity"])
                 response = jsonify({
